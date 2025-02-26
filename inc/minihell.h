@@ -6,7 +6,7 @@
 /*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 15:16:19 by mchingi           #+#    #+#             */
-/*   Updated: 2025/02/24 13:09:20 by mchingi          ###   ########.fr       */
+/*   Updated: 2025/02/26 04:00:29 by mchingi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,8 +98,9 @@ void	executer(t_shell *shell);
 char	*find_path(char *cmd, char **envp);
 void	execute_pipe(t_shell *shell, t_token *tokens);
 void	here_doc(char *str);
-void	execute_pipe2(t_shell *shell, t_token *tokens);
+int	execute_pipe2(t_shell *shell, t_token *tokens);
 char	*remove_quotes(char *str);
+void	ft_echo(t_token *token, t_shell *shell);
 
 //--------------------------------------------- Tokens -----------------------------------------------------/
 void	identify_tokens(t_token *tokens, char *path);

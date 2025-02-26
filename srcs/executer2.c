@@ -157,9 +157,9 @@ void execute_cmd_in_pipe(t_token *token, t_pipe *pipes, int in, int out)
 
 void	exec_builtins(t_shell *shell, t_token *token)
 {
-/*	if (strcmp(token->value, "echo") == 0)
-		ft_echo(token);
-	else */if (strcmp(token->value, "cd") == 0)
+	if (strcmp(token->value, "echo") == 0)
+		ft_echo(token, shell);
+	else if (strcmp(token->value, "cd") == 0)
 		ft_cd(token);
 	else if (strcmp(token->value, "pwd") == 0)
 		ft_pwd(token);
@@ -174,7 +174,7 @@ void	exec_builtins(t_shell *shell, t_token *token)
 	printf("\nfrom builtins\n");
 }
 
-void execute_pipe2(t_shell *shell, t_token *tokens)
+int execute_pipe2(t_shell *shell, t_token *tokens)
 {
     pid_t id;
     t_pipe *pipes = malloc(sizeof(t_pipe));
@@ -209,7 +209,15 @@ void execute_pipe2(t_shell *shell, t_token *tokens)
             {
                 execute_redirections(tokens);
                 if (is_builtin(tokens->type))
+                {
+                    if (cmd_start->type == PIPE)
+                    {
+                        dup2(pipes->pipe_fd[1], STDOUT_FILENO);
+		                close(pipes->pipe_fd[1]);
+                    }
                     exec_builtins(shell, tokens);
+                    exit(0);
+                }
                 else
                     execute_cmd_in_pipe(tokens, pipes, pipes->input_fd, cmd_start->type == PIPE ? pipes->pipe_fd[1] : STDOUT_FILENO);
             }
@@ -229,5 +237,6 @@ void execute_pipe2(t_shell *shell, t_token *tokens)
     while (wait(NULL) > 0);
 
     free(pipes);
+    return (0);
 }
 
