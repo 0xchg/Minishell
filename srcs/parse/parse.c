@@ -6,7 +6,7 @@
 /*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 11:47:02 by mchingi           #+#    #+#             */
-/*   Updated: 2025/02/19 01:13:47 by mchingi          ###   ########.fr       */
+/*   Updated: 2025/02/27 17:37:50 by mchingi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ char	**split_input(char *input, t_shell *shell)
 
 void	parse(t_shell *shell)
 {
-	shell->array = split_input(shell->input, shell);
+	shell->array = split_input(ft_strtrim(shell->input, " "), shell);
 	if (!shell->array)
 	{
 		write(2, "Error: Failed to parse input\n", 30);
