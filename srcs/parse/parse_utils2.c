@@ -6,7 +6,7 @@
 /*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 02:56:56 by mchingi           #+#    #+#             */
-/*   Updated: 2025/02/15 12:20:22 by mchingi          ###   ########.fr       */
+/*   Updated: 2025/02/27 19:57:48 by mchingi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ int number_of_commands(t_token *tokens)
 	tmp = tokens;
 	while (tmp)
 	{
-		if (tmp->type == COMMAND || is_builtin(tmp->type))
+		if (tmp->type == FULL_COMMAND || tmp->type == COMMAND || is_builtin(tmp->type))
 			number++;
 		tmp = tmp->next;
 	}

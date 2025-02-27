@@ -6,7 +6,7 @@
 /*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 12:20:55 by mchingi           #+#    #+#             */
-/*   Updated: 2025/02/27 17:49:20 by mchingi          ###   ########.fr       */
+/*   Updated: 2025/02/27 20:25:41 by mchingi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,29 @@ void	execute_builtins(t_shell *shell, t_token *token)
 	printf("\nfrom builtins\n");
 }
 
+void	execute_full_command(char **args, char **env, int in, int out)
+{
+	char	*path;
+
+	if (access(args[0], F_OK) == 0)
+	{
+		path = ft_strdup(args[0]);
+		args[0] = ft_strtrim(args[0], "/bin/");
+		if (in != 0)
+		{
+			dup2(in, STDIN_FILENO);
+			close(in);
+		}
+		if (out != 1)
+		{
+			dup2(out, STDOUT_FILENO);
+			close(out);
+		}
+		if (execve(path, args, env) == -1)
+			error_message("execve");
+	}
+}
+
 void	execute_command(t_token *token, char **env)
 {
 	char	*path;
@@ -39,6 +62,13 @@ void	execute_command(t_token *token, char **env)
 	if (!token)
 		return ;
 	args = tokenize_command(token);
+	if (access(args[0], F_OK) == 0)
+	{
+		path = ft_strdup(args[0]);
+		args[0] = ft_strtrim(args[0], "/bin/");
+		if (execve(path, args, env) == -1)
+			error_message("execve");
+	}
 	path = find_path(args[0], env);
 	if (!path)
 	{
@@ -57,6 +87,7 @@ void	execute_cmd_in_pipe(t_token *token, t_pipe *pipes, int in, int out)
 	if (!token)
 		return ;
 	args = tokenize_command(token);
+	execute_full_command(args, pipes->ev, in, out);
 	path = find_path(args[0], pipes->ev);
 	if (!path)
 	{

@@ -6,7 +6,7 @@
 /*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 12:15:54 by mchingi           #+#    #+#             */
-/*   Updated: 2025/02/24 13:09:11 by mchingi          ###   ########.fr       */
+/*   Updated: 2025/02/27 19:59:09 by mchingi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ bool is_command2(char *value)
 
 bool	is_builtin_or_command(t_type type)
 {
-	return (type == COMMAND || type == BUILTINS);
+	return (type == COMMAND || type == BUILTINS || type == FULL_COMMAND);
 }
 
 bool	is_builtin(t_type type)
@@ -151,8 +151,8 @@ char	*token_kind_string(t_type type)
 		return ("Builtins");
 	else if (type == OPTION)
 		return ("OPTION");
-	// else if (type == PATH)
-	// 	return ("PATH");
+	else if (type == FULL_COMMAND)
+		return ("FULL_COMMAND");
 	else if (type == IDENTIFIER)
 		return ("IDENTIFIER");
 	else

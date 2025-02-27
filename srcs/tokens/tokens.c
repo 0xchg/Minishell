@@ -6,7 +6,7 @@
 /*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 11:53:06 by mchingi           #+#    #+#             */
-/*   Updated: 2025/02/27 18:15:08 by mchingi          ###   ########.fr       */
+/*   Updated: 2025/02/27 19:47:11 by mchingi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,8 @@ void	identify_tokens(t_token *tokens, char *path)
 		{
 			if (is_command(head->value, path))
 				head->type = COMMAND;
+			else if (access(head->value, F_OK) == 0)
+				head->type = FULL_COMMAND;
 			else
 				head->type = ARGUMENT;
 		}

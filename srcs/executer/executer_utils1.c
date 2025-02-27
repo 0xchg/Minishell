@@ -6,7 +6,7 @@
 /*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 11:34:43 by mchingi           #+#    #+#             */
-/*   Updated: 2025/02/27 16:21:04 by mchingi          ###   ########.fr       */
+/*   Updated: 2025/02/27 20:03:16 by mchingi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ static	bool	type_checker(t_type type)
 
 	flag = false;
 	if (type == COMMAND)
+		flag = true;
+	else if (type == FULL_COMMAND)
 		flag = true;
 	else if (type == OPTION)
 		flag = true;

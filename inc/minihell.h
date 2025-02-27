@@ -6,7 +6,7 @@
 /*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 15:16:19 by mchingi           #+#    #+#             */
-/*   Updated: 2025/02/27 16:21:50 by mchingi          ###   ########.fr       */
+/*   Updated: 2025/02/27 19:42:30 by mchingi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ typedef enum e_type
 	PIPE,
 	BUILTINS,
 	COMMAND,
+	FULL_COMMAND,
 	OPTION,
 	ARGUMENT,
 	IDENTIFIER
