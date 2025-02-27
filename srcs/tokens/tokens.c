@@ -6,7 +6,7 @@
 /*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 11:53:06 by mchingi           #+#    #+#             */
-/*   Updated: 2025/02/19 01:14:04 by mchingi          ###   ########.fr       */
+/*   Updated: 2025/02/27 18:15:08 by mchingi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,6 @@ t_type	find_type(char *value)
 		return (SINGLE_QUOTE);
 	else if (value[0] == '\"')
 		return (DOUBLE_QUOTE);
-	// else if (ft_strchr(value, '/'))
-	// 	return (PATH);
 	else if (value[0] == '-')
 		return (OPTION);
 	else
@@ -77,7 +75,4 @@ void	identify_tokens(t_token *tokens, char *path)
 		}
 		head = head->next;
 	}
-	if (tokens->type == ARGUMENT)
-		printf("%s: command not found\n", tokens->value);
 }
-

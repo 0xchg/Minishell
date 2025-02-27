@@ -6,7 +6,7 @@
 /*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 15:16:24 by mchingi           #+#    #+#             */
-/*   Updated: 2025/02/27 14:34:47 by mchingi          ###   ########.fr       */
+/*   Updated: 2025/02/27 18:23:05 by mchingi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void	debug(t_token *token, int number_of_commands)
 		head = head->next;
 	}
 	printf("Number of commands: %d\n", number_of_commands);
+	printf("\n");
 }
 
 void	init_shell(t_shell *shell, char **env)
@@ -53,9 +54,8 @@ void	repl(t_shell *shell)
 			break ;
 		add_history(shell->input);	
 		parse(shell);
-		// debug(shell->token, shell->num_of_cmds);
-		// printf("\n");
-		executer(shell, shell->token);
+		debug(shell->token, shell->num_of_cmds);
+		// executer(shell, shell->token);
 	}
 }
 
