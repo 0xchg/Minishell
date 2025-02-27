@@ -6,12 +6,13 @@
 /*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 15:16:19 by mchingi           #+#    #+#             */
-/*   Updated: 2025/02/26 04:00:29 by mchingi          ###   ########.fr       */
+/*   Updated: 2025/02/27 16:21:50 by mchingi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINIHELL_H
 # define MINIHELL_H
+# define PATH_MAX   4096
 
 # include <unistd.h>
 # include <stdlib.h>
@@ -66,6 +67,7 @@ typedef struct s_pipe
 	int		i;
 	int		pipe_fd[2];
 	int		input_fd;
+	int		flag;
 	char	**ev;
 	pid_t	id;
 }		t_pipe;
@@ -84,23 +86,23 @@ typedef struct	s_shell
 }		t_shell;
 
 //--------------------------------------------- Redirections -----------------------------------------------------/
-
-
-//--------------------------------------------- Pipe -----------------------------------------------------/
-
-
-//--------------------------------------------- Executer -----------------------------------------------------/
-int		arr_size(t_token *token);
-char	*file_name(t_token *token);
-char	**cmd_args(t_token *token);
-char	**copy_array(char *str, char **array, int start);
-void	executer(t_shell *shell);
-char	*find_path(char *cmd, char **envp);
-void	execute_pipe(t_shell *shell, t_token *tokens);
+void	redirect_input(t_token *token);
+void	redirect_output(t_token *token);
+void	redirect_output_append(t_token *token);
+void	redirect_here_doc(t_token *token);
+void	execute_redirections(t_token *token);
+bool	is_redirection(t_type type);
+//--------------------------------------------- Here Document -----------------------------------------------------/
 void	here_doc(char *str);
-int	execute_pipe2(t_shell *shell, t_token *tokens);
-char	*remove_quotes(char *str);
-void	ft_echo(t_token *token, t_shell *shell);
+//--------------------------------------------- Executer -----------------------------------------------------/
+char	**tokenize_command(t_token *token);
+int		executer(t_shell *shell, t_token *tokens);
+char	*find_path(char *cmd, char **envp);
+void	execute_command(t_token *token, char **env);
+void	execute_builtins(t_shell *shell, t_token *token);
+void    execute_cmd_in_pipe(t_token *token, t_pipe *pipes, int in, int out);
+void	dup3(int fd, int fd2);
+void	command_executer(t_shell *shell, t_token *tokens);
 
 //--------------------------------------------- Tokens -----------------------------------------------------/
 void	identify_tokens(t_token *tokens, char *path);
@@ -136,17 +138,10 @@ void	ft_exit(t_shell *shell);
 void	ft_env(t_env *env, t_token *token);
 void	ft_export(t_env *env, t_token *token);
 void	ft_unset(t_env *env, t_token *token);
+void	ft_echo(t_token *token, t_shell *shell);
 
+
+//--------------------------------------------- ANYTHING -----------------------------------------------------/
 void	error_message(char *str);
-bool	is_redirection(t_type type);
-bool 	is_command2(char *value);
-bool	is_argument(t_type type);
-bool	is_option(t_type type);
-int		have_redirections(char *s);
-void	error_message(char *str);
-char	*eliminate_space_from_str(char *str);
-void	free_array(char **arr);
-
-
 
 #endif

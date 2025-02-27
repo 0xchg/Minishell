@@ -6,7 +6,7 @@
 /*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 21:08:38 by mchingi           #+#    #+#             */
-/*   Updated: 2025/02/21 13:44:02 by mchingi          ###   ########.fr       */
+/*   Updated: 2025/02/27 12:16:07 by mchingi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,4 +121,18 @@ char	*eliminate_space_from_str(char *str)
 	}
 	new_str[j] = '\0';
 	return(new_str);
+}
+
+char	*remove_quotes(char *str)
+{
+	size_t len;
+	if (str == NULL || strlen(str) < 2)
+		return (str);
+	len = ft_strlen(str);
+	if ((str[0] == '"' || str[0] == '\'') && (str[len - 1] == '"' || str[len - 1] == '\''))
+	{
+		str++;
+		str[len - 2] = '\0';
+	}
+	return (str);
 }

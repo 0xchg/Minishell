@@ -6,16 +6,16 @@
 /*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 15:46:17 by mchingi           #+#    #+#             */
-/*   Updated: 2025/02/16 17:27:57 by mchingi          ###   ########.fr       */
+/*   Updated: 2025/02/27 12:33:38 by mchingi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../../inc/minihell.h"
+#include "../../inc/minihell.h"
 
 void	ft_cd_prev(char	*prev_path)
 {
 	if (!prev_path)
-			printf("cd: OLDPWD not set\n");
+		printf("cd: OLDPWD not set\n");
 	else
 	{
 		if (chdir(prev_path) == 0)
@@ -45,6 +45,7 @@ void	ft_cd(t_token *current)
 	t_token		*token;
 
 	token = current->next;
+	printf("%s\n", token->value);
 	if (!token)
 	{
 		chdir(getenv("HOME"));

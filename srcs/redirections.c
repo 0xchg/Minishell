@@ -5,70 +5,93 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/10 14:25:30 by mchingi           #+#    #+#             */
-/*   Updated: 2025/02/21 13:00:51 by mchingi          ###   ########.fr       */
+/*   Created: 2025/02/27 11:36:50 by mchingi           #+#    #+#             */
+/*   Updated: 2025/02/27 16:11:39 by mchingi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minihell.h"
 
-void	redirect_input(char *file, t_token *token)
+void	redirect_input(t_token *token)
 {
-	int	fd; (void) token;
+	int	fd;
 
-	fd = open(file, O_RDONLY);
+	if (!token || !token->next)
+		return ;
+	fd = open(token->next->value, O_RDONLY);
+	if (fd == -1)
+	{
+		perror(token->next->value);
+		exit(EXIT_FAILURE);
+	}
+	dup2(fd, STDIN_FILENO);
+	close(fd);
+}
+
+void	redirect_output(t_token *token)
+{
+	int	fd;
+
+	if (!token || !token->next)
+		return ;
+	fd = open(token->next->value, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	if (fd == -1)
+	{
+		perror(token->next->value);
+		exit(EXIT_FAILURE);
+	}
+	dup2(fd, STDOUT_FILENO);
+	close(fd);
+}
+
+void	redirect_output_append(t_token *token)
+{
+	int	fd;
+
+	if (!token || !token->next)
+		return ;
+	fd = open(token->next->value, O_WRONLY | O_CREAT | O_APPEND, 0644);
 	if (fd == -1)
 	{
 		perror("open");
-		return ;
+		exit(EXIT_FAILURE);
 	}
-	if (dup2(fd, STDIN_FILENO) == -1)
-	{
-		perror("dup2");
-		close(fd);
-		return ;
-	}
+	dup2(fd, STDOUT_FILENO);
 	close(fd);
-	// execute_command(shell);
 }
 
-void	redirect_output(char *file, t_token *token)
+void	redirect_here_doc(t_token *token)
 {
-	int	fd; (void) token;
+	int	fd;
 
-	fd = open(file, O_WRONLY | O_TRUNC | O_CREAT, 0644);
+	if (!token || !token->next)
+		return ;
+	here_doc(token->next->value);
+	fd = open(".DOC_TMP", O_RDONLY);
 	if (fd == -1)
 	{
 		perror("open");
-		return ;
+		exit(EXIT_FAILURE);
 	}
-	if (dup2(fd, STDOUT_FILENO) == -1)
-	{
-		perror("dup2");
-		close(fd);
-		return ;
-	}
+	dup2(fd, STDIN_FILENO);
 	close(fd);
-	// execute_command(shell);
 }
 
-void	redirect_output_append(char *file, t_token *token)
+void	execute_redirections(t_token *token)
 {
-	int	fd; (void) token;
+	t_token	*tmp;
 
-	fd = open(file, O_WRONLY | O_APPEND | O_CREAT, 0644);
-	if (fd == -1)
+	tmp = token;
+	while (tmp)
 	{
-		perror("open");
-		return ;
+		if (tmp->type == LESSER)
+			redirect_input(tmp);
+		else if (tmp->type == GREATER)
+			redirect_output(tmp);
+		else if (tmp->type == APPEND)
+			redirect_output_append(tmp);
+		else if (tmp->type == HERE_DOC)
+			redirect_here_doc(tmp);
+		tmp = tmp->next;
 	}
-	if (dup2(fd, STDOUT_FILENO) == -1)
-	{
-		perror("dup2");
-		close(fd);
-		return ;
-	}
-	close(fd);
-	// execute_command(shell);
 }
-

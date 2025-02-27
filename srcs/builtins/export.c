@@ -6,12 +6,11 @@
 /*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 15:49:08 by mchingi           #+#    #+#             */
-/*   Updated: 2025/02/22 16:03:12 by mchingi          ###   ########.fr       */
+/*   Updated: 2025/02/27 12:37:18 by mchingi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../../inc/minihell.h"
-
+#include "../../inc/minihell.h"
 
 static	t_env	*arg_to_env(t_token *token)
 {

@@ -6,7 +6,7 @@
 #    By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/14 15:16:15 by mchingi           #+#    #+#              #
-#    Updated: 2025/02/22 15:49:11 by mchingi          ###   ########.fr        #
+#    Updated: 2025/02/27 12:24:53 by mchingi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,8 +20,10 @@ RLFLAG = -lreadline
 
 RM = rm -rf
 
-SRCS = 	./srcs/executer2.c \
-		./srcs/executer_utils.c \
+SRCS = 	./srcs/executer/executer.c \
+		./srcs/executer/executer_utils.c \
+		./srcs/executer/executer_utils1.c \
+		./srcs/redirections.c \
 		./srcs/pipe.c \
 		./srcs/utils.c \
 		./srcs/main.c \
@@ -57,6 +59,7 @@ $(OBJ_DIR):
 	@mkdir -p $(OBJ_DIR)/tokens
 	@mkdir -p $(OBJ_DIR)/parse
 	@mkdir -p $(OBJ_DIR)/builtins
+	@mkdir -p $(OBJ_DIR)/executer
 
 # Compile source files into object files
 $(OBJ_DIR)/%.o: ./srcs/%.c $(HEADER) | $(OBJ_DIR)

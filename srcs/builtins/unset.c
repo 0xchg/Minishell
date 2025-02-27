@@ -6,11 +6,11 @@
 /*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 15:49:17 by mchingi           #+#    #+#             */
-/*   Updated: 2025/02/15 16:08:07 by mchingi          ###   ########.fr       */
+/*   Updated: 2025/02/27 12:36:38 by mchingi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../../inc/minihell.h"
+#include "../../inc/minihell.h"
 
 void	remove_env(t_env **head, const char *name)
 {
@@ -54,5 +54,4 @@ void	ft_unset(t_env *env, t_token *token)
 		remove_env(&env, temp->value);
 		temp = temp->next;
 	}
-	printf("\nfrom built-ins\n");
 }

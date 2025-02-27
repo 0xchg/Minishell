@@ -6,15 +6,15 @@
 /*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 15:49:13 by mchingi           #+#    #+#             */
-/*   Updated: 2025/02/15 17:15:10 by mchingi          ###   ########.fr       */
+/*   Updated: 2025/02/27 12:35:51 by mchingi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../../inc/minihell.h"
+#include "../../inc/minihell.h"
 
 void	ft_pwd(t_token *current)
 {
-	char	*pwd;
+	char		*pwd;
 	t_token		*token;
 
 	token = current->next;
