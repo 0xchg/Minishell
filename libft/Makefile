@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: marcsilv <marcsilv@student.42.fr>          +#+  +:+       +#+         #
+#    By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/23 01:14:20 by marcsilv          #+#    #+#              #
-#    Updated: 2025/01/16 12:12:46 by marcsilv         ###   ########.fr        #
+#    Updated: 2025/03/02 17:22:51 by mchingi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,6 +30,7 @@ CTYPE       =   ./ctype/ft_isalnum.c              \
                 ./ctype/ft_toupper.c
 
 PRINTF      =   ./custom_functions/prints/ft_put.c           \
+                ./custom_functions/prints/all_spaces.c           \
                 ./custom_functions/prints/ft_printf.c        \
                 ./custom_functions/prints/print_error.c      \
                 ./custom_functions/ft_fprintf/ft_fprintf_utils.c \
@@ -37,6 +38,7 @@ PRINTF      =   ./custom_functions/prints/ft_put.c           \
 
 CUSTOM      =   ./custom_functions/ft_split.c                \
                 ./custom_functions/get_next_line.c          \
+                ./custom_functions/ft_free.c          \
                 ./custom_functions/clean_and_exit.c
 
 CUSTOM_     =   ./custom_functions/length/numlen.c           \

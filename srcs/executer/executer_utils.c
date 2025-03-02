@@ -6,7 +6,7 @@
 /*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 12:20:55 by mchingi           #+#    #+#             */
-/*   Updated: 2025/02/27 20:25:41 by mchingi          ###   ########.fr       */
+/*   Updated: 2025/03/02 18:51:38 by mchingi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,15 +112,20 @@ void	command_executer(t_shell *shell, t_token *tokens)
 {
 	pid_t	id;
 
-	execute_redirections(tokens);
 	if (is_builtin(tokens->type))
-		execute_builtins(shell, tokens);
+		{
+			execute_redirections(tokens);
+			execute_builtins(shell, tokens);
+		}
 	else
 	{
 		id = fork();
 		if (id == -1)
 			error_message("fork");
 		if (id == 0)
+		{
+			execute_redirections(tokens);
 			execute_command(tokens, shell->ev);
+		}
 	}
 }

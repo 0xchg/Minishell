@@ -6,11 +6,11 @@
 /*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 00:43:22 by mchingi           #+#    #+#             */
-/*   Updated: 2025/02/15 03:01:01 by mchingi          ###   ########.fr       */
+/*   Updated: 2025/03/02 11:52:45 by mchingi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../../inc/minihell.h"
+#include "../../inc/minihell.h"
 
 int	word_count_util(char *input, int count)
 {

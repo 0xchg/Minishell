@@ -6,11 +6,11 @@
 /*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 02:56:56 by mchingi           #+#    #+#             */
-/*   Updated: 2025/02/27 19:57:48 by mchingi          ###   ########.fr       */
+/*   Updated: 2025/03/02 16:54:21 by mchingi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../../inc/minihell.h"
+#include "../../inc/minihell.h"
 
 char	*fill_quote(char **input, char quote, int i)
 {
@@ -102,18 +102,19 @@ char	*extract_operator(char **input)
 	return (operator);
 }
 
-int number_of_commands(t_token *tokens)
+/*int	number_of_commands(t_token *tokens)
 {
-	t_token *tmp;
-	int	number;
+	int		number;
+	t_token	*tmp;
 
 	number = 0;
 	tmp = tokens;
 	while (tmp)
 	{
-		if (tmp->type == FULL_COMMAND || tmp->type == COMMAND || is_builtin(tmp->type))
+		if (tmp->type == FULL_COMMAND || tmp->type == COMMAND
+			|| is_builtin(tmp->type))
 			number++;
 		tmp = tmp->next;
 	}
-	return(number);
-}
+	return (number);
+}*/

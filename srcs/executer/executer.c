@@ -6,7 +6,7 @@
 /*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 11:35:17 by mchingi           #+#    #+#             */
-/*   Updated: 2025/02/27 16:35:03 by mchingi          ###   ########.fr       */
+/*   Updated: 2025/03/02 18:02:34 by mchingi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static int	pipe_flag(t_token *token)
 	return (0);
 }
 
-void	unamed_function(t_token *token, t_pipe *pip, t_type type)
+void	child_pipe(t_token *token, t_pipe *pip, t_type type)
 {
 	if (type == PIPE)
 		execute_cmd_in_pipe(token, pip, pip->input_fd, pip->pipe_fd[1]);
@@ -58,7 +58,7 @@ void	pipe_executer(t_shell *shell, t_token *token, t_pipe *pip, t_type type)
 			exit(0);
 		}
 		else
-			unamed_function(token, pip, type);
+			child_pipe(token, pip, type);
 	}
 	if (pip->input_fd != 0)
 		close(pip->input_fd);

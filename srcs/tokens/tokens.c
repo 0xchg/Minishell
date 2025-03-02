@@ -6,11 +6,30 @@
 /*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 11:53:06 by mchingi           #+#    #+#             */
-/*   Updated: 2025/02/27 19:47:11 by mchingi          ###   ########.fr       */
+/*   Updated: 2025/03/02 17:12:01 by mchingi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../../inc/minihell.h"
+
+int	builtins_type(char *value)
+{
+	if (ft_strcmp(value, "echo") == 0)
+		return (1);
+	else if (ft_strcmp(value, "cd") == 0)
+		return (1);
+	else if (ft_strcmp(value, "pwd") == 0)
+		return (1);
+	else if (ft_strcmp(value, "env") == 0)
+		return (1);
+	else if (ft_strcmp(value, "export") == 0)
+		return (1);
+	else if (ft_strcmp(value, "unset") == 0)
+		return (1);
+	else if (ft_strcmp(value, "exit") == 0)
+		return (1);
+	return (0);
+}
 
 t_type	find_type(char *value)
 {
@@ -24,13 +43,7 @@ t_type	find_type(char *value)
 		return (HERE_DOC);
 	else if (!ft_strcmp(value, "|"))
 		return (PIPE);
-	else if (!ft_strcmp(value, "echo"))
-		return (BUILTINS);
-	else if (!ft_strcmp(value, "cd") || !ft_strcmp(value, "pwd"))
-		return (BUILTINS);
-	else if (!ft_strcmp(value, "export") || !ft_strcmp(value, "unset"))
-		return (BUILTINS);
-	else if (!ft_strcmp(value, "env") || !ft_strcmp(value, "exit"))
+	else if (builtins_type(value))
 		return (BUILTINS);
 	else if (value[0] == '\'')
 		return (SINGLE_QUOTE);

@@ -6,21 +6,11 @@
 /*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 21:08:38 by mchingi           #+#    #+#             */
-/*   Updated: 2025/02/27 12:16:07 by mchingi          ###   ########.fr       */
+/*   Updated: 2025/03/02 16:51:02 by mchingi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../inc/minihell.h"
-
-void	free_array(char **arr)
-{
-	int	i;
-
-	i = 0;
-	while (arr[i])
-		free(arr[i++]);
-	free(arr);
-}
+#include "../inc/minihell.h"
 
 char	*find_path(char *cmd, char **envp)
 {
@@ -43,13 +33,13 @@ char	*find_path(char *cmd, char **envp)
 		free(part_path);
 		if (access(path, F_OK) == 0)
 		{
-			free_array(paths);
+			free_matrix(paths);
 			return (path);
 		}
 		free(path);
 		i++;
 	}
-	free_array(paths);
+	free_matrix(paths);
 	return (NULL);
 }
 
@@ -135,4 +125,21 @@ char	*remove_quotes(char *str)
 		str[len - 2] = '\0';
 	}
 	return (str);
+}
+
+void	free_tokens(t_token *head)
+{
+	t_token	*tmp;
+
+	while (head)
+	{
+		tmp = head->next;
+		ft_free(&head->value);
+		if (head)
+		{
+			free(head);
+			head = NULL;
+		}
+		head = tmp;
+	}
 }

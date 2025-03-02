@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_utls3.c                                      :+:      :+:    :+:   */
+/*   parse_utils3.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 13:52:15 by mchingi           #+#    #+#             */
-/*   Updated: 2025/02/15 14:02:41 by mchingi          ###   ########.fr       */
+/*   Updated: 2025/03/02 17:26:04 by mchingi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../../inc/minihell.h"
+#include "../../inc/minihell.h"
 
 static char	*process_expansion(char *str, t_env *env);
 
@@ -30,19 +30,28 @@ static char	*get_env_value(t_env *env, char *name)
 
 void	expand(char ***matrix, t_env *env)
 {
-	int y = 0;
-	char *expanded;
-	char *value;
+	int		y;
+	char	*expanded;
+	char	*value;
 
+	y = 0;
 	while ((*matrix)[y])
 	{
 		if ((*matrix)[y][0] == '$')
 		{
-			value = get_env_value(env, &(*matrix)[y][1]);
+			if ((*matrix)[y][1] == '?')
+			{
+				// value = ft_itoa(g_exit_status);
+				free((*matrix)[y]);
+				(*matrix)[y] = ft_strdup(value);
+				free(value);
+			}
+			else
+			{value = get_env_value(env, &(*matrix)[y][1]);
 			free((*matrix)[y]);
-			(*matrix)[y] = ft_strdup(value ? value : "");
+			(*matrix)[y] = ft_strdup(value ? value : "");}
 		}
-		else if (ft_strchr((*matrix)[y], '$'))
+		else if (ft_strchr((*matrix)[y], '$') && ((*matrix)[y][0] != '\''))
 		{
 			expanded = process_expansion((*matrix)[y], env);
 			free((*matrix)[y]);
@@ -52,13 +61,25 @@ void	expand(char ***matrix, t_env *env)
 	}
 }
 
-static char	*process_expansion(char *str, t_env *env)
+static char	*process_expansion_helper(t_env *env, char *result, char *temp)
 {
-	char *result;
-	char *start;
-	char *end;
-	char *temp;
 	char *value;
+
+	value = get_env_value(env, temp);
+	free(temp);
+	if (value)
+		result = ft_strjoin_free(result, value);
+	else
+		result = ft_strjoin_free(result, "");
+	return (result);
+}
+
+static char *process_expansion(char *str, t_env *env)
+{
+	char	*result;
+	char	*start;
+	char	*end;
+	char	*temp;
 
 	start = str;
 	result = ft_strdup("");
@@ -75,9 +96,7 @@ static char	*process_expansion(char *str, t_env *env)
 		while (*end && (ft_isalnum(*end) || *end == '_'))
 			end++;
 		temp = ft_substr(start, 0, end - start);
-		value = get_env_value(env, temp);
-		free(temp);
-		result = ft_strjoin_free(result, value ? value : "");
+		result = process_expansion_helper(env, result, temp);
 		str = end;
 	}
 	result = ft_strjoin_free(result, str);
@@ -111,7 +130,7 @@ t_env	*convert_env(char **env)
 
 char	*get_path(t_env *env)
 {
-	t_env *tmp;
+	t_env	*tmp;
 
 	tmp = env;
 	while (tmp)

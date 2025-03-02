@@ -6,7 +6,7 @@
 /*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 15:16:19 by mchingi           #+#    #+#             */
-/*   Updated: 2025/02/27 19:42:30 by mchingi          ###   ########.fr       */
+/*   Updated: 2025/03/02 19:26:44 by mchingi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@
 // --------------     ATENÇÃO!  ------------------- /
 #include <stdbool.h> 
 # include <strings.h>
+
+// extern int	g_exit_status;
 //--------------------------------------------- Structs -----------------------------------------------------/
 
 typedef enum e_type
@@ -80,7 +82,7 @@ typedef struct	s_shell
 	char	**ev;
 	char	**array;
 	bool	flag;
-	int		num_of_cmds;
+	// int		num_of_cmds;
 	t_env	*env;
 	t_token	*token;
 	t_pipe	*pipe;
@@ -118,14 +120,14 @@ bool	is_append(t_type token);
 bool	is_greater(t_type token);
 bool	is_lesser(t_type token);
 bool 	is_command2(char *value);
-
+void	free_tokens(t_token *head);
 //--------------------------------------------- Parse -----------------------------------------------------/
 int		word_count(char *input);
 char	*extract_quote(char **input);
 char	*extract_operator(char **input);
 void	parse(t_shell *shell);
 bool	validate_quote_number(char *input);
-int		number_of_commands(t_token *tokens);
+// int		number_of_commands(t_token *tokens);
 void	expand(char ***matrix, t_env *env);
 t_env	*convert_env(char **env);
 char	*get_path(t_env *env);
@@ -144,5 +146,6 @@ void	ft_echo(t_token *token, t_shell *shell);
 
 //--------------------------------------------- ANYTHING -----------------------------------------------------/
 void	error_message(char *str);
+void	signal_handler(int sig);
 
 #endif
