@@ -1,31 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   clean_and_exit.c                                   :+:      :+:    :+:   */
+/*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/12 17:05:06 by welepy            #+#    #+#             */
-/*   Updated: 2025/02/16 16:22:12 by mchingi          ###   ########.fr       */
+/*   Created: 2025/02/14 15:49:13 by mchingi           #+#    #+#             */
+/*   Updated: 2025/02/27 12:35:51 by mchingi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libft.h"
+#include "../../inc/minihell.h"
 
-void	clean_and_exit(t_generic *data)
+void	ft_pwd(t_token *current)
 {
-	if (data->input)
-		free(data->input);
-	// if (data->matrix)
-	// 	free_matrix(data->matrix);
-	if (data->env)
-		ft_lstclear((t_list **)&data->env, free);
-	exit(0);
-}
+	char		*pwd;
+	t_token		*token;
 
-/*
-	shell->input
-	shell->matrix (also each word)
-	temp string at extract_quote
-	tab at search_env
-*/
+	token = current->next;
+	if (token && (token->type == ARGUMENT || token->type == OPTION))
+	{
+		printf("pwd: this version does not supports options or arguments\n");
+		return ;
+	}
+	pwd = malloc(PATH_MAX);
+	getcwd(pwd, PATH_MAX);
+	printf("%s\n", pwd);
+	free(pwd);
+}

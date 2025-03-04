@@ -1,31 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   clean_and_exit.c                                   :+:      :+:    :+:   */
+/*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/12 17:05:06 by welepy            #+#    #+#             */
-/*   Updated: 2025/02/16 16:22:12 by mchingi          ###   ########.fr       */
+/*   Created: 2025/02/14 15:48:58 by mchingi           #+#    #+#             */
+/*   Updated: 2025/02/27 12:38:04 by mchingi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libft.h"
+#include "../../inc/minihell.h"
 
-void	clean_and_exit(t_generic *data)
+void	ft_env(t_env *env, t_token *token)
 {
-	if (data->input)
-		free(data->input);
-	// if (data->matrix)
-	// 	free_matrix(data->matrix);
-	if (data->env)
-		ft_lstclear((t_list **)&data->env, free);
-	exit(0);
-}
+	t_env	*tmp;
 
-/*
-	shell->input
-	shell->matrix (also each word)
-	temp string at extract_quote
-	tab at search_env
-*/
+	tmp = env;
+	if (token && (token->type == ARGUMENT || token->type == OPTION))
+	{
+		printf("env: this env does not support options or arguments\n");
+		return ;
+	}
+	while (tmp)
+	{
+		printf("%s=", tmp->name);
+		if (tmp->value)
+			printf("%s", tmp->value);
+		printf("\n");
+		tmp = tmp->next;
+	}
+}

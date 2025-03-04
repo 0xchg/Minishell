@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marcsilv <marcsilv@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 14:02:03 by marcsilv          #+#    #+#             */
-/*   Updated: 2025/01/16 11:48:58 by marcsilv         ###   ########.fr       */
+/*   Updated: 2025/03/02 17:22:28 by mchingi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 # include <errno.h>
 # include <stdarg.h>
 # include "./lists/ft_list.h"
-# include "../inc/minishell.h"
+# include "../inc/minihell.h"
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 42
@@ -73,6 +73,8 @@ bool	ft_isspace(int c);
 bool	in_range(int n, int min, int max);
 bool	contains_char(char *str, char *set);
 
+bool	all_spaces(char *str);
+void	ft_free(char **ptr);
 void	*safe_malloc(size_t size);
 void	free_matrix(char **matrix);
 void	ft_bzero(void *s, size_t n);
