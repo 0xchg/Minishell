@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: welepy <welepy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 11:47:02 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/02 16:59:43 by mchingi          ###   ########.fr       */
+/*   Updated: 2025/03/05 10:05:30 by welepy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static char	*extract_command(char **input)
 
 	i = 0;
 	while (**input && !ft_isspace(**input) && \
-	!ft_strchr("|<>«»&*", **input))
+	!ft_strchr("|<>«»&*", **input) && **input != '\'' && **input != '\"')
 	{
 		i++;
 		(*input)++;
@@ -36,7 +36,7 @@ char	*extract_variable(char **input)
 
 	i = 0;
 	(*input)++;
-	while (**input && (ft_isalnum(**input) || **input == '_'))
+	while (**input && (ft_isalnum(**input) || **input == '_' || **input == '?'))
 	{
 		i++;
 		(*input)++;
@@ -56,7 +56,7 @@ char	**split_input(char *input, t_shell *shell)
 	char	**array;
 
 	i = 0;
-	array = malloc(sizeof(char *) * (word_count(input) + 1));
+	array = safe_malloc(sizeof(char *) * (word_count(input) + 1));
 	if (!validate_quote_number(input))
 	{
 		ft_fprintf(2, "Error: can't parse unclosed quotes\n");
@@ -89,7 +89,7 @@ void	parse(t_shell *shell)
 		ft_putstr_fd("Error: Failed to parse input", 2);
 		shell->flag = false;
 	}
-	expand(&shell->array, shell->env);
+	expand(&shell->array, shell->env, shell);
 	shell->token = tokenize_array(shell->array);
 	if (!shell->token)
 		error_message("token");
