@@ -6,7 +6,7 @@
 /*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 12:15:54 by mchingi           #+#    #+#             */
-/*   Updated: 2025/02/27 19:59:09 by mchingi          ###   ########.fr       */
+/*   Updated: 2025/03/03 14:47:50 by marcsilv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,40 +19,6 @@ bool is_command(char *value, char *path)
 	char	*tmp;
 	bool	found;
 
-	found = false;
-	i = 0;
-	paths = ft_split(path, ':');
-	while (paths[i])
-	{
-		tmp = ft_strjoin(paths[i], "/");
-		free(paths[i]);
-		paths[i] = ft_strjoin(tmp, value);
-		free(tmp);
-		i++;
-	}
-	i = 0;
-	while (paths[i])
-	{
-		if (access(paths[i], F_OK) == 0)
-		{
-			found = true;
-			break;
-		}
-		i++;
-	}
-	free_matrix(paths);
-	return (found);
-}
-
-bool is_command2(char *value)
-{
-	char	**paths;
-	int		i;
-	char	*tmp;
-	bool	found;
-	char	*path;
-
-	path = ft_strdup("/nfs/homes/mchingi/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin");
 	found = false;
 	i = 0;
 	paths = ft_split(path, ':');
@@ -98,7 +64,7 @@ t_token	*new_token(char *value, t_type type)
 	t_token	*new_token;
 
 	new_token = safe_malloc(sizeof(t_token));
-	new_token->value = value;
+	new_token->value = ft_strdup(value);
 	new_token->type = type;
 	new_token->next = NULL;
 	return (new_token);
