@@ -6,7 +6,7 @@
 /*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 00:43:22 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/02 11:52:45 by mchingi          ###   ########.fr       */
+/*   Updated: 2025/03/03 14:49:55 by marcsilv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,12 +65,35 @@ int	count_char(char *input, char c)
 
 bool	validate_quote_number(char *input)
 {
-	int	count_single;
-	int	count_double;
+	int	single_quote_count;
+    int	double_quote_count;
 
-	count_single = count_char(input, '\'');
-	count_double = count_char(input, '\"');
-	if (count_single % 2 || count_double % 2)
-		return (false);
-	return (true);
+	single_quote_count = 0;
+	double_quote_count = 0;
+    while (*input)
+    {
+        if (*input == '\'')
+        {
+            single_quote_count++;
+            input++;
+            while (*input && *input != '\'')
+                input++;
+            if (*input == '\'')
+                single_quote_count++;
+        }
+        else if (*input == '\"')
+        {
+            double_quote_count++;
+            input++;
+            while (*input && *input != '\"')
+                input++;
+            if (*input == '\"')
+                double_quote_count++;
+        }
+        if (*input)
+            input++;
+    }
+    if (single_quote_count % 2 != 0 || double_quote_count % 2 != 0)
+        return (false);
+    return (true);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executer_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: welepy <welepy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 12:20:55 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/02 18:51:38 by mchingi          ###   ########.fr       */
+/*   Updated: 2025/03/05 10:56:54 by welepy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,19 @@
 
 void	execute_builtins(t_shell *shell, t_token *token)
 {
-	if (strcmp(token->value, "echo") == 0)
+	if (ft_strcmp(token->value, "echo") == 0)
 		ft_echo(token, shell);
-	else if (strcmp(token->value, "cd") == 0)
-		ft_cd(token);
-	else if (strcmp(token->value, "pwd") == 0)
-		ft_pwd(token);
-	else if (strcmp(token->value, "env") == 0)
-		ft_env(shell->env, token);
-	else if (strcmp(token->value, "export") == 0)
-		ft_export(shell->env, token);
-	else if (strcmp(token->value, "unset") == 0)
-		ft_unset(shell->env, token);
-	else if (strcmp(token->value, "exit") == 0)
+	else if (ft_strcmp(token->value, "cd") == 0)
+		ft_cd(token, shell);
+	else if (ft_strcmp(token->value, "pwd") == 0)
+		ft_pwd(token, shell);
+	else if (ft_strcmp(token->value, "env") == 0)
+		ft_env(shell->env, token, shell, false);
+	else if (ft_strcmp(token->value, "export") == 0)
+		ft_export(shell->env, token, shell);
+	else if (ft_strcmp(token->value, "unset") == 0)
+		ft_unset(shell->env, token, shell);
+	else if (ft_strcmp(token->value, "exit") == 0)
 		ft_exit(shell);
 	printf("\nfrom builtins\n");
 }
@@ -54,7 +54,7 @@ void	execute_full_command(char **args, char **env, int in, int out)
 	}
 }
 
-void	execute_command(t_token *token, char **env)
+void	execute_command(t_token *token, char **env, t_shell *shell)
 {
 	char	*path;
 	char	**args;
@@ -66,16 +66,16 @@ void	execute_command(t_token *token, char **env)
 	{
 		path = ft_strdup(args[0]);
 		args[0] = ft_strtrim(args[0], "/bin/");
-		if (execve(path, args, env) == -1)
+		if (execve(path, args, env_to_matrix(shell->env)) == -1)
 			error_message("execve");
 	}
 	path = find_path(args[0], env);
 	if (!path)
 	{
-		printf("%s: command not found\n", args[0]);
+		ft_fprintf(2, "%s: command not found\n", args[0]);
 		exit(EXIT_FAILURE);
 	}
-	if (execve(path, args, env) == -1)
+	if (execve(path, args, env_to_matrix(shell->env)) == -1)
 		error_message("execve");
 }
 
@@ -91,7 +91,7 @@ void	execute_cmd_in_pipe(t_token *token, t_pipe *pipes, int in, int out)
 	path = find_path(args[0], pipes->ev);
 	if (!path)
 	{
-		printf("%s: command not found\n", args[0]);
+		ft_fprintf(2, "%s: command not found\n", args[0]);
 		exit(EXIT_FAILURE);
 	}
 	if (in != 0)
@@ -125,7 +125,7 @@ void	command_executer(t_shell *shell, t_token *tokens)
 		if (id == 0)
 		{
 			execute_redirections(tokens);
-			execute_command(tokens, shell->ev);
+			execute_command(tokens, shell->ev, shell);
 		}
 	}
 }

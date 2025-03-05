@@ -6,7 +6,7 @@
 /*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 21:08:38 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/02 16:51:02 by mchingi          ###   ########.fr       */
+/*   Updated: 2025/03/03 15:12:22 by marcsilv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,19 +30,45 @@ char	*find_path(char *cmd, char **envp)
 	{
 		part_path = ft_strjoin(paths[i], "/");
 		path = ft_strjoin(part_path, cmd);
-		free(part_path);
+		ft_free(&part_path);
 		if (access(path, F_OK) == 0)
 		{
 			free_matrix(paths);
 			return (path);
 		}
-		free(path);
+		ft_free(&path);
 		i++;
 	}
 	free_matrix(paths);
 	return (NULL);
 }
 
+char	**env_to_matrix(t_env *env)
+{
+	t_env	*tmp;
+	char	**matrix;
+	int		i;
+
+	tmp = env;
+	i = 0;
+	while (tmp)
+	{
+		tmp = tmp->next;
+		i++;
+	}
+	matrix = malloc(sizeof(char *) * (i + 1));
+	tmp = env;
+	i = 0;
+	while (tmp)
+	{
+		matrix[i] = ft_strjoin(tmp->name, "=");
+		matrix[i] = ft_strjoin(matrix[i], tmp->value);
+		tmp = tmp->next;
+		i++;
+	}
+	matrix[i] = NULL;
+	return (matrix);
+}
 
 char	*clean_string(char *str)
 {

@@ -6,7 +6,7 @@
 /*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 15:48:53 by mchingi           #+#    #+#             */
-/*   Updated: 2025/02/27 12:04:38 by mchingi          ###   ########.fr       */
+/*   Updated: 2025/03/03 12:42:10 by marcsilv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,11 @@ static bool	echo_aux(t_token *token, bool *option, char *input)
 {
 	t_token	*temp;
 	t_token	*temp2;
-	bool	is_first_argument = true;
-	bool	previous_char = check_input(input);
+	bool	is_first_argument;
+	bool	previous_char;
+	
+	is_first_argument = true;
+	previous_char = check_input(input);
 	temp = token->next;
 	while (temp && temp->type == OPTION && is_valid_option(remove_quotes(temp->value)))
 	{
@@ -76,7 +79,6 @@ static bool	echo_aux(t_token *token, bool *option, char *input)
 			printf(" ");
 		is_first_argument = false;
 		printf("%s", remove_quotes(temp->value));
-
 		temp = temp->next;
 	}
 	return (*option);
@@ -94,4 +96,5 @@ void	ft_echo(t_token *token, t_shell *shell)
 	option = echo_aux(token, &option, remove_quotes(shell->input));
 	if (!option)
 		printf("\n");
+	shell->exit_status = 0;
 }
