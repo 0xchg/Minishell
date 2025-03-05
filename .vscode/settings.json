@@ -1,6 +1,7 @@
 {
-	"files.associations": {
-		"minishell.h": "c",
-		"strings.h": "c"
-	}
+  "files.associations": {
+    "minishell.h": "c",
+    "strings.h": "c"
+  },
+  "C_Cpp_Runner.msvcBatchPath": ""
 }
