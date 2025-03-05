@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: welepy <welepy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 15:16:24 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/02 17:37:15 by mchingi          ###   ########.fr       */
+/*   Updated: 2025/03/05 10:10:14 by welepy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@ static bool	read_input(t_shell *shell)
 {
 	char	*raw_input;
 
-	raw_input = readline("Minishell$ ");
+	printf("┌[%s] - [%s]\n", getenv("USER"), getcwd(NULL, 0));
+	raw_input = readline("└─> ");
 	if (!raw_input)
 	{
 		ft_putstr_fd("exit\n", 2);
@@ -26,7 +27,8 @@ static bool	read_input(t_shell *shell)
 		add_history(raw_input);
 	if (all_spaces(raw_input))
 	{
-		free(raw_input);
+		ft_free(&raw_input);
+		printf("┌[%s] - [%s]\n", getenv("USER"), getcwd(NULL, 0));
 		return (false);
 	}
 	shell->input = ft_strtrim(raw_input, " \t\n");
@@ -57,6 +59,7 @@ void	init_shell(t_shell *shell, char **env)
 {
 	shell->input = NULL;
 	// shell->path = NULL;
+	shell->exit_status = 0;
 	shell->ev = env;
 	shell->array = NULL;
 	shell->flag = true;
