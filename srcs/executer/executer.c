@@ -80,7 +80,7 @@ int	executer(t_shell *shell, t_token *tokens)
 	pipes->i = 0;
 	pipes->input_fd = 0;
 	pipes->flag = pipe_flag(tokens);
-	pipes->ev = shell->ev;
+	pipes->ev = env_to_matrix(shell->env);
 	cmd_start = tokens;
 	while (cmd_start)
 	{
