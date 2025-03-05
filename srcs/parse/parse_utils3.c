@@ -6,7 +6,7 @@
 /*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 13:52:15 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/02 17:26:04 by mchingi          ###   ########.fr       */
+/*   Updated: 2025/03/03 14:45:35 by marcsilv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static char	*get_env_value(t_env *env, char *name)
 	return (NULL);
 }
 
-void	expand(char ***matrix, t_env *env)
+void	expand(char ***matrix, t_env *env, t_shell *shell)
 {
 	int		y;
 	char	*expanded;
@@ -41,21 +41,23 @@ void	expand(char ***matrix, t_env *env)
 		{
 			if ((*matrix)[y][1] == '?')
 			{
-				// value = ft_itoa(g_exit_status);
+				value = ft_itoa(shell->exit_status);
 				free((*matrix)[y]);
 				(*matrix)[y] = ft_strdup(value);
-				free(value);
+				ft_free(&value);
 			}
 			else
-			{value = get_env_value(env, &(*matrix)[y][1]);
-			free((*matrix)[y]);
-			(*matrix)[y] = ft_strdup(value ? value : "");}
+			{
+				value = get_env_value(env, &(*matrix)[y][1]);
+				free((*matrix)[y]);
+				(*matrix)[y] = ft_strdup(value ? value : "");
+			}
 		}
 		else if (ft_strchr((*matrix)[y], '$') && ((*matrix)[y][0] != '\''))
 		{
 			expanded = process_expansion((*matrix)[y], env);
 			free((*matrix)[y]);
-			(*matrix)[y] = expanded;
+			(*matrix)[y] = ft_strdup(expanded);
 		}
 		y++;
 	}
@@ -136,7 +138,7 @@ char	*get_path(t_env *env)
 	while (tmp)
 	{
 		if (ft_strcmp(tmp->name, "PATH") == 0)
-			return (tmp->value);
+			return (ft_strdup(tmp->value));
 		tmp = tmp->next;
 	}
 	return (NULL);
