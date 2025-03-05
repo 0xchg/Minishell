@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: welepy <welepy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 11:36:50 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/02 19:28:07 by mchingi          ###   ########.fr       */
+/*   Updated: 2025/03/05 10:06:17 by welepy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	redirect_input(t_token *token)
 	if (fd == -1)
 	{
 		perror(token->next->value);
-		exit(EXIT_FAILURE);
+		exit(127);
 	}
 	dup2(fd, STDIN_FILENO);
 	close(fd);
@@ -38,7 +38,7 @@ void	redirect_output(t_token *token)
 	if (fd == -1)
 	{
 		perror(token->next->value);
-		exit(EXIT_FAILURE);
+		exit(127);
 	}
 	dup2(fd, STDOUT_FILENO);
 	close(fd);
@@ -54,7 +54,7 @@ void	redirect_output_append(t_token *token)
 	if (fd == -1)
 	{
 		perror("open");
-		exit(EXIT_FAILURE);
+		exit(127);
 	}
 	dup2(fd, STDOUT_FILENO);
 	close(fd);
@@ -71,7 +71,7 @@ void	redirect_here_doc(t_token *token)
 	if (fd == -1)
 	{
 		perror("open");
-		exit(EXIT_FAILURE);
+		exit(127);
 	}
 	dup2(fd, STDIN_FILENO);
 	close(fd);
