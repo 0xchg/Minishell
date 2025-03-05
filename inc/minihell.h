@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minihell.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: welepy <welepy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 15:16:19 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/02 19:26:44 by mchingi          ###   ########.fr       */
+/*   Updated: 2025/03/05 10:15:18 by welepy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <fcntl.h>
+# include <signal.h>
 # include <stdio.h>
 # include <errno.h>
 # include <sys/wait.h>
@@ -78,6 +79,7 @@ typedef struct s_pipe
 typedef struct	s_shell
 {
 	char	*input;
+	int		exit_status;
 	char	*path;
 	char	**ev;
 	char	**array;
@@ -101,7 +103,7 @@ void	here_doc(char *str);
 char	**tokenize_command(t_token *token);
 int		executer(t_shell *shell, t_token *tokens);
 char	*find_path(char *cmd, char **envp);
-void	execute_command(t_token *token, char **env);
+void	execute_command(t_token *token, char **env, t_shell *shell);
 void	execute_builtins(t_shell *shell, t_token *token);
 void    execute_cmd_in_pipe(t_token *token, t_pipe *pipes, int in, int out);
 void	dup3(int fd, int fd2);
@@ -119,7 +121,6 @@ char	*token_kind_string(t_type type);
 bool	is_append(t_type token);
 bool	is_greater(t_type token);
 bool	is_lesser(t_type token);
-bool 	is_command2(char *value);
 void	free_tokens(t_token *head);
 //--------------------------------------------- Parse -----------------------------------------------------/
 int		word_count(char *input);
@@ -128,24 +129,26 @@ char	*extract_operator(char **input);
 void	parse(t_shell *shell);
 bool	validate_quote_number(char *input);
 // int		number_of_commands(t_token *tokens);
-void	expand(char ***matrix, t_env *env);
+void	expand(char ***matrix, t_env *env, t_shell *shell);
 t_env	*convert_env(char **env);
 char	*get_path(t_env *env);
 char	*clean_string(char *str);
 char	*remove_quotes(char *str);
 
 //--------------------------------------------- Builtins -----------------------------------------------------/
-void	ft_cd(t_token *current);
-void	ft_pwd(t_token *token);
+void	ft_cd(t_token *current, t_shell *shell);
+void	ft_pwd(t_token *token, t_shell *shell);
 void	ft_exit(t_shell *shell);
-void	ft_env(t_env *env, t_token *token);
-void	ft_export(t_env *env, t_token *token);
-void	ft_unset(t_env *env, t_token *token);
+void	ft_env(t_env *env, t_token *token, t_shell *shell, bool declare);
+void	ft_export(t_env *env, t_token *token, t_shell *shell);
+void	ft_unset(t_env *env, t_token *token, t_shell *shell);
 void	ft_echo(t_token *token, t_shell *shell);
 
 
 //--------------------------------------------- ANYTHING -----------------------------------------------------/
 void	error_message(char *str);
 void	signal_handler(int sig);
+char	**env_to_matrix(t_env *env);
+void	id_quotes(t_token *tokens);
 
 #endif
