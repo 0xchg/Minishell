@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: welepy <welepy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 15:49:08 by mchingi           #+#    #+#             */
-/*   Updated: 2025/02/27 12:37:18 by mchingi          ###   ########.fr       */
+/*   Updated: 2025/03/05 10:57:43 by welepy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,17 +54,20 @@ void	add_env(t_env **env, t_env *new)
 		*env = new;
 }
 
-void	ft_export(t_env *env, t_token *token)
+void	ft_export(t_env *env, t_token *token,t_shell *shell)
 {
 	t_env	*temp;
 	t_token	*head;
 
 	head = token;
+	if (!head)
+		ft_env(env, head, shell, true);
 	while (head && (head->type == ARGUMENT))
 	{
 		temp = arg_to_env(head);
-		ft_unset(env, head);
+		ft_unset(env, head, shell);
 		add_env(&env, temp);
 		head = head->next;
 	}
+	shell->exit_status = 0;
 }

@@ -6,7 +6,7 @@
 /*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 15:49:17 by mchingi           #+#    #+#             */
-/*   Updated: 2025/02/27 12:36:38 by mchingi          ###   ########.fr       */
+/*   Updated: 2025/03/03 13:03:23 by marcsilv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,19 +39,15 @@ void	remove_env(t_env **head, const char *name)
 	}
 }
 
-void	ft_unset(t_env *env, t_token *token)
+void	ft_unset(t_env *env, t_token *token, t_shell *shell)
 {
 	t_token	*temp;
 
-	if (!token->next)
-	{
-		printf("unset: not enough arguments\n");
-		return ;
-	}
 	temp = token->next;
 	while (temp && temp->type == ARGUMENT)
 	{
 		remove_env(&env, temp->value);
 		temp = temp->next;
 	}
+	shell->exit_status = 0;
 }
