@@ -6,7 +6,7 @@
 /*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 11:35:17 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/02 18:02:34 by mchingi          ###   ########.fr       */
+/*   Updated: 2025/03/06 15:42:02 by mchingi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,26 +18,12 @@ static void	clean_t_pipe(t_pipe *pipes, char	*str)
 	error_message(str);
 }
 
-static int	pipe_flag(t_token *token)
-{
-	t_token	*tmp;
-
-	tmp = token;
-	while (tmp)
-	{
-		if (tmp->type == PIPE)
-			return (1);
-		tmp = tmp->next;
-	}
-	return (0);
-}
-
-void	child_pipe(t_token *token, t_pipe *pip, t_type type)
+void	child_pipe(t_token *token, t_pipe *pip, t_type type, t_shell *shell)
 {
 	if (type == PIPE)
-		execute_cmd_in_pipe(token, pip, pip->input_fd, pip->pipe_fd[1]);
+		execute_cmd_in_pipe(token, shell, pip->input_fd, pip->pipe_fd[1]);
 	else
-		execute_cmd_in_pipe(token, pip, pip->input_fd, STDOUT_FILENO);
+		execute_cmd_in_pipe(token, shell, pip->input_fd, STDOUT_FILENO);
 }
 
 void	pipe_executer(t_shell *shell, t_token *token, t_pipe *pip, t_type type)
@@ -49,7 +35,7 @@ void	pipe_executer(t_shell *shell, t_token *token, t_pipe *pip, t_type type)
 		clean_t_pipe(pip, "fork");
 	if (pip->id == 0)
 	{
-		execute_redirections(token);
+		execute_redirections(token, shell);
 		if (is_builtin(token->type))
 		{
 			if (type == PIPE)
@@ -58,7 +44,7 @@ void	pipe_executer(t_shell *shell, t_token *token, t_pipe *pip, t_type type)
 			exit(0);
 		}
 		else
-			child_pipe(token, pip, type);
+			child_pipe(token, pip, type, shell);
 	}
 	if (pip->input_fd != 0)
 		close(pip->input_fd);
@@ -69,21 +55,27 @@ void	pipe_executer(t_shell *shell, t_token *token, t_pipe *pip, t_type type)
 	}
 }
 
+void	init_pipe(t_pipe *pipe, t_shell *shell, t_token *tokens)
+{
+	if (!pipe)
+		error_message("malloc");
+	pipe->i = 0;
+	pipe->input_fd = 0;
+	pipe->flag = pipe_flag(tokens);
+	pipe->ev = env_to_matrix(shell->env);
+}
+
 int	executer(t_shell *shell, t_token *tokens)
 {
 	t_pipe	*pipes;
 	t_token	*cmd_start;
 
 	pipes = malloc(sizeof(t_pipe));
-	if (!pipes)
-		error_message("malloc");
-	pipes->i = 0;
-	pipes->input_fd = 0;
-	pipes->flag = pipe_flag(tokens);
-	pipes->ev = env_to_matrix(shell->env);
+	init_pipe(pipes, shell, tokens);
 	cmd_start = tokens;
 	while (cmd_start)
 	{
+		shell->exit_status = 0;
 		if ((cmd_start->type == PIPE || !cmd_start->next) && pipes->flag)
 		{
 			pipe_executer(shell, tokens, pipes, cmd_start->type);
@@ -94,6 +86,9 @@ int	executer(t_shell *shell, t_token *tokens)
 		cmd_start = cmd_start->next;
 	}
 	while (wait(NULL) > 0);
+	if (here_doc_flag(tokens))
+		unlink(".DOC_TMP");
+	free_matrix(pipes->ev);
 	free(pipes);
-	return (0);
+	return (shell->exit_status);
 }

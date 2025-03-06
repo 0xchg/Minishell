@@ -6,13 +6,13 @@
 /*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 12:15:54 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/03 14:47:50 by marcsilv         ###   ########.fr       */
+/*   Updated: 2025/03/06 14:24:21 by mchingi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../../inc/minihell.h"
+#include "../../inc/minihell.h"
 
-bool is_command(char *value, char *path)
+bool	is_command(char *value, char *path)
 {
 	char	**paths;
 	int		i;
@@ -36,27 +36,12 @@ bool is_command(char *value, char *path)
 		if (access(paths[i], F_OK) == 0)
 		{
 			found = true;
-			break;
+			break ;
 		}
 		i++;
 	}
 	free_matrix(paths);
 	return (found);
-}
-
-bool	is_builtin_or_command(t_type type)
-{
-	return (type == COMMAND || type == BUILTINS || type == FULL_COMMAND);
-}
-
-bool	is_builtin(t_type type)
-{
-	return (type == BUILTINS);
-}
-
-bool	is_redir(t_type type)
-{
-	return (type == GREATER || type == APPEND || type == LESSER);
 }
 
 t_token	*new_token(char *value, t_type type)
@@ -77,7 +62,8 @@ void	token_sequence(t_token *tokens)
 	head = tokens;
 	while (head)
 	{
-		if (is_builtin_or_command(head->type) && head->next && is_builtin_or_command(head->next->type))
+		if (is_builtin_or_command(head->type) && head->next \
+			&& is_builtin_or_command(head->next->type))
 		{
 			while (head->next && (is_builtin_or_command(head->next->type)))
 			{
@@ -85,13 +71,14 @@ void	token_sequence(t_token *tokens)
 				head = head->next;
 			}
 		}
-		if (is_redirection(head->type) && head->next && is_builtin_or_command(head->next->type))
+		if (is_redirection(head->type) && head->next \
+			&& is_builtin_or_command(head->next->type))
 			head->next->type = ARGUMENT;
 		head = head->next;
 	}
 }
 
-char	*token_kind_string(t_type type)
+/*char	*token_kind_string(t_type type)
 {
 	if (type == GREATER)
 		return ("GREATER");
@@ -107,8 +94,6 @@ char	*token_kind_string(t_type type)
 		return ("COMMAND");
 	else if (type == ARGUMENT)
 		return ("ARGUMENT");
-	// else if (type == VARIABLE)
-	// 	return ("VARIABLE");
 	else if (type == SINGLE_QUOTE)
 		return ("SINGLE_QUOTE");
 	else if (type == DOUBLE_QUOTE)
@@ -123,20 +108,4 @@ char	*token_kind_string(t_type type)
 		return ("IDENTIFIER");
 	else
 		return ("UNKNOWN");
-}
-
-
-bool	is_lesser(t_type token)
-{
-	return (token == LESSER);
-}
-
-bool	is_greater(t_type token)
-{
-	return (token == GREATER);
-}
-bool	is_append(t_type token)
-{
-	return (token == APPEND);
-}
-
+}*/

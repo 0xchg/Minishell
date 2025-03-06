@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: welepy <welepy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 15:46:17 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/05 09:35:29 by welepy           ###   ########.fr       */
+/*   Updated: 2025/03/06 14:35:33 by mchingi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ static void	ft_cd_prev(char	*prev_path, t_shell *shell)
 		}
 	}
 }
+
 static void	ft_cd_aux(t_token *current, char *cur_path, t_shell *shell)
 {
 	char	*path;
@@ -71,7 +72,6 @@ void	ft_cd(t_token *current, t_shell *shell)
 	t_token		*token;
 
 	token = current->next;
-	printf("%s\n", token->value);
 	if (!token)
 	{
 		chdir(getenv("HOME"));

@@ -1,25 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signal.c                                           :+:      :+:    :+:   */
+/*   utils3.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/02 16:32:01 by marcsilv          #+#    #+#             */
-/*   Updated: 2025/03/06 14:04:33 by mchingi          ###   ########.fr       */
+/*   Created: 2025/03/06 14:20:16 by mchingi           #+#    #+#             */
+/*   Updated: 2025/03/06 15:42:32 by mchingi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/minihell.h"
+#include "../../inc/minihell.h"
 
-void	signal_handler(int sig)
+int	here_doc_flag(t_token *token)
 {
-	if (sig == SIGINT)
+	t_token	*tmp;
+
+	tmp = token;
+	while (tmp)
 	{
-		printf("\n");
-		rl_on_new_line();
-		rl_replace_line("", 0);
-		printf("┌[%s] - [%s]\n", getenv("USER"), getcwd(NULL, 0));
-		rl_redisplay();
+		if (tmp->type == HERE_DOC)
+			return (1);
+		tmp = tmp->next;
 	}
+	return (0);
 }

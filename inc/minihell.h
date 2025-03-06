@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minihell.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: welepy <welepy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 15:16:19 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/05 10:15:18 by welepy           ###   ########.fr       */
+/*   Updated: 2025/03/06 15:51:33 by mchingi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,10 @@
 # include <readline/history.h>
 # include <readline/readline.h>
 # include "../libft/libft.h"
-
-// --------------     ATENÇÃO!  ------------------- /
-#include <stdbool.h> 
-# include <strings.h>
+# include <stdbool.h> 
 
 // extern int	g_exit_status;
-//--------------------------------------------- Structs -----------------------------------------------------/
+//----------------------------- Structs ---------------------------------------/
 
 typedef enum e_type
 {
@@ -76,66 +73,60 @@ typedef struct s_pipe
 	pid_t	id;
 }		t_pipe;
 
-typedef struct	s_shell
+typedef struct s_shell
 {
-	char	*input;
-	int		exit_status;
-	char	*path;
-	char	**ev;
-	char	**array;
 	bool	flag;
-	// int		num_of_cmds;
+	int		exit_status;
+	char	*input;
+	char	*path;
+	char	**array;
 	t_env	*env;
 	t_token	*token;
 	t_pipe	*pipe;
 }		t_shell;
 
-//--------------------------------------------- Redirections -----------------------------------------------------/
-void	redirect_input(t_token *token);
-void	redirect_output(t_token *token);
-void	redirect_output_append(t_token *token);
-void	redirect_here_doc(t_token *token);
-void	execute_redirections(t_token *token);
+//------------------------------- Redirections -------------------------------/
 bool	is_redirection(t_type type);
-//--------------------------------------------- Here Document -----------------------------------------------------/
+void	redirect_input(t_token *token, t_shell *shell);
+void	redirect_output(t_token *token, t_shell *shell);
+void	redirect_output_append(t_token *token, t_shell *shell);
+void	redirect_here_doc(t_token *token, t_shell *shell);
+void	execute_redirections(t_token *token, t_shell *shell);
+//----------------------------- Here Document --------------------------------/
 void	here_doc(char *str);
-//--------------------------------------------- Executer -----------------------------------------------------/
-char	**tokenize_command(t_token *token);
+//-------------------------------- Executer ----------------------------------/
 int		executer(t_shell *shell, t_token *tokens);
-char	*find_path(char *cmd, char **envp);
-void	execute_command(t_token *token, char **env, t_shell *shell);
+int		pipe_flag(t_token *token);
+void	execute_command(t_token *token, t_shell *shell);
 void	execute_builtins(t_shell *shell, t_token *token);
-void    execute_cmd_in_pipe(t_token *token, t_pipe *pipes, int in, int out);
+void	execute_cmd_in_pipe(t_token *token, t_shell *shell, int in, int out);
 void	dup3(int fd, int fd2);
 void	command_executer(t_shell *shell, t_token *tokens);
+char	*find_path(char *cmd, char **envp);
+char	**tokenize_command(t_token *token);
 
-//--------------------------------------------- Tokens -----------------------------------------------------/
+//--------------------------------- Tokens -----------------------------------/
+bool	is_command(char *value, char *path);
 void	identify_tokens(t_token *tokens, char *path);
-t_token	*tokenize_array(char **array);
-bool 	is_command(char *value, char *path);
-bool	is_builtin_or_command(t_type type);
-bool	is_builtin(t_type type);
-t_token	*new_token(char *value, t_type type);
 void	token_sequence(t_token *tokens);
-char	*token_kind_string(t_type type);
-bool	is_append(t_type token);
-bool	is_greater(t_type token);
-bool	is_lesser(t_type token);
 void	free_tokens(t_token *head);
-//--------------------------------------------- Parse -----------------------------------------------------/
-int		word_count(char *input);
-char	*extract_quote(char **input);
-char	*extract_operator(char **input);
-void	parse(t_shell *shell);
+char	*token_kind_string(t_type type);
+t_token	*tokenize_array(char **array);
+t_token	*new_token(char *value, t_type type);
+//--------------------------------- Parse -------------------------------------/
 bool	validate_quote_number(char *input);
-// int		number_of_commands(t_token *tokens);
+void	parse(t_shell *shell);
 void	expand(char ***matrix, t_env *env, t_shell *shell);
-t_env	*convert_env(char **env);
+int		word_count(char *input);
+// int		number_of_commands(t_token *tokens);
 char	*get_path(t_env *env);
 char	*clean_string(char *str);
 char	*remove_quotes(char *str);
+char	*extract_quote(char **input);
+char	*extract_operator(char **input);
+t_env	*convert_env(char **env);
 
-//--------------------------------------------- Builtins -----------------------------------------------------/
+//-------------------------------- Builtins ----------------------------------/
 void	ft_cd(t_token *current, t_shell *shell);
 void	ft_pwd(t_token *token, t_shell *shell);
 void	ft_exit(t_shell *shell);
@@ -144,11 +135,19 @@ void	ft_export(t_env *env, t_token *token, t_shell *shell);
 void	ft_unset(t_env *env, t_token *token, t_shell *shell);
 void	ft_echo(t_token *token, t_shell *shell);
 
+//--------------------------- VALIDATORS / VERIFICATIONS ---------------------/
 
-//--------------------------------------------- ANYTHING -----------------------------------------------------/
+bool	is_append(t_type token);
+bool	is_greater(t_type token);
+bool	is_lesser(t_type token);
+bool	is_builtin(t_type type);
+bool	is_builtin_or_command(t_type type);
+int		here_doc_flag(t_token *token);
+
+//-------------------------------- ANYTHING ----------------------------------/
 void	error_message(char *str);
 void	signal_handler(int sig);
-char	**env_to_matrix(t_env *env);
 void	id_quotes(t_token *tokens);
+char	**env_to_matrix(t_env *env);
 
 #endif

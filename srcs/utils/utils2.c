@@ -1,25 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signal.c                                           :+:      :+:    :+:   */
+/*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/02 16:32:01 by marcsilv          #+#    #+#             */
-/*   Updated: 2025/03/06 14:04:33 by mchingi          ###   ########.fr       */
+/*   Created: 2025/03/06 14:00:34 by mchingi           #+#    #+#             */
+/*   Updated: 2025/03/06 14:25:22 by mchingi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/minihell.h"
+#include "../../inc/minihell.h"
 
-void	signal_handler(int sig)
+bool	is_lesser(t_type token)
 {
-	if (sig == SIGINT)
-	{
-		printf("\n");
-		rl_on_new_line();
-		rl_replace_line("", 0);
-		printf("┌[%s] - [%s]\n", getenv("USER"), getcwd(NULL, 0));
-		rl_redisplay();
-	}
+	return (token == LESSER);
+}
+
+bool	is_greater(t_type token)
+{
+	return (token == GREATER);
+}
+
+bool	is_append(t_type token)
+{
+	return (token == APPEND);
+}
+
+bool	is_builtin_or_command(t_type type)
+{
+	return (type == COMMAND || type == BUILTINS || type == FULL_COMMAND);
+}
+
+bool	is_builtin(t_type type)
+{
+	return (type == BUILTINS);
 }

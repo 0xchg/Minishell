@@ -6,7 +6,7 @@
 #    By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/14 15:16:15 by mchingi           #+#    #+#              #
-#    Updated: 2025/03/06 09:37:45 by mchingi          ###   ########.fr        #
+#    Updated: 2025/03/06 15:42:14 by mchingi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,10 @@ SRCS = 	./srcs/executer/executer.c \
 		./srcs/executer/executer_utils.c \
 		./srcs/executer/executer_utils1.c \
 		./srcs/redirections.c \
-		./srcs/utils.c \
+		./srcs/utils/utils.c \
+		./srcs/utils/utils1.c \
+		./srcs/utils/utils2.c \
+		./srcs/utils/utils3.c \
 		./srcs/main.c \
 		./srcs/signal.c \
 		./srcs/here_document.c \
@@ -62,6 +65,7 @@ $(OBJ_DIR):
 	@mkdir -p $(OBJ_DIR)/parse
 	@mkdir -p $(OBJ_DIR)/builtins
 	@mkdir -p $(OBJ_DIR)/executer
+	@mkdir -p $(OBJ_DIR)/utils
 
 # Compile source files into object files
 $(OBJ_DIR)/%.o: ./srcs/%.c $(HEADER) | $(OBJ_DIR)

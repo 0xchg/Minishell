@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: welepy <welepy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 11:36:50 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/05 10:06:17 by welepy           ###   ########.fr       */
+/*   Updated: 2025/03/06 13:31:46 by mchingi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minihell.h"
 
-void	redirect_input(t_token *token)
+void	redirect_input(t_token *token, t_shell *shell)
 {
 	int	fd;
 
@@ -22,13 +22,14 @@ void	redirect_input(t_token *token)
 	if (fd == -1)
 	{
 		perror(token->next->value);
-		exit(127);
+		shell->exit_status = 1;
+		exit(shell->exit_status);
 	}
 	dup2(fd, STDIN_FILENO);
 	close(fd);
 }
 
-void	redirect_output(t_token *token)
+void	redirect_output(t_token *token, t_shell *shell)
 {
 	int	fd;
 
@@ -38,13 +39,14 @@ void	redirect_output(t_token *token)
 	if (fd == -1)
 	{
 		perror(token->next->value);
-		exit(127);
+		shell->exit_status = 1;
+		exit(shell->exit_status);
 	}
 	dup2(fd, STDOUT_FILENO);
 	close(fd);
 }
 
-void	redirect_output_append(t_token *token)
+void	redirect_output_append(t_token *token, t_shell *shell)
 {
 	int	fd;
 
@@ -54,13 +56,14 @@ void	redirect_output_append(t_token *token)
 	if (fd == -1)
 	{
 		perror("open");
-		exit(127);
+		shell->exit_status = 1;
+		exit(shell->exit_status);
 	}
 	dup2(fd, STDOUT_FILENO);
 	close(fd);
 }
 
-void	redirect_here_doc(t_token *token)
+void	redirect_here_doc(t_token *token, t_shell *shell)
 {
 	int	fd;
 
@@ -71,13 +74,14 @@ void	redirect_here_doc(t_token *token)
 	if (fd == -1)
 	{
 		perror("open");
-		exit(127);
+		shell->exit_status = 1;
+		exit(shell->exit_status);
 	}
 	dup2(fd, STDIN_FILENO);
 	close(fd);
 }
 
-void	execute_redirections(t_token *token)
+void	execute_redirections(t_token *token, t_shell *shell)
 {
 	t_token	*tmp;
 
@@ -85,13 +89,13 @@ void	execute_redirections(t_token *token)
 	while (tmp)
 	{
 		if (tmp->type == LESSER)
-			redirect_input(tmp);
+			redirect_input(tmp, shell);
 		else if (tmp->type == GREATER)
-			redirect_output(tmp);
+			redirect_output(tmp, shell);
 		else if (tmp->type == APPEND)
-			redirect_output_append(tmp);
+			redirect_output_append(tmp, shell);
 		else if (tmp->type == HERE_DOC)
-			redirect_here_doc(tmp);
+			redirect_here_doc(tmp, shell);
 		tmp = tmp->next;
 	}
 }

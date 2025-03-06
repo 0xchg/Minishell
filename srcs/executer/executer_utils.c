@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executer_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: welepy <welepy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 12:20:55 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/05 10:56:54 by welepy           ###   ########.fr       */
+/*   Updated: 2025/03/06 14:07:28 by mchingi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,71 +40,67 @@ void	execute_full_command(char **args, char **env, int in, int out)
 		path = ft_strdup(args[0]);
 		args[0] = ft_strtrim(args[0], "/bin/");
 		if (in != 0)
-		{
-			dup2(in, STDIN_FILENO);
-			close(in);
-		}
+			dup3(in, STDIN_FILENO);
 		if (out != 1)
-		{
-			dup2(out, STDOUT_FILENO);
-			close(out);
-		}
+			dup3(out, STDOUT_FILENO);
 		if (execve(path, args, env) == -1)
 			error_message("execve");
 	}
 }
 
-void	execute_command(t_token *token, char **env, t_shell *shell)
+void	execute_command(t_token *token, t_shell *shell)
 {
 	char	*path;
 	char	**args;
+	char	**env;
 
 	if (!token)
 		return ;
+	env = env_to_matrix(shell->env);
 	args = tokenize_command(token);
 	if (access(args[0], F_OK) == 0)
 	{
 		path = ft_strdup(args[0]);
 		args[0] = ft_strtrim(args[0], "/bin/");
-		if (execve(path, args, env_to_matrix(shell->env)) == -1)
+		if (execve(path, args, env) == -1)
 			error_message("execve");
 	}
 	path = find_path(args[0], env);
 	if (!path)
 	{
 		ft_fprintf(2, "%s: command not found\n", args[0]);
+		shell->exit_status = 127;
+		free_matrix(env);
 		exit(EXIT_FAILURE);
 	}
-	if (execve(path, args, env_to_matrix(shell->env)) == -1)
+	if (execve(path, args, env) == -1)
 		error_message("execve");
 }
 
-void	execute_cmd_in_pipe(t_token *token, t_pipe *pipes, int in, int out)
+void	execute_cmd_in_pipe(t_token *token, t_shell *shell, int in, int out)
 {
 	char	*path;
 	char	**args;
+	char	**env;
 
 	if (!token)
 		return ;
+	env = env_to_matrix(shell->env);
 	args = tokenize_command(token);
-	execute_full_command(args, pipes->ev, in, out);
-	path = find_path(args[0], pipes->ev);
+	execute_full_command(args, env, in, out);
+	path = find_path(args[0], env);
 	if (!path)
 	{
 		ft_fprintf(2, "%s: command not found\n", args[0]);
+		shell->exit_status = 127;
+		free_matrix(env);
 		exit(EXIT_FAILURE);
 	}
 	if (in != 0)
-	{
-		dup2(in, STDIN_FILENO);
-		close(in);
-	}
+		dup3(in, STDIN_FILENO);
 	if (out != 1)
-	{
-		dup2(out, STDOUT_FILENO);
-		close(out);
-	}
-	if (execve(path, args, pipes->ev) == -1)
+		dup3(out, STDOUT_FILENO);
+	if (execve(path, args, env) == -1)
 		error_message("execve");
 }
 
@@ -113,10 +109,10 @@ void	command_executer(t_shell *shell, t_token *tokens)
 	pid_t	id;
 
 	if (is_builtin(tokens->type))
-		{
-			execute_redirections(tokens);
-			execute_builtins(shell, tokens);
-		}
+	{
+		execute_redirections(tokens, shell);
+		execute_builtins(shell, tokens);
+	}
 	else
 	{
 		id = fork();
@@ -124,8 +120,8 @@ void	command_executer(t_shell *shell, t_token *tokens)
 			error_message("fork");
 		if (id == 0)
 		{
-			execute_redirections(tokens);
-			execute_command(tokens, shell->ev, shell);
+			execute_redirections(tokens, shell);
+			execute_command(tokens, shell);
 		}
 	}
 }

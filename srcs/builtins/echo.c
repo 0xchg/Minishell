@@ -6,11 +6,11 @@
 /*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 15:48:53 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/03 12:42:10 by marcsilv         ###   ########.fr       */
+/*   Updated: 2025/03/06 14:38:59 by mchingi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../../inc/minihell.h"
+#include "../../inc/minihell.h"
 
 static bool	is_valid_option(char *value)
 {
@@ -32,8 +32,8 @@ static bool	is_valid_option(char *value)
 
 static bool	check_input(char *input)
 {
-	char *single_q;
-	char *double_q;
+	char	*single_q;
+	char	*double_q;
 
 	single_q = ft_strchr(input, '\'');
 	double_q = ft_strchr(input, '\"');
@@ -49,7 +49,7 @@ static bool	check_input(char *input)
 		if (!ft_isspace(*double_q))
 			return (true);
 	}
-	return false;
+	return (false);
 }
 
 static bool	echo_aux(t_token *token, bool *option, char *input)
@@ -58,11 +58,12 @@ static bool	echo_aux(t_token *token, bool *option, char *input)
 	t_token	*temp2;
 	bool	is_first_argument;
 	bool	previous_char;
-	
+
 	is_first_argument = true;
 	previous_char = check_input(input);
 	temp = token->next;
-	while (temp && temp->type == OPTION && is_valid_option(remove_quotes(temp->value)))
+	while (temp && temp->type == OPTION \
+		&& is_valid_option(remove_quotes(temp->value)))
 	{
 		*option = true;
 		temp = temp->next;
@@ -73,7 +74,8 @@ static bool	echo_aux(t_token *token, bool *option, char *input)
 		temp2->type = ARGUMENT;
 		temp2 = temp2->next;
 	}
-	while (temp && (temp->type == ARGUMENT || temp->type == SINGLE_QUOTE || temp->type == DOUBLE_QUOTE || temp->type == OPTION))
+	while (temp && (temp->type == ARGUMENT || temp->type == SINGLE_QUOTE \
+		|| temp->type == DOUBLE_QUOTE || temp->type == OPTION))
 	{
 		if (!is_first_argument && !previous_char)
 			printf(" ");
@@ -86,8 +88,9 @@ static bool	echo_aux(t_token *token, bool *option, char *input)
 
 void	ft_echo(t_token *token, t_shell *shell)
 {
-	bool	option = false;
+	bool	option;
 
+	option = false;
 	if (!token)
 	{
 		write(1, "\n", 1);

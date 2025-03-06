@@ -6,7 +6,7 @@
 /*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 11:34:43 by mchingi           #+#    #+#             */
-/*   Updated: 2025/02/27 20:03:16 by mchingi          ###   ########.fr       */
+/*   Updated: 2025/03/06 13:58:31 by mchingi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,8 +95,16 @@ char	**tokenize_command(t_token *token)
 	return (args);
 }
 
-void	dup3(int fd, int fd2)
+int	pipe_flag(t_token *token)
 {
-	dup2(fd, fd2);
-	close(fd);
+	t_token	*tmp;
+
+	tmp = token;
+	while (tmp)
+	{
+		if (tmp->type == PIPE)
+			return (1);
+		tmp = tmp->next;
+	}
+	return (0);
 }

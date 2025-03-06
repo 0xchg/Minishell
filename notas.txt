@@ -1,1 +1,0 @@
-alguns execve usam a falsa env, e nao sei como trocar
