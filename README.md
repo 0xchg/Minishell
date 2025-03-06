@@ -10,3 +10,5 @@ O problema resolvido se for feito fork() e terminar devidamente o child, mas ain
 não fiz, tenho preguiça (nem sei mesmo se vai resultar hahaha)
 
 E adicionei o file "NORMINETTE CHECK" para distinguir o que já está fixe.
+
+Luanda, aos 06 de Março de 2025
