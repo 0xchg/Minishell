@@ -6,7 +6,7 @@
 #    By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/14 15:16:15 by mchingi           #+#    #+#              #
-#    Updated: 2025/03/02 17:24:51 by mchingi          ###   ########.fr        #
+#    Updated: 2025/03/06 09:37:45 by mchingi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,6 +52,8 @@ OBJ_DIR = objects
 
 OBJS = $(SRCS:./srcs/%.c=$(OBJ_DIR)/%.o)
 
+all: $(NAME)
+
 # Ensure the object directory is created before compiling
 $(OBJ_DIR):
 	@echo "Creating object directories..."
@@ -67,7 +69,6 @@ $(OBJ_DIR)/%.o: ./srcs/%.c $(HEADER) | $(OBJ_DIR)
 	$(CC) $(CFLAGS) -I ./inc -c $< -o $@
 
 # Build the final executable
-all: $(NAME)
 
 $(NAME): $(LFT) $(OBJS)
 	@echo "Linking object files and libraries to create $(NAME)"
@@ -81,7 +82,7 @@ $(LFT):
 # Clean object files
 clean:
 	@echo "Cleaning object files..."
-	$(RM) $(OBJS)
+	$(RM) $(OBJ_DIR)
 	@make -C $(LIBFT) clean
 
 # Clean everything
