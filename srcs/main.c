@@ -6,30 +6,11 @@
 /*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 15:16:24 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/06 14:46:20 by mchingi          ###   ########.fr       */
+/*   Updated: 2025/03/06 18:26:08 by welepy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minihell.h"
-
-/*void	debug(t_token *token, int number_of_commands)
-{
-	t_token	*head;
-
-	head = token;
-	while (head)
-	{
-		// printf("value: %s, type: %s\n", token->value, token_kind_string(token->type));
-		// token = token->next;
-		// if (head->type == COMMAND || head->type == ARGUMENT || head->type == VARIABLE)
-		printf("%s, type: %s\n", head->value, token_kind_string(head->type));
-		// else
-		// 	printf("type: %s\n", token_kind_string(head->type));
-		head = head->next;
-	}
-	printf("Number of commands: %d\n", number_of_commands);
-	printf("\n");
-}*/
 
 static bool	read_input(t_shell *shell)
 {
@@ -85,7 +66,6 @@ void	repl(t_shell *shell)
 			ft_free(&shell->input);
 			free_tokens(shell->token);
 		}
-		// debug(shell->token, shell->num_of_cmds);
 	}
 }
 
@@ -104,3 +84,24 @@ int	main(int ac, char **av, char **env)
 		printf("%s do not receive argument!\n", av[0]);
 	return (0);
 }
+
+/*void	debug(t_token *token, int number_of_commands)
+{
+	t_token	*head;
+
+	head = token;
+	while (head)
+	{
+		// printf("value: %s, type: %s\n", token->value,
+			token_kind_string(token->type));
+		// token = token->next;
+		// if (head->type == COMMAND || head->type == ARGUMENT
+			head->type == VARIABLE)
+		printf("%s, type: %s\n", head->value, token_kind_string(head->type));
+		// else
+		// 	printf("type: %s\n", token_kind_string(head->type));
+		head = head->next;
+	}
+	printf("Number of commands: %d\n", number_of_commands);
+	printf("\n");
+}*/
