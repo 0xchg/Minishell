@@ -3,45 +3,51 @@
 /*                                                        :::      ::::::::   */
 /*   tokens_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: welepy <welepy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 12:15:54 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/06 14:24:21 by mchingi          ###   ########.fr       */
+/*   Updated: 2025/03/07 10:57:13 by welepy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minihell.h"
 
+static void	is_command_util(char **paths, int *tab, char *value)
+{
+	char	*tmp;
+
+	tmp = ft_strjoin(paths[tab[0]], "/");
+	free(paths[tab[0]]);
+	paths[tab[0]] = ft_strjoin(tmp, value);
+	free(tmp);
+}
+
 bool	is_command(char *value, char *path)
 {
 	char	**paths;
-	int		i;
 	char	*tmp;
-	bool	found;
+	int		tab[2];
 
-	found = false;
-	i = 0;
+	tab[1] = 0;
+	tab[0] = 0;
 	paths = ft_split(path, ':');
-	while (paths[i])
+	while (paths[tab[0]])
 	{
-		tmp = ft_strjoin(paths[i], "/");
-		free(paths[i]);
-		paths[i] = ft_strjoin(tmp, value);
-		free(tmp);
-		i++;
+		is_command_util(paths, tab, value);
+		tab[0]++;
 	}
-	i = 0;
-	while (paths[i])
+	tab[0] = 0;
+	while (paths[tab[0]])
 	{
-		if (access(paths[i], F_OK) == 0)
+		if (access(paths[tab[0]], F_OK) == 0)
 		{
-			found = true;
+			tab[1] = 1;
 			break ;
 		}
-		i++;
+		tab[0]++;
 	}
 	free_matrix(paths);
-	return (found);
+	return (tab[1]);
 }
 
 t_token	*new_token(char *value, t_type type)

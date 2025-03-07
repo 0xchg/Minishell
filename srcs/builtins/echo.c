@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: welepy <welepy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 15:48:53 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/06 14:38:59 by mchingi          ###   ########.fr       */
+/*   Updated: 2025/03/07 10:22:21 by welepy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minihell.h"
 
-static bool	is_valid_option(char *value)
+static bool	v_option(char *value)
 {
 	int	i;
 
@@ -52,18 +52,24 @@ static bool	check_input(char *input)
 	return (false);
 }
 
+static void	echo_aux_ext(t_token *temp, bool *tab)
+{
+	if (!tab[0] && !tab[1])
+		printf(" ");
+	tab[0] = false;
+	printf("%s", remove_quotes(temp->value));
+}
+
 static bool	echo_aux(t_token *token, bool *option, char *input)
 {
 	t_token	*temp;
 	t_token	*temp2;
-	bool	is_first_argument;
-	bool	previous_char;
+	bool	tab[2];
 
-	is_first_argument = true;
-	previous_char = check_input(input);
+	tab[0] = true;
+	tab[1] = check_input(input);
 	temp = token->next;
-	while (temp && temp->type == OPTION \
-		&& is_valid_option(remove_quotes(temp->value)))
+	while (temp && temp->type == OPTION && v_option(remove_quotes(temp->value)))
 	{
 		*option = true;
 		temp = temp->next;
@@ -74,13 +80,10 @@ static bool	echo_aux(t_token *token, bool *option, char *input)
 		temp2->type = ARGUMENT;
 		temp2 = temp2->next;
 	}
-	while (temp && (temp->type == ARGUMENT || temp->type == SINGLE_QUOTE \
-		|| temp->type == DOUBLE_QUOTE || temp->type == OPTION))
+	while (temp && (temp->type == ARGUMENT || temp->type == SINGLE_QUOTE
+			|| temp->type == DOUBLE_QUOTE || temp->type == OPTION))
 	{
-		if (!is_first_argument && !previous_char)
-			printf(" ");
-		is_first_argument = false;
-		printf("%s", remove_quotes(temp->value));
+		echo_aux_ext(temp, tab);
 		temp = temp->next;
 	}
 	return (*option);

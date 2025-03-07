@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: welepy <welepy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 15:49:03 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/02 17:54:35 by mchingi          ###   ########.fr       */
+/*   Updated: 2025/03/07 10:20:17 by welepy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../../inc/minihell.h"
+#include "../../inc/minihell.h"
 
 // Claramente falta muito
 
@@ -47,5 +47,5 @@ void	ft_exit(t_shell *shell)
 	printf("\nfrom builtins\n");
 	clean_or_exit(shell);
 	free(shell);
-	exit(EXIT_SUCCESS);
+	exit(shell->exit_status);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: welepy <welepy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 21:08:38 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/06 14:14:43 by mchingi          ###   ########.fr       */
+/*   Updated: 2025/03/07 10:54:05 by welepy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,7 @@
 char	*find_path(char *cmd, char **envp)
 {
 	int		i;
-	char	*path;
-	char	*part_path;
+	char	*matrix[2];
 	char	**paths;
 
 	i = 0;
@@ -25,19 +24,18 @@ char	*find_path(char *cmd, char **envp)
 	paths = ft_split(envp[i] + 5, ':');
 	if (!paths)
 		return (NULL);
-	i = 0;
-	while (paths[i])
+	i = -1;
+	while (paths[++i])
 	{
-		part_path = ft_strjoin(paths[i], "/");
-		path = ft_strjoin(part_path, cmd);
-		ft_free(&part_path);
-		if (access(path, F_OK) == 0)
+		matrix[1] = ft_strjoin(paths[i], "/");
+		matrix[0] = ft_strjoin(matrix[1], cmd);
+		ft_free(&matrix[1]);
+		if (access(matrix[0], F_OK) == 0)
 		{
 			free_matrix(paths);
-			return (path);
+			return (matrix[0]);
 		}
-		ft_free(&path);
-		i++;
+		ft_free(&matrix[0]);
 	}
 	free_matrix(paths);
 	return (NULL);
@@ -86,14 +84,13 @@ char	*clean_string(char *str)
 	cleaned_str = (char *)malloc(sizeof(char) * (tab[1] + 1));
 	if (!cleaned_str)
 		return (NULL);
-	tab[0] = 0;
+	tab[0] = -1;
 	tab[1] = 0;
-	while (str[tab[0]])
+	while (str[++tab[0]])
 	{
 		if (str[tab[0]] == '\"' || str[tab[0]] == '\'')
 			tab[0]++;
 		cleaned_str[tab[1]] = str[tab[0]];
-		tab[0]++;
 		tab[1]++;
 	}
 	cleaned_str[tab[0]] = '\0';

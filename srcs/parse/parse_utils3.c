@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_utils3.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: welepy <welepy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 13:52:15 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/06 19:15:02 by welepy           ###   ########.fr       */
+/*   Updated: 2025/03/07 10:56:59 by welepy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,68 +79,28 @@ static char	*process_expansion_helper(t_env *env, char *result, char *temp)
 
 static char	*process_expansion(char *str, t_env *env)
 {
-	char	*result;
-	char	*start;
-	char	*end;
-	char	*temp;
+	char	*matrix[4];
 
-	start = str;
-	result = ft_strdup("");
-	while ((start = ft_strchr(start, '$')))
+	matrix[1] = str;
+	matrix[0] = ft_strdup("");
+	matrix[1] = ft_strchr(matrix[1], '$');
+	while (matrix[1])
 	{
-		end = start;
-		if (end > str)
+		matrix[2] = matrix[1];
+		if (matrix[2] > str)
 		{
-			temp = ft_substr(str, 0, end - str);
-			result = ft_strjoin_free(result, temp);
+			matrix[3] = ft_substr(str, 0, matrix[2] - str);
+			matrix[0] = ft_strjoin_free(matrix[0], matrix[3]);
 		}
-		start++;
-		end = start;
-		while (*end && (ft_isalnum(*end) || *end == '_'))
-			end++;
-		temp = ft_substr(start, 0, end - start);
-		result = process_expansion_helper(env, result, temp);
-		str = end;
+		matrix[1]++;
+		matrix[2] = matrix[1];
+		while (*matrix[2] && (ft_isalnum(*matrix[2]) || *matrix[2] == '_'))
+			matrix[2]++;
+		matrix[3] = ft_substr(matrix[1], 0, matrix[2] - matrix[1]);
+		matrix[0] = process_expansion_helper(env, matrix[0], matrix[3]);
+		str = matrix[2];
+		matrix[1] = ft_strchr(matrix[1], '$');
 	}
-	result = ft_strjoin_free(result, str);
-	return (result);
-}
-
-t_env	*convert_env(char **env)
-{
-	t_env	*list;
-	t_env	*new;
-	int		i;
-
-	list = NULL;
-	i = 0;
-	while (env[i])
-	{
-		new = malloc(sizeof(t_env));
-		if (!new)
-		{
-			ft_lstclear((t_list **)&list, free);
-			return (NULL);
-		}
-		new->name = ft_strndup(env[i], ft_strcspn(env[i], "="));
-		new->value = ft_strdup(env[i] + ft_strcspn(env[i], "=") + 1);
-		new->next = NULL;
-		ft_lstadd_back((t_list **)&list, (t_list *)new);
-		i++;
-	}
-	return (list);
-}
-
-char	*get_path(t_env *env)
-{
-	t_env	*tmp;
-
-	tmp = env;
-	while (tmp)
-	{
-		if (ft_strcmp(tmp->name, "PATH") == 0)
-			return (ft_strdup(tmp->value));
-		tmp = tmp->next;
-	}
-	return (NULL);
+	matrix[0] = ft_strjoin_free(matrix[0], str);
+	return (matrix[0]);
 }

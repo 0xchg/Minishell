@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_fprintf_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marcsilv <marcsilv@student.42.fr>          +#+  +:+       +#+        */
+/*   By: welepy <welepy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 13:02:30 by efinda            #+#    #+#             */
-/*   Updated: 2024/11/15 15:48:37 by marcsilv         ###   ########.fr       */
+/*   Updated: 2025/03/07 09:59:43 by welepy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void	ft_fprintptr(int fd, void *ptr, int *res)
 	{
 		ft_fputstr(fd, "0x", res);
 		ft_fprintbase(fd, p, "0123456789abcdef", res);
-	}	
+	}
 	else
 		ft_fputstr(fd, "(nil)", res);
 }

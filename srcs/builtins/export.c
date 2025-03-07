@@ -6,7 +6,7 @@
 /*   By: welepy <welepy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 15:49:08 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/05 10:57:43 by welepy           ###   ########.fr       */
+/*   Updated: 2025/03/07 10:11:22 by welepy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	add_env(t_env **env, t_env *new)
 		*env = new;
 }
 
-void	ft_export(t_env *env, t_token *token,t_shell *shell)
+void	ft_export(t_env *env, t_token *token, t_shell *shell)
 {
 	t_env	*temp;
 	t_token	*head;

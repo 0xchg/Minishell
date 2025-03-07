@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: welepy <welepy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 14:02:03 by marcsilv          #+#    #+#             */
-/*   Updated: 2025/03/02 17:22:28 by mchingi          ###   ########.fr       */
+/*   Updated: 2025/03/07 09:58:41 by welepy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,7 +136,7 @@ char	**add_str_matrix(char **matrix, char *str);
 char	**rm_str_matrix_index(char **matrix, int index);
 
 char	*ft_strjoin_free(char *s1, char *s2);
-char	*ft_replace(const char* str, const char* new_word, int index);
+char	*ft_replace(const char *str, const char *new_word, int index);
 
 t_list	*matrix_to_list(char **matrix);
 

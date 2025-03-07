@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executer.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: welepy <welepy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 11:35:17 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/06 15:42:02 by mchingi          ###   ########.fr       */
+/*   Updated: 2025/03/07 10:23:48 by welepy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,8 @@ int	executer(t_shell *shell, t_token *tokens)
 			command_executer(shell, tokens);
 		cmd_start = cmd_start->next;
 	}
-	while (wait(NULL) > 0);
+	while (wait(NULL) > 0)
+		;
 	if (here_doc_flag(tokens))
 		unlink(".DOC_TMP");
 	free_matrix(pipes->ev);
