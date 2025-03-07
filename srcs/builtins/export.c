@@ -6,7 +6,7 @@
 /*   By: welepy <welepy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 15:49:08 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/07 10:11:22 by welepy           ###   ########.fr       */
+/*   Updated: 2025/03/07 11:08:34 by welepy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	ft_export(t_env *env, t_token *token, t_shell *shell)
 	t_token	*head;
 
 	head = token;
-	if (!head)
+	if (!head->next)
 		ft_env(env, head, shell, true);
 	while (head && (head->type == ARGUMENT))
 	{
