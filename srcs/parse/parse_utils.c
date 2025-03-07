@@ -6,7 +6,7 @@
 /*   By: welepy <welepy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 00:43:22 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/07 11:11:04 by welepy           ###   ########.fr       */
+/*   Updated: 2025/03/07 15:35:31 by welepy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,16 @@ int	count_char(char *input, char c)
 	return (count);
 }
 
+static void	validate_quote_number_util(char **input, int *double_quote_count)
+{
+	(*double_quote_count)++;
+	(*input)++;
+	while (**input && **input != '\"')
+		(*input)++;
+	if (**input == '\"')
+		(*double_quote_count)++;
+}
+
 bool	validate_quote_number(char *input)
 {
 	int	single_quote_count;
@@ -82,21 +92,11 @@ bool	validate_quote_number(char *input)
 				single_quote_count++;
 		}
 		else if (*input == '\"')
-		{
-			double_quote_count++;
-			input++;
-			while (*input && *input != '\"')
-				input++;
-			if (*input == '\"')
-				double_quote_count++;
-		}
+			validate_quote_number_util(&input, &double_quote_count);
 		if (*input)
 			input++;
 	}
 	if (single_quote_count % 2 != 0 || double_quote_count % 2 != 0)
-	{
-		ft_fprintf(2, "Error: can't parse unclosed quotes\n");
 		return (false);
-	}
 	return (true);
 }

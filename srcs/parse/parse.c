@@ -6,7 +6,7 @@
 /*   By: welepy <welepy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 11:47:02 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/07 15:24:14 by welepy           ###   ########.fr       */
+/*   Updated: 2025/03/07 15:31:20 by welepy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,10 @@ static char	**split_input(char *input)
 
 	i = 0;
 	if (!validate_quote_number(input))
+	{
+		ft_fprintf(2, "Error: can't parse unclosed quotes\n");
 		return (NULL);
+	}
 	array = safe_malloc(sizeof(char *) * (word_count(input) + 1));
 	while (*input)
 	{
@@ -94,6 +97,5 @@ void	parse(t_shell *shell)
 		identify_tokens(shell->token, shell->path);
 		token_sequence(shell->token);
 	}
-	// ft_free(&shell->input);
 	ft_free(&temp);
 }
