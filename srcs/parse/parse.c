@@ -6,7 +6,7 @@
 /*   By: welepy <welepy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 11:47:02 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/06 18:33:40 by welepy           ###   ########.fr       */
+/*   Updated: 2025/03/07 14:27:44 by welepy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ char	*extract_variable(char **input)
 	return (variable);
 }
 
-char	**split_input(char *input, t_shell *shell)
+static char	**split_input(char *input)
 {
 	int		i;
 	char	**array;
@@ -59,7 +59,7 @@ char	**split_input(char *input, t_shell *shell)
 	array = safe_malloc(sizeof(char *) * (word_count(input) + 1));
 	if (!validate_quote_number(input))
 	{
-		shell->flag = false;
+		free_matrix(array);
 		return (NULL);
 	}
 	while (*input)
@@ -68,7 +68,7 @@ char	**split_input(char *input, t_shell *shell)
 			input++;
 		if (*input == '\'' || *input == '\"')
 			array[i++] = extract_quote(&input);
-		else if (strchr("|<>*&", *input))
+		else if (ft_strchr("|<>*&", *input))
 			array[i++] = extract_operator(&input);
 		else if (*input == '$')
 			array[i++] = extract_variable(&input);
@@ -81,17 +81,22 @@ char	**split_input(char *input, t_shell *shell)
 
 void	parse(t_shell *shell)
 {
+	char	*temp;
+
+	temp = ft_strtrim(shell->input, " ");
 	shell->flag = true;
-	shell->array = split_input(ft_strtrim(shell->input, " "), shell);
+	shell->array = split_input(temp);
 	if (!shell->array)
-	{
-		ft_putstr_fd("Error: Failed to parse input", 2);
 		shell->flag = false;
+	if (shell->flag)
+	{
+		expand(&shell->array, shell->env, shell);
+		shell->token = tokenize_array(shell->array);
+		if (!shell->token)
+			error_message("token");
+		identify_tokens(shell->token, shell->path);
+		token_sequence(shell->token);
 	}
-	expand(&shell->array, shell->env, shell);
-	shell->token = tokenize_array(shell->array);
-	if (!shell->token)
-		error_message("token");
-	identify_tokens(shell->token, shell->path);
-	token_sequence(shell->token);
+	// ft_free(&shell->input);
+	ft_free(&temp);
 }
