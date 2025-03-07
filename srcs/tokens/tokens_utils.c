@@ -6,7 +6,7 @@
 /*   By: welepy <welepy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 12:15:54 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/07 10:57:13 by welepy           ###   ########.fr       */
+/*   Updated: 2025/03/07 11:02:51 by welepy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ static void	is_command_util(char **paths, int *tab, char *value)
 bool	is_command(char *value, char *path)
 {
 	char	**paths;
-	char	*tmp;
 	int		tab[2];
 
 	tab[1] = 0;
