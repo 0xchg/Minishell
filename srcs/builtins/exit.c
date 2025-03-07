@@ -6,7 +6,7 @@
 /*   By: welepy <welepy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 15:49:03 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/07 10:20:17 by welepy           ###   ########.fr       */
+/*   Updated: 2025/03/07 11:15:56 by welepy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,7 @@ void	clean_or_exit(t_shell *shell)
 
 void	ft_exit(t_shell *shell)
 {
-	printf("\nfrom builtins\n");
 	clean_or_exit(shell);
-	free(shell);
 	exit(shell->exit_status);
+	free(shell);
 }
