@@ -6,7 +6,7 @@
 /*   By: welepy <welepy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 11:47:02 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/05 10:05:30 by welepy           ###   ########.fr       */
+/*   Updated: 2025/03/06 18:33:40 by welepy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ char	**split_input(char *input, t_shell *shell)
 	array = safe_malloc(sizeof(char *) * (word_count(input) + 1));
 	if (!validate_quote_number(input))
 	{
-		ft_fprintf(2, "Error: can't parse unclosed quotes\n");
 		shell->flag = false;
 		return (NULL);
 	}
@@ -73,7 +72,7 @@ char	**split_input(char *input, t_shell *shell)
 			array[i++] = extract_operator(&input);
 		else if (*input == '$')
 			array[i++] = extract_variable(&input);
-		else 
+		else
 			array[i++] = extract_command(&input);
 	}
 	array[i] = NULL;
@@ -95,5 +94,4 @@ void	parse(t_shell *shell)
 		error_message("token");
 	identify_tokens(shell->token, shell->path);
 	token_sequence(shell->token);
-	// shell->num_of_cmds = number_of_commands(shell->token);
 }

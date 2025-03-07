@@ -6,7 +6,7 @@
 /*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 00:43:22 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/06 14:32:34 by mchingi          ###   ########.fr       */
+/*   Updated: 2025/03/06 18:31:15 by welepy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,9 @@ bool	validate_quote_number(char *input)
 			input++;
 	}
 	if (single_quote_count % 2 != 0 || double_quote_count % 2 != 0)
+	{
+		ft_fprintf(2, "Error: can't parse unclosed quotes\n");
 		return (false);
+	}
 	return (true);
 }
