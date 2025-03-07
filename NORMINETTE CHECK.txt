@@ -23,6 +23,8 @@ srcs/builtins/unset.c
 srcs/builtins/env.c
 srcs/builtins/cd.c
 
+static function
+
 
 /---------------------------- STILL TO BE DONE ---------------------------/
 
