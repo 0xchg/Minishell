@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executer_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: welepy <welepy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 12:20:55 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/06 14:07:28 by mchingi          ###   ########.fr       */
+/*   Updated: 2025/03/07 11:16:01 by welepy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ void	execute_builtins(t_shell *shell, t_token *token)
 		ft_unset(shell->env, token, shell);
 	else if (ft_strcmp(token->value, "exit") == 0)
 		ft_exit(shell);
-	printf("\nfrom builtins\n");
 }
 
 void	execute_full_command(char **args, char **env, int in, int out)
