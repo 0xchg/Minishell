@@ -6,7 +6,7 @@
 /*   By: welepy <welepy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 00:43:22 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/07 10:43:57 by welepy           ###   ########.fr       */
+/*   Updated: 2025/03/07 11:11:04 by welepy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,41 +63,37 @@ int	count_char(char *input, char c)
 	return (count);
 }
 
-static void	validate_quote_number_util(char *input, int *tab)
-{
-	if (*input == '\'')
-	{
-		tab[0]++;
-		input++;
-		while (*input && *input != '\'')
-			input++;
-		if (*input == '\'')
-			tab[0]++;
-	}
-	else if (*input == '\"')
-	{
-		tab[1]++;
-		input++;
-		while (*input && *input != '\"')
-			input++;
-		if (*input == '\"')
-			tab[1]++;
-	}
-}
-
 bool	validate_quote_number(char *input)
 {
-	int	tab[2];
+	int	single_quote_count;
+	int	double_quote_count;
 
-	tab[0] = 0;
-	tab[1] = 0;
+	single_quote_count = 0;
+	double_quote_count = 0;
 	while (*input)
 	{
-		validate_quote_number_util(input, tab);
+		if (*input == '\'')
+		{
+			single_quote_count++;
+			input++;
+			while (*input && *input != '\'')
+				input++;
+			if (*input == '\'')
+				single_quote_count++;
+		}
+		else if (*input == '\"')
+		{
+			double_quote_count++;
+			input++;
+			while (*input && *input != '\"')
+				input++;
+			if (*input == '\"')
+				double_quote_count++;
+		}
 		if (*input)
 			input++;
 	}
-	if (tab[0] % 2 != 0 || tab[1] % 2 != 0)
+	if (single_quote_count % 2 != 0 || double_quote_count % 2 != 0)
 	{
 		ft_fprintf(2, "Error: can't parse unclosed quotes\n");
 		return (false);
