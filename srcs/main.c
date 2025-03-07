@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: welepy <welepy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 15:16:24 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/06 18:26:08 by welepy           ###   ########.fr       */
+/*   Updated: 2025/03/07 14:36:58 by welepy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,11 @@
 static bool	read_input(t_shell *shell)
 {
 	char	*raw_input;
+	char	*pwd;
 
-	printf("┌[%s] - [%s]\n", getenv("USER"), getcwd(NULL, 0));
-	raw_input = readline("└─> ");
+	pwd = getcwd(NULL, 0);
+	printf("┌[%s] - [%s]\n", getenv("USER"), pwd);
+	raw_input = readline("└─[$] ");
 	if (!raw_input)
 	{
 		ft_putstr_fd("exit\n", 2);
@@ -28,11 +30,11 @@ static bool	read_input(t_shell *shell)
 	if (all_spaces(raw_input))
 	{
 		ft_free(&raw_input);
-		printf("┌[%s] - [%s]\n", getenv("USER"), getcwd(NULL, 0));
 		return (false);
 	}
 	shell->input = ft_strtrim(raw_input, " \t\n");
 	ft_free(&raw_input);
+	ft_free(&pwd);
 	return (true);
 }
 
@@ -62,9 +64,9 @@ void	repl(t_shell *shell)
 			executer(shell, shell->token);
 		else
 		{
-			free_matrix(shell->array);
-			ft_free(&shell->input);
-			free_tokens(shell->token);
+			// free_matrix(shell->array);22
+			// ft_free(&shell->input);
+			// free_tokens(shell->token);
 		}
 	}
 }
