@@ -6,7 +6,7 @@
 /*   By: welepy <welepy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 12:20:55 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/07 11:16:01 by welepy           ###   ########.fr       */
+/*   Updated: 2025/03/08 14:46:44 by welepy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,28 +51,24 @@ void	execute_command(t_token *token, t_shell *shell)
 {
 	char	*path;
 	char	**args;
-	char	**env;
 
 	if (!token)
 		return ;
-	env = env_to_matrix(shell->env);
 	args = tokenize_command(token);
 	if (access(args[0], F_OK) == 0)
 	{
 		path = ft_strdup(args[0]);
 		args[0] = ft_strtrim(args[0], "/bin/");
-		if (execve(path, args, env) == -1)
+		if (execve(path, args, env_to_matrix(shell->env)) == -1)
 			error_message("execve");
 	}
-	path = find_path(args[0], env);
+	path = find_path(args[0], env_to_matrix(shell->env));
 	if (!path)
 	{
 		ft_fprintf(2, "%s: command not found\n", args[0]);
 		shell->exit_status = 127;
-		free_matrix(env);
-		exit(EXIT_FAILURE);
 	}
-	if (execve(path, args, env) == -1)
+	if (execve(path, args, env_to_matrix(shell->env)) == -1)
 		error_message("execve");
 }
 
@@ -101,6 +97,7 @@ void	execute_cmd_in_pipe(t_token *token, t_shell *shell, int in, int out)
 		dup3(out, STDOUT_FILENO);
 	if (execve(path, args, env) == -1)
 		error_message("execve");
+	free_matrix(env);
 }
 
 void	command_executer(t_shell *shell, t_token *tokens)

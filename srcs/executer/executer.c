@@ -6,7 +6,7 @@
 /*   By: welepy <welepy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 11:35:17 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/07 10:23:48 by welepy           ###   ########.fr       */
+/*   Updated: 2025/03/08 14:53:26 by welepy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,14 +55,13 @@ void	pipe_executer(t_shell *shell, t_token *token, t_pipe *pip, t_type type)
 	}
 }
 
-void	init_pipe(t_pipe *pipe, t_shell *shell, t_token *tokens)
+static void	init_pipe(t_pipe *pipe, t_token *tokens)
 {
 	if (!pipe)
 		error_message("malloc");
 	pipe->i = 0;
 	pipe->input_fd = 0;
 	pipe->flag = pipe_flag(tokens);
-	pipe->ev = env_to_matrix(shell->env);
 }
 
 int	executer(t_shell *shell, t_token *tokens)
@@ -71,7 +70,7 @@ int	executer(t_shell *shell, t_token *tokens)
 	t_token	*cmd_start;
 
 	pipes = malloc(sizeof(t_pipe));
-	init_pipe(pipes, shell, tokens);
+	init_pipe(pipes, tokens);
 	cmd_start = tokens;
 	while (cmd_start)
 	{
@@ -89,7 +88,6 @@ int	executer(t_shell *shell, t_token *tokens)
 		;
 	if (here_doc_flag(tokens))
 		unlink(".DOC_TMP");
-	free_matrix(pipes->ev);
 	free(pipes);
 	return (shell->exit_status);
 }
