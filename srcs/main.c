@@ -6,7 +6,7 @@
 /*   By: welepy <welepy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 15:16:24 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/09 10:58:33 by welepy           ###   ########.fr       */
+/*   Updated: 2025/03/09 15:14:46 by welepy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,19 @@ static bool	read_input(t_shell *shell)
 {
 	char	*raw_input;
 	char	*pwd;
+	char	*user;
 
-	pwd = getcwd(NULL, 0);
-	printf("┌[%s] - [%s]\n", getenv("USER"), pwd);
+	user = getenv("USER");
+	if (!user)
+		user = ft_strdup("");
+	pwd = safe_malloc(PATH_MAX);
+	getcwd(pwd, PATH_MAX);
+	printf("┌[%s] - [%s]\n", user, pwd);
 	raw_input = readline("└─[$] ");
 	if (!raw_input)
 	{
 		ft_putstr_fd("exit\n", 2);
+		ft_free(&shell->path);
 		exit(0);
 	}
 	if (*raw_input)
