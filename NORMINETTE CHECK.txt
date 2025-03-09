@@ -7,6 +7,9 @@ srcs/signal.c
 srcs/here_document.c 
 srcs/redirections.c
 
+srcs/executer/executer.c
+srcs/executer/command_executer.c
+srcs/executer/pipe_executer.c
 srcs/executer/executer_utils.c 
 srcs/executer/executer_utils1.c
 
@@ -15,49 +18,24 @@ srcs/utils/utils2.c
 srcs/utils/utils3.c
 
 srcs/tokens/tokens.c
+srcs/tokens/tokens_utils.c
 
 srcs/parse/parse_utils2.c
+srcs/parse/parse_utils.c
+srcs/parse/parse_utils3.c
+srcs/parse/parse.c
 
 srcs/builtins/pwd.c
 srcs/builtins/unset.c
 srcs/builtins/env.c
 srcs/builtins/cd.c
-
-static function
-
+srcs/builtins/echo.c
 
 /---------------------------- STILL TO BE DONE ---------------------------/
 
 srcs/main.c: Error!
-Error: LINE_TOO_LONG (line:  15, col:   1): line too long
-Error: LINE_TOO_LONG (line:  15, col:   1): line too long
-Error: WRONG_SCOPE_COMMENT (line:  88, col:   9): Comment is invalid in this scope
+Error: WRONG_SCOPE_COMMENT (line:  71, col:   9): Comment is invalid in this scope
 
-srcs/executer/executer.c: Error!
-Error: EXP_NEWLINE (line:  88, col:  27): Expected newline after control structure
 
 srcs/utils/utils.c: Error!
 Error: TOO_MANY_LINES (line:  44, col:   1): Function has more than 25 lines
-Error: TOO_MANY_LINES (line: 101, col:   1): Function has more than 25 lines
-
-srcs/tokens/tokens_utils.c: Error!
-Error: TOO_MANY_LINES (line:  45, col:   1): Function has more than 25 lines
-
-srcs/parse/parse_utils.c: Error!
-Error: TOO_MANY_LINES (line:  99, col:   1): Function has more than 25 lines
-srcs/parse/parse_utils3.c: Error!
-Error: TERNARY_FBIDDEN (line:  53, col:  48): Ternaries are forbidden
-Error: TOO_MANY_LINES (line:  64, col:   1): Function has more than 25 lines
-Error: SPACE_REPLACE_TAB (line:  68, col:   9): Found space when expecting tab
-Error: SPACE_BEFORE_FUNC (line:  79, col:  12): space before function name
-Error: ASSIGN_IN_CONTROL (line:  88, col:  19): Assignment in control structure
-Error: TOO_MANY_FUNCS (line: 133, col:   1): Too many functions in file
-srcs/parse/parse.c: Error!
-Error: SPC_BEFORE_NL (line:  76, col:  13): Space before newline
-Error: TOO_MANY_LINES (line:  81, col:   1): Function has more than 25 lines
-Error: WRONG_SCOPE_COMMENT (line:  98, col:   5): Comment is invalid in this 
-
-srcs/builtins/echo.c: Error!
-Error: TOO_MANY_LINES (line:  87, col:   1): Function has more than 25 lines
-
-

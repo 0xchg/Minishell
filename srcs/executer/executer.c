@@ -3,57 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   executer.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: welepy <welepy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 11:35:17 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/09 10:15:28 by welepy           ###   ########.fr       */
+/*   Updated: 2025/03/09 16:49:31 by mchingi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minihell.h"
-
-static void	clean_t_pipe(t_pipe *pipes, char	*str)
-{
-	free(pipes);
-	error_message(str);
-}
-
-void	child_pipe(t_token *token, t_pipe *pip, t_type type, t_shell *shell)
-{
-	if (type == PIPE)
-		execute_cmd_in_pipe(token, shell, pip->input_fd, pip->pipe_fd[1]);
-	else
-		execute_cmd_in_pipe(token, shell, pip->input_fd, STDOUT_FILENO);
-}
-
-void	pipe_executer(t_shell *shell, t_token *token, t_pipe *pip, t_type type)
-{
-	if (pipe(pip->pipe_fd) == -1)
-		clean_t_pipe(pip, "pipe");
-	pip->id = fork();
-	if (pip->id == -1)
-		clean_t_pipe(pip, "fork");
-	if (pip->id == 0)
-	{
-		execute_redirections(token, shell);
-		if (is_builtin(token->type))
-		{
-			if (type == PIPE)
-				dup3(pip->pipe_fd[1], STDOUT_FILENO);
-			execute_builtins(shell, token);
-			exit(0);
-		}
-		else
-			child_pipe(token, pip, type, shell);
-	}
-	if (pip->input_fd != 0)
-		close(pip->input_fd);
-	if (type == PIPE)
-	{
-		close(pip->pipe_fd[1]);
-		pip->input_fd = pip->pipe_fd[0];
-	}
-}
 
 static void	init_pipe(t_pipe *pipe, t_token *tokens)
 {
@@ -62,14 +19,6 @@ static void	init_pipe(t_pipe *pipe, t_token *tokens)
 	pipe->i = 0;
 	pipe->input_fd = 0;
 	pipe->flag = pipe_flag(tokens);
-}
-
-void	clean_execution(t_shell *shell, t_token *tokens, t_pipe *pipes)
-{
-	free_tokens(tokens);
-	ft_free(&shell->input);
-	free_matrix(shell->array);
-	free(pipes);
 }
 
 int	executer(t_shell *shell, t_token *tokens)
@@ -96,6 +45,6 @@ int	executer(t_shell *shell, t_token *tokens)
 		;
 	if (here_doc_flag(tokens))
 		unlink(".DOC_TMP");
-	clean_execution(shell, tokens, pipes);
+	free(pipes);
 	return (shell->exit_status);
 }
