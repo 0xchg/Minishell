@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minihell.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: welepy <welepy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 15:16:19 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/09 10:15:24 by welepy           ###   ########.fr       */
+/*   Updated: 2025/03/09 16:58:14 by mchingi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@
 # include "../libft/libft.h"
 # include <stdbool.h> 
 
-// extern int	g_exit_status;
 //----------------------------- Structs ---------------------------------------/
 
 typedef enum e_type
@@ -96,12 +95,13 @@ void	execute_redirections(t_token *token, t_shell *shell);
 void	here_doc(char *str);
 //-------------------------------- Executer ----------------------------------/
 int		executer(t_shell *shell, t_token *tokens);
-int		pipe_flag(t_token *token);
 void	execute_command(t_token *token, t_shell *shell);
+void	execute_full_command(char **args, char **env, int in, int out);
 void	execute_builtins(t_shell *shell, t_token *token);
 void	execute_cmd_in_pipe(t_token *token, t_shell *shell, int in, int out);
 void	dup3(int fd, int fd2);
 void	command_executer(t_shell *shell, t_token *tokens);
+void	pipe_executer(t_shell *shell, t_token *token, t_pipe *pip, t_type type);
 char	*find_path(char *cmd, char **envp);
 char	**tokenize_command(t_token *token);
 
@@ -110,7 +110,7 @@ bool	is_command(char *value, char *path);
 void	identify_tokens(t_token *tokens, char *path);
 void	token_sequence(t_token *tokens);
 void	free_tokens(t_token *head);
-char	*token_kind_string(t_type type);
+// char	*token_kind_string(t_type type);
 t_token	*tokenize_array(char **array);
 t_token	*new_token(char *value, t_type type);
 //--------------------------------- Parse -------------------------------------/
@@ -124,6 +124,7 @@ char	*clean_string(char *str);
 char	*remove_quotes(char *str);
 char	*extract_quote(char **input);
 char	*extract_operator(char **input);
+char	**env_to_matrix(t_env *env);
 t_env	*convert_env(char **env);
 
 //-------------------------------- Builtins ----------------------------------/
@@ -143,12 +144,10 @@ bool	is_lesser(t_type token);
 bool	is_builtin(t_type type);
 bool	is_builtin_or_command(t_type type);
 int		here_doc_flag(t_token *token);
+int		pipe_flag(t_token *token);
 
 //-------------------------------- ANYTHING ----------------------------------/
 void	error_message(char *str);
 void	signal_handler(int sig);
-void	id_quotes(t_token *tokens);
-char	**env_to_matrix(t_env *env);
-void	clean_execution(t_shell *shell, t_token *tokens, t_pipe *pipes);
 
 #endif

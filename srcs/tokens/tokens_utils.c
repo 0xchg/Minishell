@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokens_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: welepy <welepy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 12:15:54 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/09 10:44:20 by welepy           ###   ########.fr       */
+/*   Updated: 2025/03/09 15:03:40 by mchingi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ void	token_sequence(t_token *tokens)
 	}
 }
 
-char	*token_kind_string(t_type type)
+/*char	*token_kind_string(t_type type)
 {
 	if (type == GREATER)
 		return ("GREATER");
@@ -113,4 +113,4 @@ char	*token_kind_string(t_type type)
 		return ("IDENTIFIER");
 	else
 		return ("UNKNOWN");
-}
+}*/

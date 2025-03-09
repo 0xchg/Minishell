@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: welepy <welepy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 15:16:24 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/09 15:14:46 by welepy           ###   ########.fr       */
+/*   Updated: 2025/03/09 15:14:46 by welepy           ###   ########.fr       */Z
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minihell.h"
 
-void	debug(t_token *token);
+// void	debug(t_token *token);
 
 static bool	read_input(t_shell *shell)
 {
@@ -70,13 +70,10 @@ void	repl(t_shell *shell)
 		parse(shell);
 		if (shell->flag)
 			executer(shell, shell->token);
+		free_tokens(shell->token);
+		ft_free(&shell->input);
+		free_matrix(shell->array);
 		// debug(shell->token);
-		// else
-		// {
-		// 	// free_matrix(shell->array);22
-		// 	// ft_free(&shell->input);
-		// 	// free_tokens(shell->token);
-		// }
 	}
 }
 
@@ -95,7 +92,7 @@ int	main(int ac, char **av, char **env)
 		ft_fprintf(2, "%s do not receive argument!\n", av[0]);
 	return (0);
 }
-
+/*
 void	debug(t_token *token)
 {
 	t_token	*head;
@@ -111,4 +108,4 @@ void	debug(t_token *token)
 		head = head->next;
 	}
 	printf("\n");
-}
+}*/
