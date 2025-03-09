@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marcsilv <marcsilv@student.42.fr>          +#+  +:+       +#+        */
+/*   By: welepy <welepy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 16:59:11 by marcsilv          #+#    #+#             */
-/*   Updated: 2024/11/14 20:06:33 by marcsilv         ###   ########.fr       */
+/*   Updated: 2025/03/09 12:45:54 by welepy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ char	*ft_strdup(const char *s)
 	size_t	len;
 	char	*dup;
 
+	if (!s)
+		return (NULL);
 	len = ft_strlen(s) + 1;
 	dup = safe_malloc(len);
 	if (dup == NULL)

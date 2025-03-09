@@ -6,7 +6,7 @@
 /*   By: welepy <welepy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 15:48:53 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/09 11:41:19 by welepy           ###   ########.fr       */
+/*   Updated: 2025/03/09 16:23:05 by welepy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ static bool	echo_aux(t_token *token, bool *option, char *input)
 	tab[0] = true;
 	tab[1] = check_input(input);
 	temp = token->next;
-	while (temp && temp->type == OPTION && v_option(remove_quotes(temp->value)))
+	while (temp && (temp->type == OPTION || temp->type == SINGLE_QUOTE || temp->type == DOUBLE_QUOTE) && v_option(remove_quotes(temp->value)))
 	{
 		*option = true;
 		temp = temp->next;
