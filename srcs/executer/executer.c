@@ -6,7 +6,7 @@
 /*   By: welepy <welepy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 11:35:17 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/08 14:53:26 by welepy           ###   ########.fr       */
+/*   Updated: 2025/03/09 10:15:28 by welepy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,14 @@ static void	init_pipe(t_pipe *pipe, t_token *tokens)
 	pipe->flag = pipe_flag(tokens);
 }
 
+void	clean_execution(t_shell *shell, t_token *tokens, t_pipe *pipes)
+{
+	free_tokens(tokens);
+	ft_free(&shell->input);
+	free_matrix(shell->array);
+	free(pipes);
+}
+
 int	executer(t_shell *shell, t_token *tokens)
 {
 	t_pipe	*pipes;
@@ -88,6 +96,6 @@ int	executer(t_shell *shell, t_token *tokens)
 		;
 	if (here_doc_flag(tokens))
 		unlink(".DOC_TMP");
-	free(pipes);
+	clean_execution(shell, tokens, pipes);
 	return (shell->exit_status);
 }

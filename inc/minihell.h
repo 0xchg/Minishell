@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minihell.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: welepy <welepy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 15:16:19 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/06 15:51:33 by mchingi          ###   ########.fr       */
+/*   Updated: 2025/03/09 10:15:24 by welepy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,5 +149,6 @@ void	error_message(char *str);
 void	signal_handler(int sig);
 void	id_quotes(t_token *tokens);
 char	**env_to_matrix(t_env *env);
+void	clean_execution(t_shell *shell, t_token *tokens, t_pipe *pipes);
 
 #endif

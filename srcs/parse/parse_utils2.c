@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_utils2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: welepy <welepy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 02:56:56 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/02 16:54:21 by mchingi          ###   ########.fr       */
+/*   Updated: 2025/03/09 10:57:14 by welepy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,7 @@ char	*extract_quote(char **input)
 	{
 		if (**input == quote)
 		{
-			if (*(*input + 1) == quote)
-				(*input)++;
-			else
+			if (*(*input) == quote)
 				break ;
 		}
 		(*input)++;

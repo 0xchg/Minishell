@@ -6,7 +6,7 @@
 /*   By: welepy <welepy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 12:15:54 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/07 11:02:51 by welepy           ###   ########.fr       */
+/*   Updated: 2025/03/09 10:44:20 by welepy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ void	token_sequence(t_token *tokens)
 	}
 }
 
-/*char	*token_kind_string(t_type type)
+char	*token_kind_string(t_type type)
 {
 	if (type == GREATER)
 		return ("GREATER");
@@ -113,4 +113,4 @@ void	token_sequence(t_token *tokens)
 		return ("IDENTIFIER");
 	else
 		return ("UNKNOWN");
-}*/
+}

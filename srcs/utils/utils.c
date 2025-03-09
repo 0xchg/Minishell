@@ -6,7 +6,7 @@
 /*   By: welepy <welepy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 21:08:38 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/07 10:54:05 by welepy           ###   ########.fr       */
+/*   Updated: 2025/03/09 10:30:05 by welepy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ char	**env_to_matrix(t_env *env)
 	t_env	*tmp;
 	char	**matrix;
 	int		i;
+	char	*temp;
 
 	tmp = env;
 	i = 0;
@@ -54,17 +55,18 @@ char	**env_to_matrix(t_env *env)
 		tmp = tmp->next;
 		i++;
 	}
-	matrix = malloc(sizeof(char *) * (i + 1));
+	matrix = safe_malloc(sizeof(char *) * (i + 1));
 	tmp = env;
-	i = 0;
+	i = -1;
 	while (tmp)
 	{
-		matrix[i] = ft_strjoin(tmp->name, "=");
-		matrix[i] = ft_strjoin(matrix[i], tmp->value);
+		matrix[++i] = ft_strjoin(tmp->name, "=");
+		temp = ft_strjoin(matrix[i], tmp->value);
+		ft_free(&matrix[i]);
+		matrix[i] = temp;
 		tmp = tmp->next;
-		i++;
 	}
-	matrix[i] = NULL;
+	matrix[++i] = NULL;
 	return (matrix);
 }
 

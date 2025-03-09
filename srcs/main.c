@@ -6,11 +6,13 @@
 /*   By: welepy <welepy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 15:16:24 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/07 14:36:58 by welepy           ###   ########.fr       */
+/*   Updated: 2025/03/09 10:58:33 by welepy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minihell.h"
+
+void	debug(t_token *token);
 
 static bool	read_input(t_shell *shell)
 {
@@ -62,12 +64,13 @@ void	repl(t_shell *shell)
 		parse(shell);
 		if (shell->flag)
 			executer(shell, shell->token);
-		else
-		{
-			// free_matrix(shell->array);22
-			// ft_free(&shell->input);
-			// free_tokens(shell->token);
-		}
+		// debug(shell->token);
+		// else
+		// {
+		// 	// free_matrix(shell->array);22
+		// 	// ft_free(&shell->input);
+		// 	// free_tokens(shell->token);
+		// }
 	}
 }
 
@@ -83,11 +86,11 @@ int	main(int ac, char **av, char **env)
 		free(shell);
 	}
 	else
-		printf("%s do not receive argument!\n", av[0]);
+		ft_fprintf(2, "%s do not receive argument!\n", av[0]);
 	return (0);
 }
 
-/*void	debug(t_token *token, int number_of_commands)
+void	debug(t_token *token)
 {
 	t_token	*head;
 
@@ -95,15 +98,11 @@ int	main(int ac, char **av, char **env)
 	while (head)
 	{
 		// printf("value: %s, type: %s\n", token->value,
-			token_kind_string(token->type));
 		// token = token->next;
-		// if (head->type == COMMAND || head->type == ARGUMENT
-			head->type == VARIABLE)
 		printf("%s, type: %s\n", head->value, token_kind_string(head->type));
 		// else
 		// 	printf("type: %s\n", token_kind_string(head->type));
 		head = head->next;
 	}
-	printf("Number of commands: %d\n", number_of_commands);
 	printf("\n");
-}*/
+}
