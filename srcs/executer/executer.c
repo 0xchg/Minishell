@@ -6,7 +6,7 @@
 /*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 11:35:17 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/09 16:49:31 by mchingi          ###   ########.fr       */
+/*   Updated: 2025/03/10 19:18:13 by welepy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ int	executer(t_shell *shell, t_token *tokens)
 	cmd_start = tokens;
 	while (cmd_start)
 	{
-		shell->exit_status = 0;
 		if ((cmd_start->type == PIPE || !cmd_start->next) && pipes->flag)
 		{
 			pipe_executer(shell, tokens, pipes, cmd_start->type);
