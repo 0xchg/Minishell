@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokens.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: welepy <welepy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 11:53:06 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/06 14:00:11 by mchingi          ###   ########.fr       */
+/*   Updated: 2025/03/10 21:08:32 by welepy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ t_type	find_type(char *value)
 t_token	*tokenize_array(char **array)
 {
 	int		i;
+	char	*str;
 	t_token	*new;
 	t_token	*token;
 
@@ -65,9 +66,11 @@ t_token	*tokenize_array(char **array)
 	token = NULL;
 	while (array[i])
 	{
-		new = new_token(array[i], find_type(array[i]));
+		str = remove_quotes(array[i]);
+		new = new_token(str, find_type(array[i]));
 		ft_lstadd_back((t_list **)&token, (t_list *)new);
 		i++;
+		ft_free(&str);
 	}
 	return (token);
 }

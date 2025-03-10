@@ -6,7 +6,7 @@
 /*   By: welepy <welepy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 15:49:08 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/07 11:08:34 by welepy           ###   ########.fr       */
+/*   Updated: 2025/03/10 20:13:10 by welepy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static	t_env	*arg_to_env(t_token *token)
 	current_env = safe_malloc(sizeof(t_env));
 	current_env->name = ft_strdup(temp[0]);
 	if (temp[1])
-		current_env->value = ft_strdup(remove_quotes(temp[1]));
+		current_env->value = ft_strdup((temp[1]));
 	else if (token->next && (token->next->type == DOUBLE_QUOTE || \
 				token->next->type == SINGLE_QUOTE))
 		current_env->value = ft_strdup(token->next->value);
