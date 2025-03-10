@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokens_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: welepy <welepy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 12:15:54 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/10 20:43:53 by welepy           ###   ########.fr       */
+/*   Updated: 2025/03/10 21:20:19 by welepy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void  token_sequence(t_token *tokens)
                 head->type = ARGUMENT;
             else 
                 found_command = 1;
-        }
+        }// probably dont work on command after the first operator
         head = head->next;
     }
 }
