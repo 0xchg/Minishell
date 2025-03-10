@@ -6,7 +6,7 @@
 /*   By: welepy <welepy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 15:48:53 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/09 16:23:05 by welepy           ###   ########.fr       */
+/*   Updated: 2025/03/10 20:13:13 by welepy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static void	echo_aux_ext(t_token *temp, bool *tab)
 	if (!tab[0] && !tab[1])
 		printf(" ");
 	tab[0] = false;
-	printf("%s", remove_quotes(temp->value));
+	printf("%s", (temp->value));
 }
 
 static bool	echo_aux(t_token *token, bool *option, char *input)
@@ -69,7 +69,7 @@ static bool	echo_aux(t_token *token, bool *option, char *input)
 	tab[0] = true;
 	tab[1] = check_input(input);
 	temp = token->next;
-	while (temp && (temp->type == OPTION || temp->type == SINGLE_QUOTE || temp->type == DOUBLE_QUOTE) && v_option(remove_quotes(temp->value)))
+	while (temp && (temp->type == OPTION || temp->type == SINGLE_QUOTE || temp->type == DOUBLE_QUOTE) && v_option((temp->value)))
 	{
 		*option = true;
 		temp = temp->next;
@@ -99,7 +99,7 @@ void	ft_echo(t_token *token, t_shell *shell)
 		write(1, "\n", 1);
 		return ;
 	}
-	option = echo_aux(token, &option, remove_quotes(shell->input));
+	option = echo_aux(token, &option, (shell->input));
 	if (!option)
 		printf("\n");
 	shell->exit_status = 0;
