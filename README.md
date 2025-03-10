@@ -12,3 +12,6 @@ não fiz, tenho preguiça (nem sei mesmo se vai resultar hahaha)
 E adicionei o file "NORMINETTE CHECK" para distinguir o que já está fixe.
 
 Luanda, aos 06 de Março de 2025
+
+Not interpret unclosed quotes or special characters which are not required by the
+subject such as \ (backslash) or ; (semicolon)
