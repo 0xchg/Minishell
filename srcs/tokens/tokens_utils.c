@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokens_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: welepy <welepy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 12:15:54 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/09 15:03:40 by mchingi          ###   ########.fr       */
+/*   Updated: 2025/03/10 21:20:19 by welepy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,30 +60,29 @@ t_token	*new_token(char *value, t_type type)
 	return (new_token);
 }
 
-void	token_sequence(t_token *tokens)
+void  token_sequence(t_token *tokens)
 {
+	int found_command;
 	t_token	*head;
 
+	found_command = 0;
 	head = tokens;
 	while (head)
 	{
-		if (is_builtin_or_command(head->type) && head->next \
-			&& is_builtin_or_command(head->next->type))
+		if (is_redirection(head->type) || head->type == PIPE)
+			break;
+		if (is_builtin_or_command(head->type))
 		{
-			while (head->next && (is_builtin_or_command(head->next->type)))
-			{
-				head->next->type = ARGUMENT;
-				head = head->next;
-			}
-		}
-		if (is_redirection(head->type) && head->next \
-			&& is_builtin_or_command(head->next->type))
-			head->next->type = ARGUMENT;
-		head = head->next;
-	}
+            if (found_command)
+                head->type = ARGUMENT;
+            else 
+                found_command = 1;
+        }// probably dont work on command after the first operator
+        head = head->next;
+    }
 }
 
-/*char	*token_kind_string(t_type type)
+char	*token_kind_string(t_type type)
 {
 	if (type == GREATER)
 		return ("GREATER");
@@ -113,4 +112,4 @@ void	token_sequence(t_token *tokens)
 		return ("IDENTIFIER");
 	else
 		return ("UNKNOWN");
-}*/
+}

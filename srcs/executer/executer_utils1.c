@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executer_utils1.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: welepy <welepy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 11:34:43 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/06 13:58:31 by mchingi          ###   ########.fr       */
+/*   Updated: 2025/03/10 20:13:01 by welepy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ static char	**fill_args(t_token *token, int size)
 	while (token)
 	{
 		if (type_checker(token->type))
-			args[i++] = strdup(remove_quotes(token->value));
+			args[i++] = ft_strdup((token->value));
 		else if (is_redirection(token->type))
 		{
 			token = token->next;

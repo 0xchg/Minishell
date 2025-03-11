@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minihell.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: welepy <welepy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 15:16:19 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/09 16:58:14 by mchingi          ###   ########.fr       */
+/*   Updated: 2025/03/10 20:43:40 by welepy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ bool	is_command(char *value, char *path);
 void	identify_tokens(t_token *tokens, char *path);
 void	token_sequence(t_token *tokens);
 void	free_tokens(t_token *head);
-// char	*token_kind_string(t_type type);
+char	*token_kind_string(t_type type);
 t_token	*tokenize_array(char **array);
 t_token	*new_token(char *value, t_type type);
 //--------------------------------- Parse -------------------------------------/
@@ -121,7 +121,7 @@ int		word_count(char *input);
 // int		number_of_commands(t_token *tokens);
 char	*get_path(t_env *env);
 char	*clean_string(char *str);
-char	*remove_quotes(char *str);
+char	*remove_quotes(const char *str);
 char	*extract_quote(char **input);
 char	*extract_operator(char **input);
 char	**env_to_matrix(t_env *env);
@@ -130,7 +130,7 @@ t_env	*convert_env(char **env);
 //-------------------------------- Builtins ----------------------------------/
 void	ft_cd(t_token *current, t_shell *shell);
 void	ft_pwd(t_token *token, t_shell *shell);
-void	ft_exit(t_shell *shell);
+void	ft_exit(t_shell *shell, t_token *token);
 void	ft_env(t_env *env, t_token *token, t_shell *shell, bool declare);
 void	ft_export(t_env *env, t_token *token, t_shell *shell);
 void	ft_unset(t_env *env, t_token *token, t_shell *shell);

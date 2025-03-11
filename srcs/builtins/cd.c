@@ -6,7 +6,7 @@
 /*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 15:46:17 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/06 14:35:33 by mchingi          ###   ########.fr       */
+/*   Updated: 2025/03/10 18:34:32 by welepy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,11 +58,11 @@ static void	ft_cd_aux(t_token *current, char *cur_path, t_shell *shell)
 	ft_free(&cur_path);
 }
 
-static void	too_many_args(char *cur_path, t_shell *shell)
+static int too_many_args(char *cur_path)
 {
 	ft_putstr_fd("cd: too many arguments\n", 2);
 	ft_free(&cur_path);
-	shell->exit_status = 1;
+	return (1);
 }
 
 void	ft_cd(t_token *current, t_shell *shell)
@@ -80,7 +80,7 @@ void	ft_cd(t_token *current, t_shell *shell)
 	cur_path = getcwd(NULL, 0);
 	if (token->next)
 	{
-		too_many_args(cur_path, shell);
+		shell->exit_status = too_many_args(cur_path);
 		return ;
 	}
 	if (ft_strcmp(token->value, "-") == 0)

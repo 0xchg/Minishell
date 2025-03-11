@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: welepy <welepy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 21:08:38 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/09 15:51:58 by mchingi          ###   ########.fr       */
+/*   Updated: 2025/03/10 20:51:34 by welepy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,20 +101,22 @@ char	*clean_string(char *str)
 	return (cleaned_str);
 }
 
-char	*remove_quotes(char *str)
+char	*remove_quotes(const char *str)
 {
-	size_t	len;
+	size_t len;
+	size_t new_len;
+	char *new_str;
 
-	if (str == NULL || strlen(str) < 2)
-		return (str);
-	len = ft_strlen(str);
-	if ((str[0] == '"' || str[0] == '\'') \
-		&& (str[len - 1] == '"' || str[len - 1] == '\''))
+	len  = strlen(str);
+	if (len >= 2 && ((str[0] == '"' && str[len - 1] == '"') || (str[0] == '\'' && str[len - 1] == '\'')))
 	{
-		str++;
-		str[len - 2] = '\0';
+		new_len = len - 2;
+		new_str = safe_malloc(new_len + 1);
+		strncpy(new_str, str + 1, new_len);
+		new_str[new_len] = '\0';
+		return (new_str);
 	}
-	return (str);
+	return (strdup(str));
 }
 
 void	free_tokens(t_token *head)

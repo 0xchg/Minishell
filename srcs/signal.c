@@ -6,11 +6,13 @@
 /*   By: welepy <welepy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 16:32:01 by marcsilv          #+#    #+#             */
-/*   Updated: 2025/03/09 15:08:20 by welepy           ###   ########.fr       */
+/*   Updated: 2025/03/10 13:40:33 by welepy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minihell.h"
+
+extern volatile sig_atomic_t g_sigint;
 
 void	signal_handler(int sig)
 {
@@ -24,6 +26,7 @@ void	signal_handler(int sig)
 		rl_on_new_line();
 		rl_replace_line("", 0);
 		printf("┌[%s] - [%s]\n", getenv("USER"), cwd);
+		g_sigint = 130;
 		rl_redisplay();
 	}
 	ft_free(&cwd);

@@ -6,7 +6,7 @@
 /*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 12:20:55 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/09 16:48:13 by mchingi          ###   ########.fr       */
+/*   Updated: 2025/03/10 17:07:28 by welepy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	execute_builtins(t_shell *shell, t_token *token)
 	else if (ft_strcmp(token->value, "unset") == 0)
 		ft_unset(shell->env, token, shell);
 	else if (ft_strcmp(token->value, "exit") == 0)
-		ft_exit(shell);
+		ft_exit(shell, token);
 }
 
 void	execute_full_command(char **args, char **env, int in, int out)

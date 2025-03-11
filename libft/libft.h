@@ -6,7 +6,7 @@
 /*   By: welepy <welepy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 14:02:03 by marcsilv          #+#    #+#             */
-/*   Updated: 2025/03/07 09:58:41 by welepy           ###   ########.fr       */
+/*   Updated: 2025/03/11 14:00:39 by welepy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int		ft_tolower(int c);
 int		ft_toupper(int c);
 int		ft_putchar(char c);
 int		ft_putstr(char *str);
-int		ft_atoi(const char *str);
+long long int		ft_atoi(const char *str);
 int		matrix_len(char **matrix);
 int		lower(unsigned int decimalnumber);
 int		ft_print_unsigned(unsigned int n);
@@ -139,5 +139,7 @@ char	*ft_strjoin_free(char *s1, char *s2);
 char	*ft_replace(const char *str, const char *new_word, int index);
 
 t_list	*matrix_to_list(char **matrix);
+long long int	ft_strtoll(char *line);
 
+bool  int_overflow(long long int n);
 #endif
