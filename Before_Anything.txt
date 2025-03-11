@@ -1,19 +1,9 @@
-primeira coisa a se fazer, testar tudo denovo
-
 provavelmente o exit status dos binarios n funciona pq ao dar exit no processo filho, n tem nenhuma parte onde o processo pai n recebve
 
-quando poe unclosed quotes duas vezes tem leak
-
-TESTAR DEPOIS COM COMMAND -> EXIT
-TESTAR COM COMMANDO MAL SUCEDIDO DEPOIS exit
-TESTAR COM COMMAND BEM SUCEDIDO DEPOIS MAL SUCEDIDO DEPOIS EXIT
-TESTAR COM COMANDO MAL SUCEDIDO DEPOIS BEM SUCEDIDO DEPOIS EXIT
+n altera o exit status de bin
 
 unset PWD OLDPWD (e de seguida cd e depois env pra ver se foram recreadas) [perguntar]
 cd pasta_existente (e depois env pra checkar se as variavéis de ambiente PWD e OLDPWD foram actualizadas)
-
-Adicionei o exit_status na parte da execução, \
-mas creio que o valor ainda não está a ser exportado no "?"
 
 export n exporta, ou o env n mostra tudo n sei
 
@@ -22,8 +12,6 @@ export com ""
 problemas no symbol sequence sequence
 
 melhorar o unset e export
-
-terminar o exit
 
 leaks no expand
 
