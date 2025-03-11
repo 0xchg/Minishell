@@ -6,7 +6,7 @@
 #    By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/23 01:14:20 by marcsilv          #+#    #+#              #
-#    Updated: 2025/03/02 17:22:51 by mchingi          ###   ########.fr        #
+#    Updated: 2025/03/11 14:01:01 by welepy           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,7 +37,9 @@ PRINTF      =   ./custom_functions/prints/ft_put.c           \
                 ./custom_functions/ft_fprintf/ft_fprintf.c
 
 CUSTOM      =   ./custom_functions/ft_split.c                \
+				./custom_functions/ft_strtoll.c	\
                 ./custom_functions/get_next_line.c          \
+				./custom_functions/int_overflow.c	\
                 ./custom_functions/ft_free.c          \
                 ./custom_functions/clean_and_exit.c
 
