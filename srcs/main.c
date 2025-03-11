@@ -6,7 +6,7 @@
 /*   By: welepy <welepy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 15:16:24 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/10 21:17:00 by welepy           ###   ########.fr       */
+/*   Updated: 2025/03/11 17:37:16 by welepy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,9 +73,9 @@ void	repl(t_shell *shell)
 		{
 			executer(shell, shell->token);
 			free_tokens(shell->token);
-			ft_free(&shell->input);
 			free_matrix(shell->array);
 		}
+		ft_free(&shell->input);
 		//debug(shell->token);
 	}
 }
