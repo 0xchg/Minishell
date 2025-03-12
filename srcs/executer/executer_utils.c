@@ -6,7 +6,7 @@
 /*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 12:20:55 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/10 17:07:28 by welepy           ###   ########.fr       */
+/*   Updated: 2025/03/12 16:18:07 by mchingi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@ void	execute_full_command(char **args, char **env, int in, int out)
 {
 	char	*path;
 
-	if (access(args[0], F_OK) == 0)
+	if (((ft_strncmp("./", args[0], 2) == 0 || (args[0][0] == '/')) \
+		&& access(args[0], F_OK) == 0))
 	{
 		path = ft_strdup(args[0]);
 		args[0] = ft_strtrim(args[0], "/bin/");

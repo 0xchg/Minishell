@@ -6,7 +6,7 @@
 /*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 16:47:12 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/09 17:10:54 by mchingi          ###   ########.fr       */
+/*   Updated: 2025/03/12 16:26:48 by mchingi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,4 +89,5 @@ void	command_executer(t_shell *shell, t_token *tokens)
 			execute_command(tokens, shell);
 		}
 	}
+	waitpid(id, &shell->exit_status, 0);
 }
