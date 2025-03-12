@@ -6,7 +6,7 @@
 /*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 11:36:50 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/06 13:31:46 by mchingi          ###   ########.fr       */
+/*   Updated: 2025/03/12 16:21:50 by mchingi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,11 @@ void	redirect_input(t_token *token, t_shell *shell)
 	int	fd;
 
 	if (!token || !token->next)
-		return ;
+	{
+		ft_fprintf(2, "minishell: syntax error near unexpected token 'newline'\n");
+		shell->exit_status = 2;
+		exit(shell->exit_status);
+	}
 	fd = open(token->next->value, O_RDONLY);
 	if (fd == -1)
 	{
@@ -34,7 +38,11 @@ void	redirect_output(t_token *token, t_shell *shell)
 	int	fd;
 
 	if (!token || !token->next)
-		return ;
+	{
+		ft_fprintf(2, "minishell: syntax error near unexpected token 'newline'\n");
+		shell->exit_status = 2;
+		exit(shell->exit_status);
+	}
 	fd = open(token->next->value, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (fd == -1)
 	{
@@ -51,7 +59,11 @@ void	redirect_output_append(t_token *token, t_shell *shell)
 	int	fd;
 
 	if (!token || !token->next)
-		return ;
+	{
+		ft_fprintf(2, "minishell: syntax error near unexpected token 'newline'\n");
+		shell->exit_status = 2;
+		exit(shell->exit_status);
+	}
 	fd = open(token->next->value, O_WRONLY | O_CREAT | O_APPEND, 0644);
 	if (fd == -1)
 	{
@@ -68,7 +80,11 @@ void	redirect_here_doc(t_token *token, t_shell *shell)
 	int	fd;
 
 	if (!token || !token->next)
-		return ;
+	{
+		ft_fprintf(2, "minishell: syntax error near unexpected token 'newline'\n");
+		shell->exit_status = 2;
+		exit(shell->exit_status);
+	}
 	here_doc(token->next->value);
 	fd = open(".DOC_TMP", O_RDONLY);
 	if (fd == -1)
