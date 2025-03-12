@@ -6,7 +6,7 @@
 /*   By: welepy <welepy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 15:16:19 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/10 20:43:40 by welepy           ###   ########.fr       */
+/*   Updated: 2025/03/12 16:12:28 by welepy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,7 +133,7 @@ void	ft_pwd(t_token *token, t_shell *shell);
 void	ft_exit(t_shell *shell, t_token *token);
 void	ft_env(t_env *env, t_token *token, t_shell *shell, bool declare);
 void	ft_export(t_env *env, t_token *token, t_shell *shell);
-void	ft_unset(t_env *env, t_token *token, t_shell *shell);
+void	ft_unset(t_env *env, t_token *token, t_shell *shell, bool flag);
 void	ft_echo(t_token *token, t_shell *shell);
 
 //--------------------------- VALIDATORS / VERIFICATIONS ---------------------/

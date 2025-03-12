@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executer_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: welepy <welepy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 12:20:55 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/10 17:07:28 by welepy           ###   ########.fr       */
+/*   Updated: 2025/03/12 16:12:49 by welepy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	execute_builtins(t_shell *shell, t_token *token)
 	else if (ft_strcmp(token->value, "export") == 0)
 		ft_export(shell->env, token, shell);
 	else if (ft_strcmp(token->value, "unset") == 0)
-		ft_unset(shell->env, token, shell);
+		ft_unset(shell->env, token, shell, false);
 	else if (ft_strcmp(token->value, "exit") == 0)
 		ft_exit(shell, token);
 }

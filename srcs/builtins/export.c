@@ -6,7 +6,7 @@
 /*   By: welepy <welepy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 15:49:08 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/10 20:13:10 by welepy           ###   ########.fr       */
+/*   Updated: 2025/03/12 16:29:12 by welepy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,10 +62,18 @@ void	ft_export(t_env *env, t_token *token, t_shell *shell)
 	head = token;
 	if (!head->next)
 		ft_env(env, head, shell, true);
+	if (head->next && !ft_strlen(head->next->value))
+	{
+		shell->exit_status = 1;
+		ft_fprintf(2, "minishell: export: `%s': not a valid identifier\n", \
+				head->next->value);
+		return ;
+	}
+	head = head->next;
 	while (head && (head->type == ARGUMENT))
 	{
 		temp = arg_to_env(head);
-		ft_unset(env, head, shell);
+		ft_unset(env, head, shell, true);
 		add_env(&env, temp);
 		head = head->next;
 	}

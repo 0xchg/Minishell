@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: welepy <welepy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 15:49:17 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/03 13:03:23 by marcsilv         ###   ########.fr       */
+/*   Updated: 2025/03/12 16:14:43 by welepy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,13 @@ void	remove_env(t_env **head, const char *name)
 	}
 }
 
-void	ft_unset(t_env *env, t_token *token, t_shell *shell)
+void	ft_unset(t_env *env, t_token *token, t_shell *shell, bool flag)
 {
 	t_token	*temp;
 
-	temp = token->next;
+	temp = token;
+	if (!flag)
+		temp = temp->next;
 	while (temp && temp->type == ARGUMENT)
 	{
 		remove_env(&env, temp->value);

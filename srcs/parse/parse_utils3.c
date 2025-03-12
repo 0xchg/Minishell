@@ -6,7 +6,7 @@
 /*   By: welepy <welepy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 13:52:15 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/12 14:57:05 by welepy           ###   ########.fr       */
+/*   Updated: 2025/03/12 16:00:13 by welepy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	expand_util(char ***matrix, int y, char *arr, t_env *env)
 {
 	arr = process_expansion((*matrix)[y], env);
 	free((*matrix)[y]);
-	(*matrix)[y] = ft_strdup(arr);
+	(*matrix)[y] = arr;
 }
 
 void	expand(char ***matrix, t_env *env, t_shell *shell)
@@ -43,7 +43,7 @@ void	expand(char ***matrix, t_env *env, t_shell *shell)
 	y = -1;
 	while ((*matrix)[++y])
 	{
-		if ((*matrix)[y][0] == '$')
+		if ((*matrix)[y][0] == '$' && (*matrix)[y][1])
 		{
 			if ((*matrix)[y][1] == '?')
 			{
@@ -59,7 +59,7 @@ void	expand(char ***matrix, t_env *env, t_shell *shell)
 				(*matrix)[y] = ft_strdup(arr[1]);
 			}
 		}
-		else if (ft_strchr((*matrix)[y], '$') && ((*matrix)[y][0] != '\''))
+		else if (ft_strchr((*matrix)[y], '$') && ((*matrix)[y][1]))
 			expand_util(matrix, y, arr[0], env);
 	}
 }
@@ -71,15 +71,16 @@ static char	*process_expansion_helper(t_env *env, char *result, char *temp)
 	value = get_env_value(env, temp);
 	free(temp);
 	if (value)
-		result = ft_strjoin_free(result, value);
+		result = ft_strjoin_free(result, value, 0);
 	else
-		result = ft_strjoin_free(result, "");
+		result = ft_strjoin_free(result, "", 0);
 	return (result);
 }
 
 static char	*process_expansion(char *str, t_env *env)
 {
 	char	*matrix[4];
+	char	*tmp;
 
 	matrix[1] = str;
 	matrix[0] = ft_strdup("");
@@ -90,17 +91,24 @@ static char	*process_expansion(char *str, t_env *env)
 		if (matrix[2] > str)
 		{
 			matrix[3] = ft_substr(str, 0, matrix[2] - str);
-			matrix[0] = ft_strjoin_free(matrix[0], matrix[3]);
+			matrix[0] = ft_strjoin_free(matrix[0], matrix[3], 3);
+		}
+		else
+		{
+			free(matrix[0]);
+			free(matrix[3]);
 		}
 		matrix[1]++;
 		matrix[2] = matrix[1];
 		while (*matrix[2] && (ft_isalnum(*matrix[2]) || *matrix[2] == '_'))
 			matrix[2]++;
 		matrix[3] = ft_substr(matrix[1], 0, matrix[2] - matrix[1]);
+		tmp = matrix[0];
 		matrix[0] = process_expansion_helper(env, matrix[0], matrix[3]);
+		free(tmp);
 		str = matrix[2];
 		matrix[1] = ft_strchr(matrix[1], '$');
 	}
-	matrix[0] = ft_strjoin_free(matrix[0], str);
+	matrix[0] = ft_strjoin_free(matrix[0], str, 1);
 	return (matrix[0]);
 }
