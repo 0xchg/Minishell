@@ -2,23 +2,15 @@ provavelmente o exit status dos binarios n funciona pq ao dar exit no processo f
 
 n altera o exit status de bin
 
-unset PWD OLDPWD (e de seguida cd e depois env pra ver se foram recreadas) [perguntar]
-cd pasta_existente (e depois env pra checkar se as variavéis de ambiente PWD e OLDPWD foram actualizadas)
-
 export n exporta, ou o env n mostra tudo n sei
 
 export com ""
 
-problemas no symbol sequence sequence
+problemas no symbol sequence
 
 melhorar o unset e export
 
 leaks no expand
-
-echo quote bug  maybe copy the string to another one idk
-
-exit status de binario
-saber outros exit status
 
 the current token sequence probably dont work for the tokens after the first operator
 
