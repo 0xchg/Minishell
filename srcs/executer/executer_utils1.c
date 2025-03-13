@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executer_utils1.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: welepy <welepy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 11:34:43 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/10 20:13:01 by welepy           ###   ########.fr       */
+/*   Updated: 2025/03/13 16:37:29 by mchingi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,11 +95,17 @@ char	**tokenize_command(t_token *token)
 	return (args);
 }
 
-int	pipe_flag(t_token *token)
+int	pipe_flag(t_token *token, t_shell *shell)
 {
 	t_token	*tmp;
 
 	tmp = token;
+	if (tmp->type == PIPE)
+	{
+		ft_fprintf(2, "minishell: syntax error near unexpected token '|'\n");
+		shell->exit_status = 2;
+		return (2);
+	}
 	while (tmp)
 	{
 		if (tmp->type == PIPE)

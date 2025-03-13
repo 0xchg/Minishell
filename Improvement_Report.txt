@@ -1,0 +1,6 @@
+exit_status working properly with almost anything but when exiting the program. 
+The parent ain't receiving the value.
+
+| = bash: syntax error near unexpected token `|'
+DONE!
+

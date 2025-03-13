@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minihell.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: welepy <welepy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 15:16:19 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/12 16:12:28 by welepy           ###   ########.fr       */
+/*   Updated: 2025/03/13 16:37:23 by mchingi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,6 @@ bool	validate_quote_number(char *input);
 void	parse(t_shell *shell);
 void	expand(char ***matrix, t_env *env, t_shell *shell);
 int		word_count(char *input);
-// int		number_of_commands(t_token *tokens);
 char	*get_path(t_env *env);
 char	*clean_string(char *str);
 char	*remove_quotes(const char *str);
@@ -144,7 +143,7 @@ bool	is_lesser(t_type token);
 bool	is_builtin(t_type type);
 bool	is_builtin_or_command(t_type type);
 int		here_doc_flag(t_token *token);
-int		pipe_flag(t_token *token);
+int		pipe_flag(t_token *token, t_shell *shell);
 
 //-------------------------------- ANYTHING ----------------------------------/
 void	error_message(char *str);
