@@ -6,7 +6,7 @@
 /*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 15:16:19 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/13 16:37:23 by mchingi          ###   ########.fr       */
+/*   Updated: 2025/03/13 17:52:24 by mchingi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ void	redirect_output(t_token *token, t_shell *shell);
 void	redirect_output_append(t_token *token, t_shell *shell);
 void	redirect_here_doc(t_token *token, t_shell *shell);
 void	execute_redirections(t_token *token, t_shell *shell);
+void	redirect_builtins(t_shell *shell, t_token *tokens);
 //----------------------------- Here Document --------------------------------/
 void	here_doc(char *str);
 //-------------------------------- Executer ----------------------------------/
@@ -144,6 +145,7 @@ bool	is_builtin(t_type type);
 bool	is_builtin_or_command(t_type type);
 int		here_doc_flag(t_token *token);
 int		pipe_flag(t_token *token, t_shell *shell);
+int		redirection_flag(t_token *token);
 
 //-------------------------------- ANYTHING ----------------------------------/
 void	error_message(char *str);

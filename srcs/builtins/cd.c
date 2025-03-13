@@ -6,7 +6,7 @@
 /*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 15:46:17 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/10 18:34:32 by welepy           ###   ########.fr       */
+/*   Updated: 2025/03/13 18:16:39 by mchingi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ static void	ft_cd_aux(t_token *current, char *cur_path, t_shell *shell)
 	char	*path;
 	char	*new_path;
 
+	shell->exit_status = 0;
 	path = ft_strjoin(cur_path, "/");
 	new_path = ft_strjoin(path, current->value);
 	ft_free(&path);
@@ -50,10 +51,10 @@ static void	ft_cd_aux(t_token *current, char *cur_path, t_shell *shell)
 	}
 	if (chdir(new_path) == -1)
 	{
-		printf("cd: %s: No such file or directory\n", current->value);
+		write(2, "cd: ", 4);
+		perror(current->value);
 		shell->exit_status = 1;
 	}
-	shell->exit_status = 0;
 	ft_free(&new_path);
 	ft_free(&cur_path);
 }

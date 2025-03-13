@@ -26,11 +26,6 @@ env no options or arguments
 
 exit with no options
 
-pasta sem permissao manda msg errada
-search for permission denied
-
-echo edson > file baptista finda -> tem q imprimir edson baptista finda no file
-
 validacao de redir, ver primeiro se o file e acessivel
 
 heredoc com CTRL+D e CTRL C

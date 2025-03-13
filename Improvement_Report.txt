@@ -4,3 +4,9 @@ The parent ain't receiving the value.
 | = bash: syntax error near unexpected token `|'
 DONE!
 
+echo edson > file baptista finda -> tem q imprimir edson baptista finda no file
+DONE!
+
+pasta sem permissao manda msg errada
+search for permission denied
+DONE!

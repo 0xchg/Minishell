@@ -6,7 +6,7 @@
 /*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 16:45:13 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/13 16:43:45 by mchingi          ###   ########.fr       */
+/*   Updated: 2025/03/13 17:51:48 by mchingi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,10 @@ void	pipe_executer(t_shell *shell, t_token *token, t_pipe *pip, t_type type)
 		{
 			if (type == PIPE)
 				dup3(pip->pipe_fd[1], STDOUT_FILENO);
-			execute_builtins(shell, token);
+			if (redirection_flag(token))
+				redirect_builtins(shell, token);
+			else
+				execute_builtins(shell, token);
 			exit(shell->exit_status);
 		}
 		else
