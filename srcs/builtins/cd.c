@@ -6,11 +6,22 @@
 /*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 15:46:17 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/10 18:34:32 by welepy           ###   ########.fr       */
+/*   Updated: 2025/03/15 19:10:44 by welepy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minihell.h"
+
+static bool	permission_check(t_shell *shell, char *path)
+{
+	if (access(path, X_OK) != 0)
+	{
+		ft_fprintf(2, "cd: %s: Permission denied\n", path);
+		shell->exit_status = 1;
+		return (false);
+	}
+	return (true);
+}
 
 static void	ft_cd_prev(char	*prev_path, t_shell *shell)
 {
@@ -22,15 +33,12 @@ static void	ft_cd_prev(char	*prev_path, t_shell *shell)
 	}
 	else
 	{
+		if (!permission_check(shell, prev_path))
+			return ;
 		if (chdir(prev_path) == 0)
 		{
 			printf("%s\n", prev_path);
 			shell->exit_status = 0;
-		}
-		else
-		{
-			perror("cd");
-			shell->exit_status = 1;
 		}
 	}
 }
@@ -47,6 +55,12 @@ static void	ft_cd_aux(t_token *current, char *cur_path, t_shell *shell)
 	{
 		ft_free(&new_path);
 		new_path = ft_strjoin(getenv("HOME"), current->value + 1);
+	}
+	if (!permission_check(shell, new_path))
+	{
+		ft_free(&new_path);
+		ft_free(&cur_path);
+		return ;
 	}
 	if (chdir(new_path) == -1)
 	{
@@ -71,6 +85,12 @@ void	ft_cd(t_token *current, t_shell *shell)
 	static char	*prev_path;
 	t_token		*token;
 
+	if (current->next && current->next->type == OPTION)
+	{
+		ft_fprintf(2, "cd: this version doesn't allow options\n");
+		shell->exit_status = 1;
+		return ;
+	}
 	token = current->next;
 	if (!token)
 	{
