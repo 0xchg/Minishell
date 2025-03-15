@@ -6,7 +6,7 @@
 /*   By: welepy <welepy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 14:02:03 by marcsilv          #+#    #+#             */
-/*   Updated: 2025/03/12 15:28:49 by welepy           ###   ########.fr       */
+/*   Updated: 2025/03/14 20:17:18 by welepy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@
 # include <errno.h>
 # include <stdarg.h>
 # include "./lists/ft_list.h"
-# include "../inc/minihell.h"
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 42
@@ -37,7 +36,6 @@
 # define ALL "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
 
 typedef struct s_list	t_list;
-typedef struct s_shell	t_generic;
 
 int		ft_abs(int n);
 int		numlen(int n);
@@ -81,7 +79,6 @@ void	ft_bzero(void *s, size_t n);
 void	ft_putnbr_fd(int n, int fd);
 void	ft_putchar_fd(char c, int fd);
 void	ft_putendl_fd(char *s, int fd);
-void	clean_and_exit(t_generic *data);
 void	ft_putstr_fd(const char *s, int fd);
 void	*ft_realloc(void *ptr, size_t size);
 void	*ft_memset(void *s, int c, size_t n);
@@ -142,4 +139,5 @@ t_list	*matrix_to_list(char **matrix);
 long long int	ft_strtoll(char *line);
 
 bool  int_overflow(long long int n);
+char  *join_matrix(int n, char **strings, const char *separator);
 #endif
