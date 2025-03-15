@@ -6,14 +6,16 @@
 /*   By: marcsilv <marcsilv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 14:34:34 by marcsilv          #+#    #+#             */
-/*   Updated: 2024/11/28 16:42:50 by marcsilv         ###   ########.fr       */
+/*   Updated: 2025/03/14 20:20:10 by welepy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include <stddef.h>
+#include <stdlib.h>
 
 #ifndef FT_LIST_H
 # define FT_LIST_H
 
-# include "../libft.h"
 
 typedef struct s_list
 {
@@ -24,8 +26,8 @@ typedef struct s_list
 
 t_list	*ft_lstnew(void *content);
 t_list	*ft_lstlast(t_list *lst);
-void	ft_lstadd_back(t_list **alst, t_list *new);
-void	ft_lstadd_front(t_list **alst, t_list *new);
+void	ft_lstadd_back(t_list **alst, t_list *new_node);
+void	ft_lstadd_front(t_list **alst, t_list *new_node);
 void	ft_lstclear(t_list **lst, void (*del)(void*));
 void	ft_lstdelone(t_list *lst, void (*del)(void*));
 void	ft_lstiter(t_list *lst, void (*f)(void *));

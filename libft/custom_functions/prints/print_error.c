@@ -6,18 +6,19 @@
 /*   By: welepy <welepy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 16:56:42 by welepy            #+#    #+#             */
-/*   Updated: 2024/11/12 17:05:25 by welepy           ###   ########.fr       */
+/*   Updated: 2025/03/14 20:18:17 by welepy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../libft.h"
+#include <stdlib.h>
 
 void	print_error(char *error_message, void *data)
 {
 	ft_putstr_fd("Error: ", 2);
 	ft_putendl_fd(error_message, 2);
 	if (data)
-		clean_and_exit(data);
+		free(data);
 	else
 		exit(1);
 }
