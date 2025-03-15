@@ -6,7 +6,7 @@
 /*   By: welepy <welepy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 15:49:08 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/12 16:29:12 by welepy           ###   ########.fr       */
+/*   Updated: 2025/03/15 17:56:58 by welepy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,12 @@ void	ft_export(t_env *env, t_token *token, t_shell *shell)
 	head = token;
 	if (!head->next)
 		ft_env(env, head, shell, true);
+	if (head->next->type == OPTION)
+	{
+		shell->exit_status = 1;
+		ft_fprintf(2, "export: this version doesn't support options");
+		return ;
+	}
 	if (head->next && !ft_strlen(head->next->value))
 	{
 		shell->exit_status = 1;
