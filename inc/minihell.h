@@ -6,7 +6,7 @@
 /*   By: welepy <welepy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 15:16:19 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/12 16:12:28 by welepy           ###   ########.fr       */
+/*   Updated: 2025/03/15 19:27:21 by welepy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,7 @@ char	*get_path(t_env *env);
 char	*clean_string(char *str);
 char	*remove_quotes(const char *str);
 char	*extract_quote(char **input);
-char	*extract_operator(char **input);
+char	*extract_operator(char **input, t_shell *shell);
 char	**env_to_matrix(t_env *env);
 t_env	*convert_env(char **env);
 

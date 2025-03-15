@@ -6,7 +6,7 @@
 #    By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/23 01:14:20 by marcsilv          #+#    #+#              #
-#    Updated: 2025/03/11 14:01:01 by welepy           ###   ########.fr        #
+#    Updated: 2025/03/14 20:17:18 by welepy           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,12 +41,12 @@ CUSTOM      =   ./custom_functions/ft_split.c                \
                 ./custom_functions/get_next_line.c          \
 				./custom_functions/int_overflow.c	\
                 ./custom_functions/ft_free.c          \
-                ./custom_functions/clean_and_exit.c
 
 CUSTOM_     =   ./custom_functions/length/numlen.c           \
                 ./custom_functions/length/tablen.c
 
 MATRIX      =   ./custom_functions/matrix/copy_matrix.c      \
+				./custom_functions/matrix/join_matrix.c			\
                 ./custom_functions/matrix/free_matrix.c      \
                 ./custom_functions/matrix/matrix_len.c       \
                 ./custom_functions/matrix/matrix_to_list.c   \
