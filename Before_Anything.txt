@@ -1,36 +1,5 @@
-provavelmente o exit status dos binarios n funciona pq ao dar exit no processo filho, n tem nenhuma parte onde o processo pai n recebve
-
-n altera o exit status de bin
-
-export n exporta, ou o env n mostra tudo n sei
-
-export com ""
-
-problemas no symbol sequence
-
-melhorar o unset e export
-
-leaks no expand
-
 the current token sequence probably dont work for the tokens after the first operator
 
-echo $ should not expand
-
-see evry builtin and check if it goes to the next token
-
-cd only one arg, no options
-
-pwd only arguments
-
-export idem
-
-unset idem
-
-env no options or arguments
-
-exit with no options
-
-pasta sem permissao manda msg errada
 search for permission denied
 
 echo marcio >		  ->syntax error ner un
@@ -195,13 +164,7 @@ heredoc com CTRL+D e CTRL C
 pipe na primera posicao : bash: syntax error near unexpected token `|'
 pipe n ultima posiccao n abre herepipe
 
-echo $"USER" prints nothing should print USER
-echo "$"USER prints | USER| should print $USER
-echo $'USER' prints norhing
-echo '$'USER prints a space betwen the dollar sign and the user it shouldsnt
-
-exit status n vai pro processo pai na saida
-
+--------------------------------
 0 → Success
 1-255 → Failure or specific exit codes
 2 → Misuse of built-in shell commands
@@ -210,9 +173,10 @@ exit status n vai pro processo pai na saida
 137 → Process killed with SIGKILL (kill -9)
 
 
-remover os quotes do extract quotes, e manter os tokens SINGLE E DOUBLE, se o  esta bem implementado n vai fazer diferenca
-
-
 testar os exit status de todos os builtins
 
 sigint
+
+exit with no options
+
+see options and args of builtins and see if they are valid
