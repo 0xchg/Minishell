@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_utils3.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: welepy <welepy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 13:52:15 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/12 16:00:13 by welepy           ###   ########.fr       */
+/*   Updated: 2025/03/13 16:29:05 by mchingi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	expand(char ***matrix, t_env *env, t_shell *shell)
 		{
 			if ((*matrix)[y][1] == '?')
 			{
-				arr[1] = ft_itoa(shell->exit_status);
+				arr[1] = shell->exit_status > 255 ? ft_itoa(WEXITSTATUS(shell->exit_status)) : ft_itoa(shell->exit_status);
 				free((*matrix)[y]);
 				(*matrix)[y] = ft_strdup(arr[1]);
 				ft_free(&arr[1]);

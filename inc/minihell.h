@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   minihell.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: welepy <welepy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 15:16:19 by mchingi           #+#    #+#             */
 /*   Updated: 2025/03/15 21:19:33 by welepy           ###   ########.fr       */
@@ -91,6 +91,7 @@ void	redirect_output(t_token *token, t_shell *shell);
 void	redirect_output_append(t_token *token, t_shell *shell);
 void	redirect_here_doc(t_token *token, t_shell *shell);
 void	execute_redirections(t_token *token, t_shell *shell);
+void	redirect_builtins(t_shell *shell, t_token *tokens);
 //----------------------------- Here Document --------------------------------/
 void	here_doc(char *str);
 //-------------------------------- Executer ----------------------------------/
@@ -118,7 +119,6 @@ bool	validate_quote_number(char *input);
 void	parse(t_shell *shell);
 void	expand(char ***matrix, t_env *env, t_shell *shell);
 int		word_count(char *input);
-// int		number_of_commands(t_token *tokens);
 char	*get_path(t_env *env);
 char	*clean_string(char *str);
 char	*remove_quotes(const char *str);
@@ -144,7 +144,8 @@ bool	is_lesser(t_type token);
 bool	is_builtin(t_type type);
 bool	is_builtin_or_command(t_type type);
 int		here_doc_flag(t_token *token);
-int		pipe_flag(t_token *token);
+int		pipe_flag(t_token *token, t_shell *shell);
+int		redirection_flag(t_token *token);
 
 //-------------------------------- ANYTHING ----------------------------------/
 void	error_message(char *str);

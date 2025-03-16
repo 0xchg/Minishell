@@ -6,7 +6,7 @@
 /*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 16:47:12 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/12 16:26:48 by mchingi          ###   ########.fr       */
+/*   Updated: 2025/03/13 16:43:43 by mchingi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,9 @@ void	redirect_builtins(t_shell *shell, t_token *tokens)
 	{
 		execute_redirections(tokens, shell);
 		execute_builtins(shell, tokens);
-		exit(EXIT_SUCCESS);
+		exit(shell->exit_status);
 	}
-	wait(NULL);
+	waitpid(id, &shell->exit_status, 0);
 }
 
 int	redirection_flag(t_token *token)
@@ -88,6 +88,6 @@ void	command_executer(t_shell *shell, t_token *tokens)
 			execute_redirections(tokens, shell);
 			execute_command(tokens, shell);
 		}
+		waitpid(id, &shell->exit_status, 0);
 	}
-	waitpid(id, &shell->exit_status, 0);
 }

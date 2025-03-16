@@ -6,7 +6,7 @@
 /*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 11:36:50 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/12 16:21:50 by mchingi          ###   ########.fr       */
+/*   Updated: 2025/03/13 16:46:29 by mchingi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	redirect_output_append(t_token *token, t_shell *shell)
 	fd = open(token->next->value, O_WRONLY | O_CREAT | O_APPEND, 0644);
 	if (fd == -1)
 	{
-		perror("open");
+		perror(token->next->value);
 		shell->exit_status = 1;
 		exit(shell->exit_status);
 	}

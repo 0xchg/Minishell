@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: welepy <welepy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 15:48:53 by mchingi           #+#    #+#             */
 /*   Updated: 2025/03/15 13:28:21 by welepy           ###   ########.fr       */
@@ -81,10 +81,20 @@ static bool	echo_aux(t_token *token, bool *option, char *input)
 		temp2->type = ARGUMENT;
 		temp2 = temp2->next;
 	}
-	while (temp && (temp->type == ARGUMENT || temp->type == SINGLE_QUOTE
-			|| temp->type == DOUBLE_QUOTE || temp->type == OPTION))
+	while (temp)
 	{
-		echo_aux_ext(temp, tab);
+		if ((temp->type == ARGUMENT || temp->type == SINGLE_QUOTE
+			|| temp->type == DOUBLE_QUOTE || temp->type == OPTION))
+			echo_aux_ext(temp, tab);
+		else if (is_redirection(temp->type))
+		{
+			temp = temp->next;
+			if (temp)
+				temp = temp->next;
+			continue ;
+		}
+		else 
+			break ;
 		temp = temp->next;
 	}
 	return (*option);
