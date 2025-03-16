@@ -6,7 +6,7 @@
 /*   By: welepy <welepy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 02:56:56 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/09 10:57:14 by welepy           ###   ########.fr       */
+/*   Updated: 2025/03/15 19:40:41 by welepy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ char	*extract_quote(char **input)
 	return (quote_string);
 }
 
-bool	extract_operator_util(char **input)
+static bool	extract_operator_util(char **input)
 {
 	int	i;
 
@@ -61,14 +61,14 @@ bool	extract_operator_util(char **input)
 		i++;
 	if (i > 1)
 	{
-		printf("invalid operator sequence in '*'\n");
+		ft_fprintf(2, "syntax error near unexpected token `*'\n");
 		while (ft_strchr("*", **input) && **input)
 			(*input)++;
 		return (false);
 	}
 	else if (ft_strchr("|&*<>", **input) && **input)
 	{
-		printf("invalid operator sequence in '%c'\n", **input);
+		ft_fprintf(2, "syntax error near unexpected token `%c'\n", **input);
 		while (ft_strchr("|&*<>", **input) && **input)
 			(*input)++;
 		return (false);
@@ -76,7 +76,7 @@ bool	extract_operator_util(char **input)
 	return (true);
 }
 
-char	*extract_operator(char **input)
+char	*extract_operator(char **input, t_shell *shell)
 {
 	char	*operator;
 	char	temp_char;
@@ -92,7 +92,7 @@ char	*extract_operator(char **input)
 		(*input)++;
 	}
 	if (!extract_operator_util(input))
-		return (NULL);
+		shell->flag = false;
 	operator = safe_malloc(sizeof(char) * (operator_size + 1));
 	while (i < operator_size)
 		operator[i++] = temp_char;

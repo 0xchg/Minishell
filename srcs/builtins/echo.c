@@ -6,7 +6,7 @@
 /*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 15:48:53 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/13 17:57:28 by mchingi          ###   ########.fr       */
+/*   Updated: 2025/03/15 13:28:21 by welepy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,8 @@ static void	echo_aux_ext(t_token *temp, bool *tab)
 	if (!tab[0] && !tab[1])
 		printf(" ");
 	tab[0] = false;
-	printf("%s", (temp->value));
+	if (temp->value)
+		printf("%s", (temp->value));
 }
 
 static bool	echo_aux(t_token *token, bool *option, char *input)

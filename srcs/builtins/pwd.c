@@ -6,7 +6,7 @@
 /*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 15:49:13 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/03 13:01:19 by marcsilv         ###   ########.fr       */
+/*   Updated: 2025/03/15 17:55:07 by welepy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@ void	ft_pwd(t_token *current, t_shell *shell)
 	t_token		*token;
 
 	token = current->next;
-	if (token && (token->type == ARGUMENT || token->type == OPTION))
+	if (token && (token->type == OPTION))
 	{
-		printf("pwd: this version does not supports options or arguments\n");
+		printf("pwd: this version does not supports options\n");
 		shell->exit_status = 1;
 		return ;
 	}

@@ -6,7 +6,7 @@
 /*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 15:16:19 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/13 17:52:24 by mchingi          ###   ########.fr       */
+/*   Updated: 2025/03/15 21:19:33 by welepy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,7 @@ char	*get_path(t_env *env);
 char	*clean_string(char *str);
 char	*remove_quotes(const char *str);
 char	*extract_quote(char **input);
-char	*extract_operator(char **input);
+char	*extract_operator(char **input, t_shell *shell);
 char	**env_to_matrix(t_env *env);
 t_env	*convert_env(char **env);
 
@@ -150,5 +150,7 @@ int		redirection_flag(t_token *token);
 //-------------------------------- ANYTHING ----------------------------------/
 void	error_message(char *str);
 void	signal_handler(int sig);
+
+void expansion(t_token *tokens, t_env *env, t_shell *shell);
 
 #endif

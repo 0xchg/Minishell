@@ -6,7 +6,7 @@
 /*   By: welepy <welepy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 11:47:02 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/07 15:31:20 by welepy           ###   ########.fr       */
+/*   Updated: 2025/03/15 21:21:39 by welepy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ char	*extract_variable(char **input)
 	return (variable);
 }
 
-static char	**split_input(char *input)
+static char	**split_input(char *input, t_shell *shell)
 {
 	int		i;
 	char	**array;
@@ -69,7 +69,7 @@ static char	**split_input(char *input)
 		if (*input == '\'' || *input == '\"')
 			array[i++] = extract_quote(&input);
 		else if (ft_strchr("|<>*&", *input))
-			array[i++] = extract_operator(&input);
+			array[i++] = extract_operator(&input, shell);
 		else if (*input == '$')
 			array[i++] = extract_variable(&input);
 		else
@@ -85,13 +85,15 @@ void	parse(t_shell *shell)
 
 	temp = ft_strtrim(shell->input, " ");
 	shell->flag = true;
-	shell->array = split_input(temp);
+	shell->array = split_input(temp, shell);
+	if (!shell->flag)
+		free_matrix(shell->array);
 	if (!shell->array)
 		shell->flag = false;
 	if (shell->flag)
 	{
-		expand(&shell->array, shell->env, shell);
 		shell->token = tokenize_array(shell->array);
+		expansion(shell->token, shell->env, shell);
 		if (!shell->token)
 			error_message("token");
 		identify_tokens(shell->token, shell->path);

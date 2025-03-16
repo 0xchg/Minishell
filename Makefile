@@ -6,7 +6,7 @@
 #    By: welepy <welepy@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/14 15:16:15 by mchingi           #+#    #+#              #
-#    Updated: 2025/03/11 20:43:35 by welepy           ###   ########.fr        #
+#    Updated: 2025/03/15 21:20:27 by welepy           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,6 +36,7 @@ SRCS = 	./srcs/executer/executer.c \
 		./srcs/tokens/tokens.c \
 		./srcs/tokens/tokens_utils.c \
 		./srcs/parse/parse.c \
+		./srcs/parse/expansion.c 	\
 		./srcs/parse/parse_utils.c \
 		./srcs/parse/parse_utils2.c \
 		./srcs/parse/parse_utils3.c \
