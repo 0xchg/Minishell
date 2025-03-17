@@ -6,7 +6,7 @@
 /*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 14:20:16 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/09 16:57:26 by mchingi          ###   ########.fr       */
+/*   Updated: 2025/03/16 18:40:46 by welepy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,4 +63,11 @@ char	*get_path(t_env *env)
 		tmp = tmp->next;
 	}
 	return (NULL);
+}
+
+void	empty_input(t_shell *shell)
+{
+	ft_putstr_fd("exit\n", 2);
+	ft_free(&shell->path);
+	exit(shell->exit_status);
 }

@@ -6,7 +6,7 @@
 /*   By: welepy <welepy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 15:49:08 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/15 21:37:08 by welepy           ###   ########.fr       */
+/*   Updated: 2025/03/16 19:20:21 by welepy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,18 @@ void	add_env(t_env **env, t_env *new)
 		*env = new;
 }
 
+static bool	export_util(t_token *head, t_shell *shell)
+{
+	if (head->next && !ft_strlen(head->next->value))
+	{
+		shell->exit_status = 1;
+		ft_fprintf(2, "minishell: export: `%s': not a valid identifier\n", \
+				head->next->value);
+		return (false);
+	}
+	return (true);
+}
+
 void	ft_export(t_env *env, t_token *token, t_shell *shell)
 {
 	t_env	*temp;
@@ -68,13 +80,8 @@ void	ft_export(t_env *env, t_token *token, t_shell *shell)
 		ft_fprintf(2, "export: this version doesn't support options");
 		return ;
 	}
-	if (head->next && !ft_strlen(head->next->value))
-	{
-		shell->exit_status = 1;
-		ft_fprintf(2, "minishell: export: `%s': not a valid identifier\n", \
-				head->next->value);
+	if (!export_util(head, shell))
 		return ;
-	}
 	head = head->next;
 	while (head && (head->type == ARGUMENT))
 	{

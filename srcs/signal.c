@@ -6,13 +6,13 @@
 /*   By: welepy <welepy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 16:32:01 by marcsilv          #+#    #+#             */
-/*   Updated: 2025/03/10 13:40:33 by welepy           ###   ########.fr       */
+/*   Updated: 2025/03/16 18:45:16 by welepy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minihell.h"
 
-extern volatile sig_atomic_t g_sigint;
+extern volatile sig_atomic_t	g_sigint;
 
 void	signal_handler(int sig)
 {
