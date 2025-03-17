@@ -6,7 +6,7 @@
 /*   By: welepy <welepy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 13:20:02 by welepy            #+#    #+#             */
-/*   Updated: 2025/03/15 21:19:55 by welepy           ###   ########.fr       */
+/*   Updated: 2025/03/16 19:01:24 by welepy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 static char	*get_env_value(t_env *env, char *name)
 {
 	t_env	*tmp;
-	tmp = env;
 
+	tmp = env;
 	while (tmp)
 	{
 		if (!ft_strcmp(tmp->name, name))
@@ -26,22 +26,27 @@ static char	*get_env_value(t_env *env, char *name)
 	return (NULL);
 }
 
-static void change_strings(char ***matrix, t_env *env)
+static void	change_strings(char ***matrix, t_env *env)
 {
-	int	i;
-	char  *value;
+	int		i;
+	char	*value;
+
 	i = 0;
 	while ((*matrix)[i])
 	{
 		value = get_env_value(env, (*matrix)[i]);
 		ft_free(&(*matrix)[i]);
-		(*matrix)[i] = value ? ft_strdup(value) : ft_strdup("");
+		if (value)
+			(*matrix)[i] = ft_strdup(value);
+		else
+			ft_strdup("");
 		i++;
 	}
 }
+
 static void	get_exit_status(t_shell *shell, t_token **token)
 {
-	char  *str;
+	char	*str;
 
 	str = ft_itoa(shell->exit_status);
 	ft_free(&(*token)->value);
@@ -50,16 +55,17 @@ static void	get_exit_status(t_shell *shell, t_token **token)
 	ft_free(&str);
 }
 
-void expansion(t_token *tokens, t_env *env, t_shell *shell)
+void	expansion(t_token *tokens, t_env *env, t_shell *shell)
 {
-	t_token *current;
-	char  *str;
-	char **matrix;
+	t_token	*current;
+	char	*str;
+	char	**matrix;
 
 	current = tokens;
 	while (current)
 	{
-		if ((ft_strlen(current->value) >= 2 || current->next) && ft_strchr(current->value, '$') && current->type != SINGLE_QUOTE)
+		if ((ft_strlen(current->value) >= 2 || current->next)
+			&& ft_strchr(current->value, '$') && current->type != SINGLE_QUOTE)
 		{
 			if (current->value[1] == '?')
 				get_exit_status(shell, &current);

@@ -6,18 +6,20 @@
 /*   By: welepy <welepy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 15:49:17 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/15 21:35:18 by welepy           ###   ########.fr       */
+/*   Updated: 2025/03/16 19:10:19 by welepy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minihell.h"
 
-void remove_env(t_env **env, char *name)
+void	remove_env(t_env **env, char *name)
 {
-	t_env *current = *env;
-	t_env *prev = NULL;
-	char  **tok;
+	t_env	*current;
+	t_env	*prev;
+	char	**tok;
 
+	prev = NULL;
+	current = *env;
 	tok = ft_split(name, '=');
 	while (current)
 	{
@@ -31,7 +33,7 @@ void remove_env(t_env **env, char *name)
 			free(current->value);
 			free(current);
 			free_matrix(tok);
-			return;
+			return ;
 		}
 		prev = current;
 		current = current->next;
@@ -42,6 +44,7 @@ void remove_env(t_env **env, char *name)
 void	ft_unset(t_env *env, t_token *token, t_shell *shell, bool flag)
 {
 	t_token	*temp;
+
 	temp = token;
 	if (!flag)
 		temp = token->next;

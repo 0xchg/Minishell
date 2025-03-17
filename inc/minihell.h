@@ -6,7 +6,7 @@
 /*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 15:16:19 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/15 21:19:33 by welepy           ###   ########.fr       */
+/*   Updated: 2025/03/16 18:41:30 by welepy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,6 +151,7 @@ int		redirection_flag(t_token *token);
 void	error_message(char *str);
 void	signal_handler(int sig);
 
-void expansion(t_token *tokens, t_env *env, t_shell *shell);
+void	expansion(t_token *tokens, t_env *env, t_shell *shell);
 
+void	empty_input(t_shell *shell);
 #endif

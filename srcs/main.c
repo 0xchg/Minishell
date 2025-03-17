@@ -6,14 +6,14 @@
 /*   By: welepy <welepy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 15:16:24 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/11 17:37:16 by welepy           ###   ########.fr       */
+/*   Updated: 2025/03/16 18:44:10 by welepy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minihell.h"
 
 void	debug(t_token *token);
-volatile sig_atomic_t g_sigint;
+volatile sig_atomic_t	g_sigint;
 
 static bool	read_input(t_shell *shell)
 {
@@ -29,11 +29,7 @@ static bool	read_input(t_shell *shell)
 	printf("┌[%s] - [%s]\n", user, pwd);
 	raw_input = readline("└─[$] ");
 	if (!raw_input)
-	{
-		ft_putstr_fd("exit\n", 2);
-		ft_free(&shell->path);
-		exit(shell->exit_status);
-	}
+		empty_input(shell);
 	if (*raw_input)
 		add_history(raw_input);
 	if (all_spaces(raw_input))
@@ -103,7 +99,6 @@ void	debug(t_token *token)
 	head = token;
 	while (head)
 	{
-		// printf("value: %s, type: %s\n", token->value,
 		printf("%s, type: %s\n", head->value, token_kind_string(head->type));
 		head = head->next;
 	}

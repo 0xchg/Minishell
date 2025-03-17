@@ -6,7 +6,7 @@
 /*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 11:36:50 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/13 16:46:29 by mchingi          ###   ########.fr       */
+/*   Updated: 2025/03/16 18:35:20 by welepy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ void	redirect_input(t_token *token, t_shell *shell)
 
 	if (!token || !token->next)
 	{
-		ft_fprintf(2, "minishell: syntax error near unexpected token 'newline'\n");
+		ft_fprintf(2,
+			"minishell: syntax error near unexpected token 'newline'\n");
 		shell->exit_status = 2;
 		exit(shell->exit_status);
 	}
@@ -39,7 +40,8 @@ void	redirect_output(t_token *token, t_shell *shell)
 
 	if (!token || !token->next)
 	{
-		ft_fprintf(2, "minishell: syntax error near unexpected token 'newline'\n");
+		ft_fprintf(2,
+			"minishell: syntax error near unexpected token 'newline'\n");
 		shell->exit_status = 2;
 		exit(shell->exit_status);
 	}
@@ -60,7 +62,8 @@ void	redirect_output_append(t_token *token, t_shell *shell)
 
 	if (!token || !token->next)
 	{
-		ft_fprintf(2, "minishell: syntax error near unexpected token 'newline'\n");
+		ft_fprintf(2,
+			"minishell: syntax error near unexpected token 'newline'\n");
 		shell->exit_status = 2;
 		exit(shell->exit_status);
 	}
@@ -81,7 +84,8 @@ void	redirect_here_doc(t_token *token, t_shell *shell)
 
 	if (!token || !token->next)
 	{
-		ft_fprintf(2, "minishell: syntax error near unexpected token 'newline'\n");
+		ft_fprintf(2,
+			"minishell: syntax error near unexpected token 'newline'\n");
 		shell->exit_status = 2;
 		exit(shell->exit_status);
 	}
