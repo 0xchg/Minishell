@@ -1,73 +1,4 @@
 the current token sequence probably dont work for the tokens after the first operator
-pipe na primera posicao : bash: syntax error near unexpected token `|'
-testar tudo amanha
-
-
-******************* erro no input *****************************************
-┌[welepy] - [/home/welepy/Documents/projects/chingi]
-└─[$] < tests.txt 
-==40962== Invalid read of size 1
-==40962==    at 0x10EA26: ft_strncmp (in /home/welepy/Documents/projects/chingi/minishell)
-==40962==    by 0x109C51: execute_full_command (in /home/welepy/Documents/projects/chingi/minishell)
-==40962==    by 0x109531: execute_command (in /home/welepy/Documents/projects/chingi/minishell)
-==40962==    by 0x109756: command_executer (in /home/welepy/Documents/projects/chingi/minishell)
-==40962==    by 0x10946F: executer (in /home/welepy/Documents/projects/chingi/minishell)
-==40962==    by 0x10AE1D: repl (in /home/welepy/Documents/projects/chingi/minishell)
-==40962==    by 0x10AE9E: main (in /home/welepy/Documents/projects/chingi/minishell)
-==40962==  Address 0x0 is not stack'd, malloc'd or (recently) free'd
-==40962== 
-==40962== 
-==40962== Process terminating with default action of signal 11 (SIGSEGV): dumping core
-==40962==  Access not within mapped region at address 0x0
-==40962==    at 0x10EA26: ft_strncmp (in /home/welepy/Documents/projects/chingi/minishell)
-==40962==    by 0x109C51: execute_full_command (in /home/welepy/Documents/projects/chingi/minishell)
-==40962==    by 0x109531: execute_command (in /home/welepy/Documents/projects/chingi/minishell)
-==40962==    by 0x109756: command_executer (in /home/welepy/Documents/projects/chingi/minishell)
-==40962==    by 0x10946F: executer (in /home/welepy/Documents/projects/chingi/minishell)
-==40962==    by 0x10AE1D: repl (in /home/welepy/Documents/projects/chingi/minishell)
-==40962==    by 0x10AE9E: main (in /home/welepy/Documents/projects/chingi/minishell)
-==40962==  If you believe this happened as a result of a stack
-==40962==  overflow in your program's main thread (unlikely but
-==40962==  possible), you can try to increase the size of the
-==40962==  main thread stack using the --main-stacksize= flag.
-==40962==  The main thread stack size used in this run was 8388608.
-==40962== 
-==40962== HEAP SUMMARY:
-==40962==     in use at exit: 256,102 bytes in 482 blocks
-==40962==   total heap usage: 842 allocs, 360 frees, 341,523 bytes allocated
-==40962== 
-==40962== LEAK SUMMARY:
-==40962==    definitely lost: 0 bytes in 0 blocks
-==40962==    indirectly lost: 0 bytes in 0 blocks
-==40962==      possibly lost: 0 bytes in 0 blocks
-==40962==    still reachable: 256,102 bytes in 482 blocks
-==40962==         suppressed: 0 bytes in 0 blocks
-==40962== Reachable blocks (those to which a pointer was found) are not shown.
-==40962== To see them, rerun with: --leak-check=full --show-leak-kinds=all
-==40962== 
-==40962== For lists of detected and suppressed errors, rerun with: -s
-==40962== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 0 from 0)
-┌[welepy] - [/home/welepy/Documents/projects/chingi]
-└─[$] 
-exit
-==40951== 
-==40951== HEAP SUMMARY:
-==40951==     in use at exit: 249,572 bytes in 395 blocks
-==40951==   total heap usage: 745 allocs, 350 frees, 340,962 bytes allocated
-==40951== 
-==40951== LEAK SUMMARY:
-==40951==    definitely lost: 0 bytes in 0 blocks
-==40951==    indirectly lost: 0 bytes in 0 blocks
-==40951==      possibly lost: 0 bytes in 0 blocks
-==40951==    still reachable: 249,572 bytes in 395 blocks
-==40951==         suppressed: 0 bytes in 0 blocks
-==40951== Reachable blocks (those to which a pointer was found) are not shown.
-==40951== To see them, rerun with: --leak-check=full --show-leak-kinds=all
-==40951== 
-==40951== For lists of detected and suppressed errors, rerun with: -s
-==40951== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
-************************************************************************************
-
 
 **************** este erro de contexto acontece muito, mas n tem leaks, entao acho q n faz mal***************************************
 ┌[welepy] - [/home/welepy/Documents/projects/chingi]
@@ -111,7 +42,7 @@ echo edson > file baptista finda -> tem q imprimir edson baptista finda no file,
 
 pipe na ultima posiccao n abre herepipe
 
---------------------------------
+-------------------------------- resolvidos --------------------------------
 
 echo $ should not expand
 
