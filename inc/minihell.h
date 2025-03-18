@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minihell.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: welepy <welepy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 15:16:19 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/16 18:41:30 by welepy           ###   ########.fr       */
+/*   Updated: 2025/03/18 22:28:30 by welepy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@
 # include <stdbool.h> 
 
 //----------------------------- Structs ---------------------------------------/
+
+typedef struct s_strings	t_strings;
 
 typedef enum e_type
 {
@@ -117,7 +119,6 @@ t_token	*new_token(char *value, t_type type);
 //--------------------------------- Parse -------------------------------------/
 bool	validate_quote_number(char *input);
 void	parse(t_shell *shell);
-void	expand(char ***matrix, t_env *env, t_shell *shell);
 int		word_count(char *input);
 char	*get_path(t_env *env);
 char	*clean_string(char *str);
@@ -153,5 +154,8 @@ void	signal_handler(int sig);
 
 void	expansion(t_token *tokens, t_env *env, t_shell *shell);
 
+char 	*expand(char *input, t_env *env, int exit_status);
+
 void	empty_input(t_shell *shell);
+char	*get_env_value(char *name, t_env *env);
 #endif

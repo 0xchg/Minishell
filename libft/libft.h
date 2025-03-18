@@ -6,7 +6,7 @@
 /*   By: welepy <welepy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 14:02:03 by marcsilv          #+#    #+#             */
-/*   Updated: 2025/03/14 20:17:18 by welepy           ###   ########.fr       */
+/*   Updated: 2025/03/18 22:16:52 by welepy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,15 @@
 # define ALL "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
 
 typedef struct s_list	t_list;
+
+typedef struct s_strings
+{
+	char	*str1;
+	char	*str2;
+	char	*str3;
+	char	*str4;
+	char	*str5;
+}	t_strings;
 
 int		ft_abs(int n);
 int		numlen(int n);
@@ -140,4 +149,5 @@ long long int	ft_strtoll(char *line);
 
 bool  int_overflow(long long int n);
 char  *join_matrix(int n, char **strings, const char *separator);
+size_t	ft_strlen_free(char *str);
 #endif
