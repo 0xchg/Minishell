@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils3.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: welepy <welepy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 14:20:16 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/16 18:40:46 by welepy           ###   ########.fr       */
+/*   Updated: 2025/03/18 22:29:04 by welepy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,4 +70,15 @@ void	empty_input(t_shell *shell)
 	ft_putstr_fd("exit\n", 2);
 	ft_free(&shell->path);
 	exit(shell->exit_status);
+}
+
+char	*get_env_value(char *name, t_env *env)
+{
+	while (env)
+	{
+		if (ft_strcmp(env->name, name) == 0)
+			return (env->value);
+		env = env->next;
+	}
+	return (NULL);
 }
