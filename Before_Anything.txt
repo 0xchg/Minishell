@@ -1,5 +1,7 @@
 the current token sequence probably dont work for the tokens after the first operator
 
+verificar as permissoes de tudo, provavelmenbte deve ter algum bug
+
 **************** este erro de contexto acontece muito, mas n tem leaks, entao acho q n faz mal***************************************
 ┌[welepy] - [/home/welepy/Documents/projects/chingi]
 └─[$] echo
