@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe_executer.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 16:45:13 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/13 17:51:48 by mchingi          ###   ########.fr       */
+/*   Updated: 2025/03/19 16:39:40 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,17 @@ void	redirect_pipe(t_token *token, t_pipe *pip, t_type type, t_shell *shell)
 		execute_cmd_in_pipe(token, shell, pip->input_fd, STDOUT_FILENO);
 }
 
+static void	pipe_executer_util(t_token *token, t_shell *shell,
+	t_type type, t_pipe *pip)
+{
+	if (type == PIPE)
+		dup3(pip->pipe_fd[1], STDOUT_FILENO);
+	if (redirection_flag(token))
+		redirect_builtins(shell, token);
+	else
+		execute_builtins(shell, token);
+}
+
 void	pipe_executer(t_shell *shell, t_token *token, t_pipe *pip, t_type type)
 {
 	if (pipe(pip->pipe_fd) == -1)
@@ -67,12 +78,7 @@ void	pipe_executer(t_shell *shell, t_token *token, t_pipe *pip, t_type type)
 		execute_redirections(token, shell);
 		if (is_builtin(token->type))
 		{
-			if (type == PIPE)
-				dup3(pip->pipe_fd[1], STDOUT_FILENO);
-			if (redirection_flag(token))
-				redirect_builtins(shell, token);
-			else
-				execute_builtins(shell, token);
+			pipe_executer_util(token, shell, type, pip);
 			exit(shell->exit_status);
 		}
 		else

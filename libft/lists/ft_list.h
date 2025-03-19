@@ -3,19 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   ft_list.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marcsilv <marcsilv@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 14:34:34 by marcsilv          #+#    #+#             */
-/*   Updated: 2025/03/14 20:20:10 by welepy           ###   ########.fr       */
+/*   Updated: 2025/03/19 15:37:27 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-#include <stddef.h>
-#include <stdlib.h>
 
 #ifndef FT_LIST_H
 # define FT_LIST_H
 
+# include <stdlib.h>
+# include <stddef.h>
 
 typedef struct s_list
 {
