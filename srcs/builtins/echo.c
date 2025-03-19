@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 15:48:53 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/15 13:28:21 by welepy           ###   ########.fr       */
+/*   Updated: 2025/03/19 18:15:43 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,8 @@ static bool	echo_aux(t_token *token, bool *option, char *input)
 	tab[0] = true;
 	tab[1] = check_input(input);
 	temp = token->next;
-	while (temp && (temp->type == OPTION || temp->type == SINGLE_QUOTE || temp->type == DOUBLE_QUOTE) && v_option((temp->value)))
+	while (temp && (temp->type == OPTION || temp->type == SINGLE_QUOTE
+			|| temp->type == DOUBLE_QUOTE) && v_option((temp->value)))
 	{
 		*option = true;
 		temp = temp->next;
@@ -84,7 +85,7 @@ static bool	echo_aux(t_token *token, bool *option, char *input)
 	while (temp)
 	{
 		if ((temp->type == ARGUMENT || temp->type == SINGLE_QUOTE
-			|| temp->type == DOUBLE_QUOTE || temp->type == OPTION))
+				|| temp->type == DOUBLE_QUOTE || temp->type == OPTION))
 			echo_aux_ext(temp, tab);
 		else if (is_redirection(temp->type))
 		{
@@ -93,7 +94,7 @@ static bool	echo_aux(t_token *token, bool *option, char *input)
 				temp = temp->next;
 			continue ;
 		}
-		else 
+		else
 			break ;
 		temp = temp->next;
 	}

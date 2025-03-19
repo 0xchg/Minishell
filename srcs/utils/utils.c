@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 21:08:38 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/19 16:29:22 by codespace        ###   ########.fr       */
+/*   Updated: 2025/03/19 18:25:23 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,13 +81,13 @@ char	**env_to_matrix(t_env *env)
 
 char	*remove_quotes(const char *str)
 {
-	size_t len;
-	size_t new_len;
-	char *new_str;
+	size_t	len;
+	size_t	new_len;
+	char	*new_str;
 
-	len  = strlen(str);
+	len = ft_strlen(str);
 	if (len >= 2 && ((str[0] == '"' && str[len - 1] == '"')
-		|| (str[0] == '\'' && str[len - 1] == '\'')))
+			|| (str[0] == '\'' && str[len - 1] == '\'')))
 	{
 		new_len = len - 2;
 		new_str = safe_malloc(new_len + 1);

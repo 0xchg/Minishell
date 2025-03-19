@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 15:46:17 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/19 18:04:45 by codespace        ###   ########.fr       */
+/*   Updated: 2025/03/19 18:12:09 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ static void	ft_cd_aux(t_token *current, char *cur_path, t_shell *shell)
 	ft_free(&cur_path);
 }
 
-static int cd_error(char *cur_path, int flag, t_shell *shell, t_token *token)
+static int	cd_error(char *cur_path, int flag, t_shell *shell, t_token *token)
 {
 	if (token->next && flag == 0)
 	{

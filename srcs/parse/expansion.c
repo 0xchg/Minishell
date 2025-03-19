@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   expansion.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: welepy <welepy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 13:20:02 by welepy            #+#    #+#             */
-/*   Updated: 2025/03/18 22:28:39 by welepy           ###   ########.fr       */
+/*   Updated: 2025/03/19 18:22:07 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minihell.h"
 
-static void	calculate_result_size_util(int *k, char *input, t_env *env, size_t *result_size)
+static void	calculate_result_size_util(int *k, char *input,
+	t_env *env, size_t *result_size)
 {
 	size_t	var_len;
 	char	*env_value;
@@ -35,7 +36,7 @@ static void	calculate_result_size_util(int *k, char *input, t_env *env, size_t *
 static size_t	calculate_result_size(char *input, t_env *env, int exit_status)
 {
 	size_t	result_size;
-	int	k;
+	int		k;
 
 	k = -1;
 	result_size = 0;
@@ -59,10 +60,11 @@ static size_t	calculate_result_size(char *input, t_env *env, int exit_status)
 	return (result_size);
 }
 
-static void	append_exit_status(char *result, size_t *j, int exit_status, size_t *i)
+static void	append_exit_status(char *result, size_t *j,
+	int exit_status, size_t *i)
 {
-	char *exit_status_str;
-	
+	char	*exit_status_str;
+
 	exit_status_str = ft_itoa(exit_status);
 	ft_strcpy(result + *j, exit_status_str);
 	*j += ft_strlen(exit_status_str);
@@ -70,14 +72,20 @@ static void	append_exit_status(char *result, size_t *j, int exit_status, size_t 
 	ft_free(&exit_status_str);
 }
 
-static void	append_env_value(t_strings strings, size_t *j,size_t *i, t_env *env)
+static void	append_env_value(t_strings strings, size_t *j,
+	size_t *i, t_env *env)
 {
+	size_t	var_len;
+	char	*env_value;
+	char	*temp;
+
 	(*i)++;
-	size_t var_len = 0;
-	while (ft_isalnum(strings.str1[*i + var_len]) || strings.str1[*i + var_len] == '_')
+	var_len = 0;
+	while (ft_isalnum(strings.str1[*i + var_len])
+		|| strings.str1[*i + var_len] == '_')
 		var_len++;
-	char *temp = ft_strndup(strings.str1 + *i, var_len);
-	char *env_value = get_env_value(temp, env);
+	temp = ft_strndup(strings.str1 + *i, var_len);
+	env_value = get_env_value(temp, env);
 	free(temp);
 	if (env_value)
 	{
@@ -87,11 +95,11 @@ static void	append_env_value(t_strings strings, size_t *j,size_t *i, t_env *env)
 	*i += var_len;
 }
 
-char *expand(char *input, t_env *env, int exit_status)
+char	*expand(char *input, t_env *env, int exit_status)
 {
-	char *result;
-	size_t i;
-	size_t j;
+	char	*result;
+	size_t	i;
+	size_t	j;
 
 	i = 0;
 	j = 0;
@@ -103,7 +111,8 @@ char *expand(char *input, t_env *env, int exit_status)
 			if (input[i + 1] == '?')
 				append_exit_status(result, &j, exit_status, &i);
 			else if (ft_isalpha(input[i + 1]) || input[i + 1] == '_')
-				append_env_value((t_strings){.str1 = input, .str2 = result}, &j, &i, env);
+				append_env_value((t_strings){.str1 = input, .str2 = result},
+					&j, &i, env);
 			else
 				result[j++] = input[i++];
 		}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 15:48:58 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/10 18:37:11 by welepy           ###   ########.fr       */
+/*   Updated: 2025/03/19 18:16:07 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ void	ft_env(t_env *env, t_token *token, t_shell *shell, bool declare)
 	t_env	*tmp;
 
 	tmp = env;
-	if (token->next && (token->next->type == ARGUMENT || token->next->type == OPTION))
+	if (token->next && (token->next->type == ARGUMENT
+			|| token->next->type == OPTION))
 	{
 		ft_fprintf(2, "env: this env does not support options or arguments\n");
 		shell->exit_status = 1;
