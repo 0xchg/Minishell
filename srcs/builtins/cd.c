@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 15:46:17 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/15 19:10:44 by welepy           ###   ########.fr       */
+/*   Updated: 2025/03/19 18:12:09 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,12 @@
 
 static bool	permission_check(t_shell *shell, char *path)
 {
+	if (access(path, F_OK) != 0)
+	{
+		ft_fprintf(2, "cd: %s: No such file or directory\n", path);
+		shell->exit_status = 1;
+		return (false);
+	}
 	if (access(path, X_OK) != 0)
 	{
 		ft_fprintf(2, "cd: %s: Permission denied\n", path);
@@ -65,19 +71,29 @@ static void	ft_cd_aux(t_token *current, char *cur_path, t_shell *shell)
 	}
 	if (chdir(new_path) == -1)
 	{
-		write(2, "cd: ", 4);
-		perror(current->value);
+		ft_fprintf(2, "cd: %s", current->value);
 		shell->exit_status = 1;
 	}
 	ft_free(&new_path);
 	ft_free(&cur_path);
 }
 
-static int too_many_args(char *cur_path)
+static int	cd_error(char *cur_path, int flag, t_shell *shell, t_token *token)
 {
-	ft_putstr_fd("cd: too many arguments\n", 2);
-	ft_free(&cur_path);
-	return (1);
+	if (token->next && flag == 0)
+	{
+		ft_putstr_fd("cd: too many arguments\n", 2);
+		shell->exit_status = 1;
+		ft_free(&cur_path);
+		return (true);
+	}
+	if (token->next && token->next->type == OPTION && flag == 1)
+	{
+		ft_fprintf(2, "cd: this version doesn't allow options\n");
+		shell->exit_status = 1;
+		return (true);
+	}
+	return (false);
 }
 
 void	ft_cd(t_token *current, t_shell *shell)
@@ -86,12 +102,8 @@ void	ft_cd(t_token *current, t_shell *shell)
 	static char	*prev_path;
 	t_token		*token;
 
-	if (current->next && current->next->type == OPTION)
-	{
-		ft_fprintf(2, "cd: this version doesn't allow options\n");
-		shell->exit_status = 1;
+	if (cd_error(NULL, 1, shell, current))
 		return ;
-	}
 	token = current->next;
 	if (!token)
 	{
@@ -99,11 +111,8 @@ void	ft_cd(t_token *current, t_shell *shell)
 		return ;
 	}
 	cur_path = getcwd(NULL, 0);
-	if (token->next)
-	{
-		shell->exit_status = too_many_args(cur_path);
+	if (cd_error(cur_path, 0, shell, token))
 		return ;
-	}
 	if (ft_strcmp(token->value, "-") == 0)
 	{
 		ft_cd_prev(prev_path, shell);

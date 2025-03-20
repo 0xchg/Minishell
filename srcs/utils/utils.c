@@ -3,14 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: welepy <welepy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 21:08:38 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/10 20:51:34 by welepy           ###   ########.fr       */
+/*   Updated: 2025/03/19 18:25:23 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minihell.h"
+
+static bool	check_path(char *str, char ***paths)
+{
+	if (access(str, F_OK) == 0)
+	{
+		free_matrix(*paths);
+		return (true);
+	}
+	return (false);
+}
 
 char	*find_path(char *cmd, char **envp)
 {
@@ -32,11 +42,8 @@ char	*find_path(char *cmd, char **envp)
 		matrix[1] = ft_strjoin(paths[i], "/");
 		matrix[0] = ft_strjoin(matrix[1], cmd);
 		ft_free(&matrix[1]);
-		if (access(matrix[0], F_OK) == 0)
-		{
-			free_matrix(paths);
+		if (check_path(matrix[0], &paths))
 			return (matrix[0]);
-		}
 		ft_free(&matrix[0]);
 	}
 	free_matrix(paths);
@@ -72,43 +79,15 @@ char	**env_to_matrix(t_env *env)
 	return (matrix);
 }
 
-char	*clean_string(char *str)
-{
-	int		tab[2];
-	char	*cleaned_str;
-
-	tab[0] = 0;
-	tab[1] = 0;
-	while (str[tab[0]])
-	{
-		if (str[tab[0]] != '\"' || str[tab[0]] != '\'')
-			tab[1]++;
-		tab[0]++;
-	}
-	cleaned_str = (char *)malloc(sizeof(char) * (tab[1] + 1));
-	if (!cleaned_str)
-		return (NULL);
-	tab[0] = -1;
-	tab[1] = 0;
-	while (str[++tab[0]])
-	{
-		if (str[tab[0]] == '\"' || str[tab[0]] == '\'')
-			tab[0]++;
-		cleaned_str[tab[1]] = str[tab[0]];
-		tab[1]++;
-	}
-	cleaned_str[tab[0]] = '\0';
-	return (cleaned_str);
-}
-
 char	*remove_quotes(const char *str)
 {
-	size_t len;
-	size_t new_len;
-	char *new_str;
+	size_t	len;
+	size_t	new_len;
+	char	*new_str;
 
-	len  = strlen(str);
-	if (len >= 2 && ((str[0] == '"' && str[len - 1] == '"') || (str[0] == '\'' && str[len - 1] == '\'')))
+	len = ft_strlen(str);
+	if (len >= 2 && ((str[0] == '"' && str[len - 1] == '"')
+			|| (str[0] == '\'' && str[len - 1] == '\'')))
 	{
 		new_len = len - 2;
 		new_str = safe_malloc(new_len + 1);

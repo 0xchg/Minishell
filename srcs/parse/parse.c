@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: welepy <welepy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 11:47:02 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/18 22:29:08 by welepy           ###   ########.fr       */
+/*   Updated: 2025/03/19 18:17:33 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,10 +79,10 @@ static char	**split_input(char *input, t_shell *shell)
 	return (array);
 }
 
-void parse(t_shell *shell)
+void	parse(t_shell *shell)
 {
-	char *temp;
-	char *expanded_temp;
+	char	*temp;
+	char	*expanded_temp;
 
 	temp = ft_strtrim(shell->input, " ");
 	expanded_temp = expand(temp, shell->env, shell->exit_status);

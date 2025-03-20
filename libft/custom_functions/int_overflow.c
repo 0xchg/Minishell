@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   int_overflow.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: welepy </var/spool/mail/welepy>            +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 13:59:00 by welepy            #+#    #+#             */
-/*   Updated: 2025/03/11 14:01:09 by welepy           ###   ########.fr       */
+/*   Updated: 2025/03/19 15:41:25 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
 
-bool  int_overflow(long long int n)
+bool	int_overflow(long long int n)
 {
 	return (n < LLONG_MIN || n > LLONG_MAX);
 }

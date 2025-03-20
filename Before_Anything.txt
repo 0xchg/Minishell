@@ -1,6 +1,10 @@
 the current token sequence probably dont work for the tokens after the first operator
 
+<<<<<<< HEAD
 pq alocamos memoria no inicio para o shell, mas nunca liberamos
+=======
+verificar as permissoes de tudo, provavelmenbte deve ter algum bug
+>>>>>>> 3eed711a703f79d17b45e33ed45240e8ef384019
 
 **************** este erro de contexto acontece muito, mas n tem leaks, entao acho q n faz mal***************************************
 ┌[welepy] - [/home/welepy/Documents/projects/chingi]
