@@ -6,7 +6,7 @@
 /*   By: welepy <welepy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 15:16:24 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/20 06:40:08 by welepy           ###   ########.fr       */
+/*   Updated: 2025/03/20 11:24:09 by welepy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ void	repl(t_shell *shell)
 	while (1)
 	{
 		signal(SIGQUIT, SIG_IGN);
+		set_sigint(&shell->exit_status, 0);
 		signal(SIGINT, signal_handler);
 		if (!read_input(shell))
 			continue ;
