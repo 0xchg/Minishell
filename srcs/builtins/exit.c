@@ -6,7 +6,7 @@
 /*   By: welepy <welepy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 15:49:03 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/12 22:41:17 by welepy           ###   ########.fr       */
+/*   Updated: 2025/03/20 11:45:03 by marcilsv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ static int	modulo(long long int exit_status)
 	return (exit_status % 256);
 }
 
-void	ft_exit(t_shell *shell, t_token *token)
+int	ft_exit(t_shell *shell, t_token *token)
 {
 	char	*arr[2];
 
