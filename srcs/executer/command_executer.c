@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command_executer.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: welepy <welepy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 16:47:12 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/13 16:43:43 by mchingi          ###   ########.fr       */
+/*   Updated: 2025/03/20 14:55:19 by welepy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ void	redirect_builtins(t_shell *shell, t_token *tokens)
 		exit(shell->exit_status);
 	}
 	waitpid(id, &shell->exit_status, 0);
+	if (WIFEXITED (shell->exit_status))
+		shell->exit_status = WEXITSTATUS(shell->exit_status);
 }
 
 int	redirection_flag(t_token *token)
@@ -89,5 +91,7 @@ void	command_executer(t_shell *shell, t_token *tokens)
 			execute_command(tokens, shell);
 		}
 		waitpid(id, &shell->exit_status, 0);
+		if (WIFEXITED (shell->exit_status))
+			shell->exit_status = WEXITSTATUS(shell->exit_status);
 	}
 }

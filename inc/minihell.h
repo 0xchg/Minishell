@@ -6,7 +6,7 @@
 /*   By: welepy <welepy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 15:16:19 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/20 12:56:06 by welepy           ###   ########.fr       */
+/*   Updated: 2025/03/20 15:54:16 by welepy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@
 //----------------------------- Structs ---------------------------------------/
 
 typedef struct s_strings	t_strings;
+typedef t_strings	t_s;
 
 typedef enum e_type
 {
@@ -159,5 +160,12 @@ void	empty_input(t_shell *shell);
 char	*get_env_value(char *name, t_env *env);
 void	set_sigint(int *num, char write);
 int		expand_flag(char *input, int i);
+bool	echo_aux(t_token *token, bool *option, char *input);
+
+void	handle_sigint(int sig);
+
+void	handle_arguments(t_token *temp);
+void	handle_redirections(t_token **temp);
+void	handle_options(t_token **temp, bool *option);
 
 #endif

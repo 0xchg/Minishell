@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe_executer.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: welepy <welepy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 16:45:13 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/19 16:39:40 by codespace        ###   ########.fr       */
+/*   Updated: 2025/03/20 15:05:29 by welepy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,12 @@ static void	pipe_executer_util(t_token *token, t_shell *shell,
 		execute_builtins(shell, token);
 }
 
+void	pipe_exectuter_helper(t_shell *shell, t_token *token, t_type type, t_pipe *pipe)
+{
+	pipe_executer_util(token, shell, type, pipe);
+	exit(shell->exit_status);
+}
+
 void	pipe_executer(t_shell *shell, t_token *token, t_pipe *pip, t_type type)
 {
 	if (pipe(pip->pipe_fd) == -1)
@@ -77,14 +83,13 @@ void	pipe_executer(t_shell *shell, t_token *token, t_pipe *pip, t_type type)
 	{
 		execute_redirections(token, shell);
 		if (is_builtin(token->type))
-		{
-			pipe_executer_util(token, shell, type, pip);
-			exit(shell->exit_status);
-		}
+			pipe_exectuter_helper(shell, token, type, pip);
 		else
 			redirect_pipe(token, pip, type, shell);
 	}
 	waitpid(pip->id, &shell->exit_status, 0);
+	if (WIFEXITED(shell->exit_status))
+		shell->exit_status = WEXITSTATUS(shell->exit_status);
 	if (pip->input_fd != 0)
 		close(pip->input_fd);
 	if (type == PIPE)

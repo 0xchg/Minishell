@@ -6,13 +6,14 @@
 /*   By: welepy <welepy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 16:32:01 by marcsilv          #+#    #+#             */
-/*   Updated: 2025/03/20 13:35:04 by welepy           ###   ########.fr       */
+/*   Updated: 2025/03/20 14:03:32 by welepy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minihell.h"
 
 extern volatile sig_atomic_t	g_sigint;
+extern volatile sig_atomic_t	g_interrupted;
 
 void	set_sigint(int *num, char write)
 {
@@ -22,6 +23,12 @@ void	set_sigint(int *num, char write)
 		sig = num;
 	else if (write)
 		*sig = 130;
+}
+
+void	handle_sigint(int sig)
+{
+	(void)sig;
+	g_interrupted = 1;
 }
 
 void	signal_handler(int sig)

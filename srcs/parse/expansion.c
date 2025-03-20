@@ -6,13 +6,11 @@
 /*   By: welepy <welepy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 13:20:02 by welepy            #+#    #+#             */
-/*   Updated: 2025/03/20 13:25:08 by welepy           ###   ########.fr       */
+/*   Updated: 2025/03/20 14:04:27 by welepy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minihell.h"
-
-typedef t_strings	t_s;
 
 static void	calculate_result_size_util(int *k, char *input,
 	t_env *env, size_t *result_size)
@@ -101,7 +99,7 @@ char	*expand(char *input, t_env *env, int exit_status)
 {
 	char	*result;
 	size_t	tab[2];
-	int	flag;
+	int		flag;
 
 	tab[0] = 0;
 	tab[1] = 0;

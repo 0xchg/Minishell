@@ -6,7 +6,7 @@
 #    By: welepy <welepy@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/14 15:16:15 by mchingi           #+#    #+#              #
-#    Updated: 2025/03/16 18:50:32 by welepy           ###   ########.fr        #
+#    Updated: 2025/03/20 15:36:04 by welepy           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,7 +45,8 @@ SRCS = 	./srcs/executer/executer.c \
 		./srcs/builtins/export.c \
 		./srcs/builtins/pwd.c \
 		./srcs/builtins/exit.c \
-		./srcs/builtins/echo.c
+		./srcs/builtins/echo.c	\
+		./srcs/builtins/echo_utils.c
 
 HEADER = ./inc/minihell.h
 

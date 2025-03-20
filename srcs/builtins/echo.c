@@ -3,32 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: welepy <welepy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 15:48:53 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/19 18:15:43 by codespace        ###   ########.fr       */
+/*   Updated: 2025/03/20 15:54:52 by welepy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minihell.h"
-
-static bool	v_option(char *value)
-{
-	int	i;
-
-	if (value[0] != '-')
-		return (false);
-	if (value[1] == '\0')
-		return (false);
-	i = 1;
-	while (value[i])
-	{
-		if (value[i] != 'n')
-			return (false);
-		i++;
-	}
-	return (true);
-}
 
 static bool	check_input(char *input)
 {
@@ -61,41 +43,24 @@ static void	echo_aux_ext(t_token *temp, bool *tab)
 		printf("%s", (temp->value));
 }
 
-static bool	echo_aux(t_token *token, bool *option, char *input)
+bool	echo_aux(t_token *token, bool *option, char *input)
 {
 	t_token	*temp;
-	t_token	*temp2;
-	bool	tab[2];
+	bool	*tab;
 
-	tab[0] = true;
-	tab[1] = check_input(input);
+	tab = (bool []){true, check_input(input)};
 	temp = token->next;
-	while (temp && (temp->type == OPTION || temp->type == SINGLE_QUOTE
-			|| temp->type == DOUBLE_QUOTE) && v_option((temp->value)))
-	{
-		*option = true;
-		temp = temp->next;
-	}
-	temp2 = temp;
-	while (temp2 && temp2->type == OPTION)
-	{
-		temp2->type = ARGUMENT;
-		temp2 = temp2->next;
-	}
+	handle_options(&temp, option);
+	handle_arguments(temp);
 	while (temp)
 	{
-		if ((temp->type == ARGUMENT || temp->type == SINGLE_QUOTE
-				|| temp->type == DOUBLE_QUOTE || temp->type == OPTION))
+		if (temp->type == ARGUMENT || temp->type == SINGLE_QUOTE
+				|| temp->type == DOUBLE_QUOTE || temp->type == OPTION)
 			echo_aux_ext(temp, tab);
 		else if (is_redirection(temp->type))
-		{
-			temp = temp->next;
-			if (temp)
-				temp = temp->next;
-			continue ;
-		}
+			handle_redirections(&temp);
 		else
-			break ;
+			break;
 		temp = temp->next;
 	}
 	return (*option);

@@ -6,7 +6,7 @@
 /*   By: welepy <welepy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 14:02:03 by marcsilv          #+#    #+#             */
-/*   Updated: 2025/03/20 13:13:20 by welepy           ###   ########.fr       */
+/*   Updated: 2025/03/20 15:51:57 by welepy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,5 +148,4 @@ t_list	*matrix_to_list(char **matrix);
 bool	int_overflow(long long int n);
 char	*join_matrix(int n, char **strings, const char *separator);
 size_t	ft_strlen_free(char *str);
-
 #endif
