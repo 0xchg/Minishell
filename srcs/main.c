@@ -6,7 +6,7 @@
 /*   By: welepy <welepy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 15:16:24 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/16 18:44:10 by welepy           ###   ########.fr       */
+/*   Updated: 2025/03/20 06:40:08 by welepy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ static bool	read_input(t_shell *shell)
 	if (all_spaces(raw_input))
 	{
 		ft_free(&raw_input);
+		ft_free(&pwd);
 		return (false);
 	}
 	shell->input = ft_strtrim(raw_input, " \t\n");
@@ -63,7 +64,6 @@ void	repl(t_shell *shell)
 		signal(SIGINT, signal_handler);
 		if (!read_input(shell))
 			continue ;
-		add_history(shell->input);
 		parse(shell);
 		if (shell->flag)
 		{
