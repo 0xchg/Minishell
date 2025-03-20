@@ -6,7 +6,7 @@
 /*   By: welepy <welepy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 15:49:08 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/16 19:20:21 by welepy           ###   ########.fr       */
+/*   Updated: 2025/03/20 11:30:10 by welepy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,12 @@ void	ft_export(t_env *env, t_token *token, t_shell *shell)
 	head = head->next;
 	while (head && (head->type == ARGUMENT))
 	{
+	if (head->value[0] == '=')
+	{
+		ft_fprintf(2, "export: `=%s': not a valid identifier\n", temp->value);
+		shell->exit_status = 2;
+		return ;
+	}
 		temp = arg_to_env(head);
 		ft_unset(env, head, shell, true);
 		add_env(&env, temp);
