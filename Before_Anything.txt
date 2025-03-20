@@ -1,5 +1,7 @@
 the current token sequence probably dont work for the tokens after the first operator
 
+pq alocamos memoria no inicio para o shell, mas nunca liberamos
+
 **************** este erro de contexto acontece muito, mas n tem leaks, entao acho q n faz mal***************************************
 ┌[welepy] - [/home/welepy/Documents/projects/chingi]
 └─[$] echo
