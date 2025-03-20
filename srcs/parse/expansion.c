@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   expansion.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: welepy <welepy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 13:20:02 by welepy            #+#    #+#             */
-/*   Updated: 2025/03/19 18:22:07 by codespace        ###   ########.fr       */
+/*   Updated: 2025/03/20 13:25:08 by welepy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minihell.h"
+
+typedef t_strings	t_s;
 
 static void	calculate_result_size_util(int *k, char *input,
 	t_env *env, size_t *result_size)
@@ -72,7 +74,7 @@ static void	append_exit_status(char *result, size_t *j,
 	ft_free(&exit_status_str);
 }
 
-static void	append_env_value(t_strings strings, size_t *j,
+static void	concat(t_strings strings, size_t *j,
 	size_t *i, t_env *env)
 {
 	size_t	var_len;
@@ -81,15 +83,15 @@ static void	append_env_value(t_strings strings, size_t *j,
 
 	(*i)++;
 	var_len = 0;
-	while (ft_isalnum(strings.str1[*i + var_len])
-		|| strings.str1[*i + var_len] == '_')
+	while (ft_isalnum(strings.s1[*i + var_len])
+		|| strings.s1[*i + var_len] == '_')
 		var_len++;
-	temp = ft_strndup(strings.str1 + *i, var_len);
+	temp = ft_strndup(strings.s1 + *i, var_len);
 	env_value = get_env_value(temp, env);
 	free(temp);
 	if (env_value)
 	{
-		ft_strcpy(strings.str2 + *j, env_value);
+		ft_strcpy(strings.s2 + *j, env_value);
 		*j += ft_strlen(env_value);
 	}
 	*i += var_len;
@@ -98,27 +100,28 @@ static void	append_env_value(t_strings strings, size_t *j,
 char	*expand(char *input, t_env *env, int exit_status)
 {
 	char	*result;
-	size_t	i;
-	size_t	j;
+	size_t	tab[2];
+	int	flag;
 
-	i = 0;
-	j = 0;
+	tab[0] = 0;
+	tab[1] = 0;
+	flag = 1;
 	result = safe_malloc(calculate_result_size(input, env, exit_status) + 1);
-	while (input[i])
+	while (input[tab[0]])
 	{
-		if (input[i] == '$')
+		flag *= expand_flag(input, tab[0]);
+		if (input[tab[0]] == '$' && flag != -1)
 		{
-			if (input[i + 1] == '?')
-				append_exit_status(result, &j, exit_status, &i);
-			else if (ft_isalpha(input[i + 1]) || input[i + 1] == '_')
-				append_env_value((t_strings){.str1 = input, .str2 = result},
-					&j, &i, env);
+			if (input[tab[0] + 1] == '?')
+				append_exit_status(result, &tab[1], exit_status, &tab[0]);
+			else if (ft_isalpha(input[tab[0] + 1]) || input[tab[0] + 1] == '_')
+				concat((t_s){.s1 = input, .s2 = result}, &tab[1], &tab[0], env);
 			else
-				result[j++] = input[i++];
+				result[tab[1]++] = input[tab[0]++];
 		}
 		else
-			result[j++] = input[i++];
+			result[tab[1]++] = input[tab[0]++];
 	}
-	result[j] = '\0';
+	result[tab[1]] = '\0';
 	return (result);
 }

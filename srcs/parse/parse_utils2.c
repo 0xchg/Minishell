@@ -6,7 +6,7 @@
 /*   By: welepy <welepy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 02:56:56 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/15 19:40:41 by welepy           ###   ########.fr       */
+/*   Updated: 2025/03/20 12:55:38 by welepy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,13 @@ char	*extract_operator(char **input, t_shell *shell)
 		operator[i++] = temp_char;
 	operator[i] = '\0';
 	return (operator);
+}
+
+int	expand_flag(char *input, int i)
+{
+	if (input[i] == '\'')
+		return (-1);
+	return (1);
 }
 
 /*int	number_of_commands(t_token *tokens)

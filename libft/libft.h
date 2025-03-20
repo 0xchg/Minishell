@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: welepy <welepy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 14:02:03 by marcsilv          #+#    #+#             */
-/*   Updated: 2025/03/19 15:33:23 by codespace        ###   ########.fr       */
+/*   Updated: 2025/03/20 13:13:20 by welepy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,11 @@ typedef struct s_list	t_list;
 
 typedef struct s_strings
 {
-	char	*str1;
-	char	*str2;
-	char	*str3;
-	char	*str4;
-	char	*str5;
+	char	*s1;
+	char	*s2;
+	char	*s3;
+	char	*s4;
+	char	*s5;
 }	t_strings;
 
 int		ft_abs(int n);

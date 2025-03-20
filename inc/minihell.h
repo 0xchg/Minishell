@@ -6,7 +6,7 @@
 /*   By: welepy <welepy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 15:16:19 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/20 11:49:33 by welepy           ###   ########.fr       */
+/*   Updated: 2025/03/20 12:56:06 by welepy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,4 +158,6 @@ char	*expand(char *input, t_env *env, int exit_status);
 void	empty_input(t_shell *shell);
 char	*get_env_value(char *name, t_env *env);
 void	set_sigint(int *num, char write);
+int		expand_flag(char *input, int i);
+
 #endif

@@ -6,7 +6,7 @@
 /*   By: welepy <welepy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 16:32:01 by marcsilv          #+#    #+#             */
-/*   Updated: 2025/03/20 11:24:44 by welepy           ###   ########.fr       */
+/*   Updated: 2025/03/20 13:35:04 by welepy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 extern volatile sig_atomic_t	g_sigint;
 
 void	set_sigint(int *num, char write)
-{	
+{
 	static int	*sig;
 
 	if (!sig)
