@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minihell.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: welepy <welepy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 15:16:19 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/20 11:44:42 by marcilsv         ###   ########.fr       */
+/*   Updated: 2025/03/20 11:49:33 by welepy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,7 @@ t_env	*convert_env(char **env);
 //-------------------------------- Builtins ----------------------------------/
 void	ft_cd(t_token *current, t_shell *shell);
 void	ft_pwd(t_token *token, t_shell *shell);
-int	ft_exit(t_shell *shell, t_token *token);
+int		ft_exit(t_shell *shell, t_token *token);
 void	ft_env(t_env *env, t_token *token, t_shell *shell, bool declare);
 void	ft_export(t_env *env, t_token *token, t_shell *shell);
 void	ft_unset(t_env *env, t_token *token, t_shell *shell, bool flag);
