@@ -95,3 +95,4 @@ sigint
 exit with no options
 
 see options and args of builtins and see if they are valid
+echo -nnnnnnnnnnnnnn -nnnnn -n marcio welepy silva | grep wel | wc -l > filenu
