@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_utils2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: welepy <welepy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 02:56:56 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/20 12:55:38 by welepy           ###   ########.fr       */
+/*   Updated: 2025/03/22 18:53:23 by mchingi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,14 +61,14 @@ static bool	extract_operator_util(char **input)
 		i++;
 	if (i > 1)
 	{
-		ft_fprintf(2, "syntax error near unexpected token `*'\n");
+		ft_dprintf(2, "syntax error near unexpected token `*'\n");
 		while (ft_strchr("*", **input) && **input)
 			(*input)++;
 		return (false);
 	}
 	else if (ft_strchr("|&*<>", **input) && **input)
 	{
-		ft_fprintf(2, "syntax error near unexpected token `%c'\n", **input);
+		ft_dprintf(2, "syntax error near unexpected token `%c'\n", **input);
 		while (ft_strchr("|&*<>", **input) && **input)
 			(*input)++;
 		return (false);

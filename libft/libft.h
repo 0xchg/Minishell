@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: welepy <welepy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 14:02:03 by marcsilv          #+#    #+#             */
-/*   Updated: 2025/03/20 15:51:57 by welepy           ###   ########.fr       */
+/*   Updated: 2025/03/22 18:54:42 by mchingi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ int		ft_print_ptr(unsigned long long *ptr);
 int		ft_printf(const char *my_string, ...);
 int		*quicksort(int *tab, unsigned int size);
 int		ft_fprintf(int fd, const char *str, ...);
+int		ft_dprintf(int fd, const char *str, ...);
 int		ft_strcmp(const char *s1, const char *s2);
 int		*r_quicksort(int *tab, unsigned int size);
 int		ft_strcspn(const char *s, const char *reject);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: welepy <welepy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 16:32:01 by marcsilv          #+#    #+#             */
-/*   Updated: 2025/03/20 14:03:32 by welepy           ###   ########.fr       */
+/*   Updated: 2025/03/22 15:41:23 by mchingi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,3 +48,10 @@ void	signal_handler(int sig)
 	}
 	ft_free(&cwd);
 }
+
+void	process_signal_handler(int sig)
+{
+	(void) sig;
+	printf("\n");
+}
+

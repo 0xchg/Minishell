@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command_executer.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: welepy <welepy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 16:47:12 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/20 14:55:19 by welepy           ###   ########.fr       */
+/*   Updated: 2025/03/22 18:53:23 by mchingi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,13 @@ void	execute_command(t_token *token, t_shell *shell)
 	args = tokenize_command(token);
 	env = env_to_matrix(shell->env);
 	execute_full_command(args, env, STDIN_FILENO, STDOUT_FILENO);
+	if (!args[0][0])
+		path = NULL;
+	else
 	path = find_path(args[0], env);
 	if (!path)
 	{
-		ft_fprintf(2, "%s: command not found\n", args[0]);
+		ft_dprintf(2, "%s: command not found\n", args[0]);
 		shell->exit_status = 127;
 		free_matrix(env);
 		ft_free(&path);
@@ -87,9 +90,11 @@ void	command_executer(t_shell *shell, t_token *tokens)
 			error_message("fork");
 		if (id == 0)
 		{
+			signal(SIGINT, SIG_DFL);
 			execute_redirections(tokens, shell);
 			execute_command(tokens, shell);
 		}
+		signal(SIGINT, process_signal_handler);
 		waitpid(id, &shell->exit_status, 0);
 		if (WIFEXITED (shell->exit_status))
 			shell->exit_status = WEXITSTATUS(shell->exit_status);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: welepy <welepy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 15:49:03 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/20 11:45:03 by marcilsv         ###   ########.fr       */
+/*   Updated: 2025/03/22 18:53:23 by mchingi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,13 +81,13 @@ int	ft_exit(t_shell *shell, t_token *token)
 			|| errno == ERANGE || int_overflow(strtoll(arr[0], &arr[1], 10)))
 		{
 			shell->exit_status = 2;
-			ft_fprintf(2, "exit: %s numeric argument required\n", (arr[0]));
+			ft_dprintf(2, "exit: %s numeric argument required\n", (arr[0]));
 		}
 		else if (token->next->next)
 		{
 			shell->exit_status = 1;
 			ft_free(&arr[0]);
-			return (ft_fprintf(2, "exit: too many arguments\n"));
+			return (ft_dprintf(2, "exit: too many arguments\n"));
 		}
 		ft_free(&arr[0]);
 	}

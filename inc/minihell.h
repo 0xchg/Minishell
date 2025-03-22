@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minihell.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: welepy <welepy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 15:16:19 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/20 15:54:16 by welepy           ###   ########.fr       */
+/*   Updated: 2025/03/22 15:42:30 by mchingi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,7 +155,7 @@ void	signal_handler(int sig);
 void	expansion(t_token *tokens, t_env *env, t_shell *shell);
 
 char	*expand(char *input, t_env *env, int exit_status);
-
+void	process_signal_handler(int sig);
 void	empty_input(t_shell *shell);
 char	*get_env_value(char *name, t_env *env);
 void	set_sigint(int *num, char write);

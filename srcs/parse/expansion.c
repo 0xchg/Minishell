@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansion.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: welepy <welepy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 13:20:02 by welepy            #+#    #+#             */
-/*   Updated: 2025/03/20 14:04:27 by welepy           ###   ########.fr       */
+/*   Updated: 2025/03/22 16:13:16 by mchingi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,12 @@ static void	append_exit_status(char *result, size_t *j,
 {
 	char	*exit_status_str;
 
-	exit_status_str = ft_itoa(exit_status);
+	if (WIFEXITED(exit_status))
+		exit_status_str = ft_itoa(WEXITSTATUS(exit_status));
+	else if (WIFSIGNALED(exit_status))
+		exit_status_str = ft_itoa(WTERMSIG(exit_status) + 128);
+	else
+		exit_status_str = ft_itoa(exit_status);
 	ft_strcpy(result + *j, exit_status_str);
 	*j += ft_strlen(exit_status_str);
 	*i += 2;

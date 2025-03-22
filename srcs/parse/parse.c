@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 11:47:02 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/19 18:17:33 by codespace        ###   ########.fr       */
+/*   Updated: 2025/03/22 18:53:23 by mchingi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static char	**split_input(char *input, t_shell *shell)
 	i = 0;
 	if (!validate_quote_number(input))
 	{
-		ft_fprintf(2, "Error: can't parse unclosed quotes\n");
+		ft_dprintf(2, "Error: can't parse unclosed quotes\n");
 		return (NULL);
 	}
 	array = safe_malloc(sizeof(char *) * (word_count(input) + 1));

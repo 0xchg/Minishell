@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: welepy <welepy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 15:49:08 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/20 11:57:20 by welepy           ###   ########.fr       */
+/*   Updated: 2025/03/22 18:53:23 by mchingi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,14 +59,14 @@ static bool	export_error(t_token *head, t_shell *shell, int flag)
 	if (head->next && !ft_strlen(head->next->value) && flag == 0)
 	{
 		shell->exit_status = 1;
-		ft_fprintf(2, "minishell: export: `%s': not a valid identifier\n", \
+		ft_dprintf(2, "minishell: export: `%s': not a valid identifier\n", \
 				head->next->value);
 		return (false);
 	}
 	if (head->next && head->next->type == OPTION && flag == 1)
 	{
 		shell->exit_status = 1;
-		ft_fprintf(2, "export: this version doesn't support options");
+		ft_dprintf(2, "export: this version doesn't support options");
 		return (false);
 	}
 	return (true);
@@ -89,7 +89,7 @@ void	ft_export(t_env *env, t_token *token, t_shell *shell)
 	{
 		if (head->value[0] == '=')
 		{
-			ft_fprintf(2, "export: `=%s': invalid identifier\n", temp->value);
+			ft_dprintf(2, "export: `=%s': invalid identifier\n", temp->value);
 			shell->exit_status = 2;
 			return ;
 		}

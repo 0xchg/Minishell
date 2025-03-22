@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: welepy <welepy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 15:49:17 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/16 19:10:19 by welepy           ###   ########.fr       */
+/*   Updated: 2025/03/22 18:53:23 by mchingi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	ft_unset(t_env *env, t_token *token, t_shell *shell, bool flag)
 	if (token->next && token->next->type == OPTION)
 	{
 		shell->exit_status = 1;
-		ft_fprintf(2, "unset: this version doesn't support options");
+		ft_dprintf(2, "unset: this version doesn't support options");
 		return ;
 	}
 	while (temp && temp->type == ARGUMENT)

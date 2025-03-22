@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe_executer.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: welepy <welepy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 16:45:13 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/20 15:05:29 by welepy           ###   ########.fr       */
+/*   Updated: 2025/03/22 18:53:23 by mchingi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	execute_cmd_in_pipe(t_token *token, t_shell *shell, int in, int out)
 	path = find_path(args[0], env);
 	if (!path)
 	{
-		ft_fprintf(2, "%s: command not found\n", args[0]);
+		ft_dprintf(2, "%s: command not found\n", args[0]);
 		shell->exit_status = 127;
 		free_matrix(env);
 		free_matrix(args);
