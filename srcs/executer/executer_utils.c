@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executer_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: welepy <welepy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 12:20:55 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/12 16:18:07 by mchingi          ###   ########.fr       */
+/*   Updated: 2025/03/23 15:04:48 by mchingi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,9 @@ void	execute_full_command(char **args, char **env, int in, int out)
 		path = ft_strdup(args[0]);
 		args[0] = ft_strtrim(args[0], "/bin/");
 		if (in != 0)
-			dup3(in, STDIN_FILENO);
+			ft_dup3(in, STDIN_FILENO);
 		if (out != 1)
-			dup3(out, STDOUT_FILENO);
+			ft_dup3(out, STDOUT_FILENO);
 		if (execve(path, args, env) == -1)
 			error_message("execve");
 	}

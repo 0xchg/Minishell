@@ -6,7 +6,7 @@
 /*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 15:16:19 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/22 15:42:30 by mchingi          ###   ########.fr       */
+/*   Updated: 2025/03/23 16:20:27 by mchingi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ void	execute_command(t_token *token, t_shell *shell);
 void	execute_full_command(char **args, char **env, int in, int out);
 void	execute_builtins(t_shell *shell, t_token *token);
 void	execute_cmd_in_pipe(t_token *token, t_shell *shell, int in, int out);
-void	dup3(int fd, int fd2);
+void	ft_dup3(int fd, int fd2);
 void	command_executer(t_shell *shell, t_token *tokens);
 void	pipe_executer(t_shell *shell, t_token *token, t_pipe *pip, t_type type);
 char	*find_path(char *cmd, char **envp);
@@ -161,6 +161,7 @@ char	*get_env_value(char *name, t_env *env);
 void	set_sigint(int *num, char write);
 int		expand_flag(char *input, int i);
 bool	echo_aux(t_token *token, bool *option, char *input);
+long long ft_atol(const char *str);
 
 void	handle_sigint(int sig);
 

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: welepy <welepy@student.42.fr>              +#+  +:+       +#+         #
+#    By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/14 15:16:15 by mchingi           #+#    #+#              #
-#    Updated: 2025/03/20 15:36:04 by welepy           ###   ########.fr        #
+#    Updated: 2025/03/23 15:32:09 by mchingi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,6 +30,7 @@ SRCS = 	./srcs/executer/executer.c \
 		./srcs/utils/utils1.c \
 		./srcs/utils/utils2.c \
 		./srcs/utils/utils3.c \
+		./srcs/utils/utils4.c \
 		./srcs/main.c \
 		./srcs/signal.c \
 		./srcs/here_document.c \

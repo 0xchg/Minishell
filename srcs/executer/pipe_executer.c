@@ -6,7 +6,7 @@
 /*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 16:45:13 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/22 18:53:23 by mchingi          ###   ########.fr       */
+/*   Updated: 2025/03/23 15:04:48 by mchingi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,9 @@ void	execute_cmd_in_pipe(t_token *token, t_shell *shell, int in, int out)
 		exit(shell->exit_status);
 	}
 	if (in != 0)
-		dup3(in, STDIN_FILENO);
+		ft_dup3(in, STDIN_FILENO);
 	if (out != 1)
-		dup3(out, STDOUT_FILENO);
+		ft_dup3(out, STDOUT_FILENO);
 	if (execve(path, args, env) == -1)
 		error_message("execve");
 }
@@ -59,7 +59,7 @@ static void	pipe_executer_util(t_token *token, t_shell *shell,
 	t_type type, t_pipe *pip)
 {
 	if (type == PIPE)
-		dup3(pip->pipe_fd[1], STDOUT_FILENO);
+		ft_dup3(pip->pipe_fd[1], STDOUT_FILENO);
 	if (redirection_flag(token))
 		redirect_builtins(shell, token);
 	else

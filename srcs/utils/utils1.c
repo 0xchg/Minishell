@@ -6,7 +6,7 @@
 /*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 13:59:50 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/06 14:11:02 by mchingi          ###   ########.fr       */
+/*   Updated: 2025/03/23 15:04:48 by mchingi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	error_message(char *str)
 	exit(EXIT_FAILURE);
 }
 
-void	dup3(int fd, int fd2)
+void	ft_dup3(int fd, int fd2)
 {
 	dup2(fd, fd2);
 	close(fd);
