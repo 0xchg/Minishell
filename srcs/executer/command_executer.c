@@ -6,7 +6,7 @@
 /*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 16:47:12 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/22 18:53:23 by mchingi          ###   ########.fr       */
+/*   Updated: 2025/03/23 16:51:10 by mchingi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	execute_command(t_token *token, t_shell *shell)
 	if (!args[0][0])
 		path = NULL;
 	else
-	path = find_path(args[0], env);
+		path = find_path(args[0], env);
 	if (!path)
 	{
 		ft_dprintf(2, "%s: command not found\n", args[0]);

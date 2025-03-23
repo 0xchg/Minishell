@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_document.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: welepy <welepy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 10:56:07 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/20 14:02:03 by welepy           ###   ########.fr       */
+/*   Updated: 2025/03/23 17:04:04 by mchingi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,11 @@
 
 volatile sig_atomic_t	g_interrupted = 0;
 
-void	setup_signal_handler(void)
+void	sigint_handler_here_doc(int sig)
 {
-	struct sigaction	sa;
-
-	sa.sa_handler = handle_sigint;
-	sigemptyset(&sa.sa_mask);
-	sa.sa_flags = 0;
-	sigaction(SIGINT, &sa, NULL);
-}
-
-void	cleanup_and_exit(int fd, char *delimeter)
-{
-	free(delimeter);
-	close(fd);
-	unlink(".DOC_TMP");
-	exit(1);
+	(void)sig;
+	g_interrupted = 1;  // Set flag to tell here_doc to stop
+	close(STDIN_FILENO);  // Close input so readline() stops
 }
 
 void	read_input_and_write_to_file(int fd, char *delimeter)
@@ -38,8 +27,6 @@ void	read_input_and_write_to_file(int fd, char *delimeter)
 
 	while (1)
 	{
-		if (g_interrupted)
-			cleanup_and_exit(fd, delimeter);
 		input = readline("> ");
 		if (!input || ft_strcmp(input, delimeter) == 0)
 		{
@@ -56,13 +43,24 @@ void	read_input_and_write_to_file(int fd, char *delimeter)
 
 void	here_doc(char *str)
 {
-	int		fd;
-	char	*delimeter;
+	int					fd;
+	char				*delimeter;
+	struct sigaction	sa;
 
 	delimeter = ft_strdup(str);
 	fd = open(".DOC_TMP", O_WRONLY | O_TRUNC | O_CREAT, 0644);
-	setup_signal_handler();
+	sa.sa_handler = sigint_handler_here_doc;
+	sa.sa_flags = 0;
+	sigemptyset(&sa.sa_mask);
+	sigaction(SIGINT, &sa, NULL);
 	read_input_and_write_to_file(fd, delimeter);
 	close(fd);
 	free(delimeter);
+	sa.sa_handler = SIG_DFL;
+	sigaction(SIGINT, &sa, NULL);
+	if (g_interrupted)
+	{
+		unlink(".DOC_TMP");
+		exit(130);
+	}
 }

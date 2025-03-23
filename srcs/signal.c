@@ -6,7 +6,7 @@
 /*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 16:32:01 by marcsilv          #+#    #+#             */
-/*   Updated: 2025/03/22 15:41:23 by mchingi          ###   ########.fr       */
+/*   Updated: 2025/03/23 16:49:51 by mchingi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,4 +54,3 @@ void	process_signal_handler(int sig)
 	(void) sig;
 	printf("\n");
 }
-

@@ -6,7 +6,7 @@
 /*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 16:45:13 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/23 15:04:48 by mchingi          ###   ########.fr       */
+/*   Updated: 2025/03/23 17:03:00 by mchingi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,9 +66,9 @@ static void	pipe_executer_util(t_token *token, t_shell *shell,
 		execute_builtins(shell, token);
 }
 
-void	pipe_exectuter_helper(t_shell *shell, t_token *token, t_type type, t_pipe *pipe)
+void	pipe_exec_helper(t_shell *shell, t_token *token, t_type type, t_pipe *pip)
 {
-	pipe_executer_util(token, shell, type, pipe);
+	pipe_executer_util(token, shell, type, pip);
 	exit(shell->exit_status);
 }
 
@@ -83,7 +83,7 @@ void	pipe_executer(t_shell *shell, t_token *token, t_pipe *pip, t_type type)
 	{
 		execute_redirections(token, shell);
 		if (is_builtin(token->type))
-			pipe_exectuter_helper(shell, token, type, pip);
+			pipe_exec_helper(shell, token, type, pip);
 		else
 			redirect_pipe(token, pip, type, shell);
 	}
