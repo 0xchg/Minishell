@@ -6,7 +6,7 @@
 /*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 11:34:43 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/22 18:53:23 by mchingi          ###   ########.fr       */
+/*   Updated: 2025/03/24 20:33:33 by mchingi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,20 +97,28 @@ char	**tokenize_command(t_token *token)
 
 int	pipe_flag(t_token *token, t_shell *shell)
 {
+	int		flag;
 	t_token	*tmp;
 
+	flag = 0;
 	tmp = token;
 	if (tmp->type == PIPE)
 	{
-		ft_dprintf(2, "minishell: syntax error near unexpected token '|'\n");
+		ft_dprintf(2, "42shell: syntax error near unexpected token '|'\n");
 		shell->exit_status = 2;
 		return (2);
 	}
-	while (tmp)
+	while (tmp->next)
 	{
 		if (tmp->type == PIPE)
-			return (1);
+			flag = 1;
 		tmp = tmp->next;
 	}
-	return (0);
+	if (tmp->type == PIPE)
+	{
+		ft_dprintf(2, "42shell: this version do not handle here_pipe\n");
+		shell->exit_status = 2;
+		return (2);
+	}
+	return (flag);
 }

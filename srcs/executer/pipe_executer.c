@@ -6,7 +6,7 @@
 /*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 16:45:13 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/24 18:10:27 by mchingi          ###   ########.fr       */
+/*   Updated: 2025/03/24 23:23:00 by mchingi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,15 +76,16 @@ void	pipe_executer(t_shell *shell, t_token *token, t_pipe *pip, t_type type)
 		clean_t_pipe(pip, "fork");
 	if (pip->id == 0)
 	{
+		signal(SIGINT, SIG_DFL);
 		execute_redirections(token, shell);
 		if (is_builtin(token->type))
 			pipe_exec_helper(shell, token, type, pip);
 		else
 			redirect_pipe(token, pip, type, shell);
 	}
+	signal(SIGINT, process_signal_handler);
 	waitpid(pip->id, &shell->exit_status, 0);
-	if (WIFEXITED(shell->exit_status))
-		shell->exit_status = WEXITSTATUS(shell->exit_status);
+	shell->exit_status = exit_status_signal(shell->exit_status);
 	if (pip->input_fd != 0)
 		close(pip->input_fd);
 	if (type == PIPE)

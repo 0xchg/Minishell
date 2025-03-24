@@ -6,7 +6,7 @@
 /*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 13:20:02 by welepy            #+#    #+#             */
-/*   Updated: 2025/03/22 16:13:16 by mchingi          ###   ########.fr       */
+/*   Updated: 2025/03/24 22:04:31 by mchingi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,12 +65,7 @@ static void	append_exit_status(char *result, size_t *j,
 {
 	char	*exit_status_str;
 
-	if (WIFEXITED(exit_status))
-		exit_status_str = ft_itoa(WEXITSTATUS(exit_status));
-	else if (WIFSIGNALED(exit_status))
-		exit_status_str = ft_itoa(WTERMSIG(exit_status) + 128);
-	else
-		exit_status_str = ft_itoa(exit_status);
+	exit_status_str = ft_itoa(exit_status);
 	ft_strcpy(result + *j, exit_status_str);
 	*j += ft_strlen(exit_status_str);
 	*i += 2;

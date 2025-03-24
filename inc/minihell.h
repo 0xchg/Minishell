@@ -6,7 +6,7 @@
 /*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 15:16:19 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/24 17:58:34 by mchingi          ###   ########.fr       */
+/*   Updated: 2025/03/24 22:41:04 by mchingi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ int			redirections_error_handler(t_token *token);
 //----------------------------- Here Document --------------------------------/
 void		here_doc(char *str);
 //-------------------------------- Executer ----------------------------------/
-int			executer(t_shell *shell, t_token *tokens);
+void		executer(t_shell *shell, t_token *tokens);
 void		execute_command(t_token *token, t_shell *shell);
 void		execute_full_command(char **args, char **env, int in, int out);
 void		execute_builtins(t_shell *shell, t_token *token);
@@ -112,7 +112,8 @@ char		*find_path(char *cmd, char **envp);
 char		**tokenize_command(t_token *token);
 char		*path_verifier(char **args, char **env);
 void		clean_t_pipe(t_pipe *pipes, char *str);
-
+int			exit_status_signal(int exit_status);
+int			exit_status_signal_in_pipe(int status);
 //--------------------------------- Tokens -----------------------------------/
 bool		is_command(char *value, char *path);
 void		identify_tokens(t_token *tokens, char *path);
