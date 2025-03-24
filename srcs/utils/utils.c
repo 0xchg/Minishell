@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 21:08:38 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/19 18:25:23 by codespace        ###   ########.fr       */
+/*   Updated: 2025/03/24 17:05:57 by mchingi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,22 +114,3 @@ void	free_tokens(t_token *head)
 		head = tmp;
 	}
 }
-
-/*char	*eliminate_space_from_str(char *str)
-{
-	int	i = 0;
-	int j = 0;
-	char *new_str;
-
-	while (ft_isspace(str[i]))
-		i++;
-	new_str = malloc(sizeof(str) + 1);
-	while (str[i] && str[i] != ' ')
-	{
-		new_str[j] = str[i];
-		i++;
-		j++;
-	}
-	new_str[j] = '\0';
-	return(new_str);
-}*/

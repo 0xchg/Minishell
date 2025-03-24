@@ -6,26 +6,11 @@
 /*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 14:00:34 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/06 14:25:22 by mchingi          ###   ########.fr       */
+/*   Updated: 2025/03/24 17:04:54 by mchingi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minihell.h"
-
-bool	is_lesser(t_type token)
-{
-	return (token == LESSER);
-}
-
-bool	is_greater(t_type token)
-{
-	return (token == GREATER);
-}
-
-bool	is_append(t_type token)
-{
-	return (token == APPEND);
-}
 
 bool	is_builtin_or_command(t_type type)
 {
@@ -35,4 +20,43 @@ bool	is_builtin_or_command(t_type type)
 bool	is_builtin(t_type type)
 {
 	return (type == BUILTINS);
+}
+
+bool	ft_atol_util(const char *str)
+{
+	if (ft_strlen(str) > 20)
+		return (true);
+	while (ft_isdigit(*str))
+		str++;
+	if (*str != '\0')
+		return (true);
+	return (false);
+}
+
+long long	ft_atol(const char *str)
+{
+	long				signal;
+	unsigned long long	number;
+
+	number = 0;
+	signal = 1;
+	while (ft_isspace(*str))
+		str++;
+	if (*str == '+' || *str == '-')
+	{
+		if (*str == '-')
+			signal = -1;
+		str++;
+	}
+	if (ft_atol_util(str))
+		return (939552403);
+	while (ft_isdigit(*str))
+	{
+		number = (number * 10) + (*str - 48);
+		str++;
+	}
+	if ((signal == 1 && number > LONG_MAX)
+		|| (signal == -1 && number > (unsigned long long)LONG_MAX + 1))
+		return (939552403);
+	return (number * signal);
 }

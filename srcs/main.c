@@ -6,13 +6,12 @@
 /*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 15:16:24 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/22 18:53:23 by mchingi          ###   ########.fr       */
+/*   Updated: 2025/03/24 17:00:49 by mchingi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minihell.h"
 
-void	debug(t_token *token);
 volatile sig_atomic_t	g_sigint;
 
 static bool	read_input(t_shell *shell)
@@ -73,7 +72,6 @@ void	repl(t_shell *shell)
 			free_matrix(shell->array);
 		}
 		ft_free(&shell->input);
-		//debug(shell->token);
 	}
 }
 
@@ -91,17 +89,4 @@ int	main(int ac, char **av, char **env)
 	else
 		ft_dprintf(2, "%s do not receive argument!\n", av[0]);
 	return (0);
-}
-
-void	debug(t_token *token)
-{
-	t_token	*head;
-
-	head = token;
-	while (head)
-	{
-		printf("%s, type: %s\n", head->value, token_kind_string(head->type));
-		head = head->next;
-	}
-	printf("\n");
 }

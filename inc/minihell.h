@@ -6,7 +6,7 @@
 /*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 15:16:19 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/23 17:02:19 by mchingi          ###   ########.fr       */
+/*   Updated: 2025/03/24 17:03:05 by mchingi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,13 +110,14 @@ void		pipe_executer(t_shell *shell, t_token *token, t_pipe *pip,
 				t_type type);
 char		*find_path(char *cmd, char **envp);
 char		**tokenize_command(t_token *token);
+char		*path_verifier(char **args, char **env);
+void		clean_t_pipe(t_pipe *pipes, char *str);
 
 //--------------------------------- Tokens -----------------------------------/
 bool		is_command(char *value, char *path);
 void		identify_tokens(t_token *tokens, char *path);
 void		token_sequence(t_token *tokens);
 void		free_tokens(t_token *head);
-char		*token_kind_string(t_type type);
 t_token		*tokenize_array(char **array);
 t_token		*new_token(char *value, t_type type);
 //--------------------------------- Parse -------------------------------------/
@@ -141,9 +142,6 @@ void		ft_echo(t_token *token, t_shell *shell);
 
 //--------------------------- VALIDATORS / VERIFICATIONS ---------------------/
 
-bool		is_append(t_type token);
-bool		is_greater(t_type token);
-bool		is_lesser(t_type token);
 bool		is_builtin(t_type type);
 bool		is_builtin_or_command(t_type type);
 int			here_doc_flag(t_token *token);

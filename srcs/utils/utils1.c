@@ -6,7 +6,7 @@
 /*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 13:59:50 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/23 15:04:48 by mchingi          ###   ########.fr       */
+/*   Updated: 2025/03/24 17:01:45 by mchingi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,6 @@ bool	is_redirection(t_type type)
 bool	is_argument(t_type type)
 {
 	return (type == ARGUMENT || type == DOUBLE_QUOTE || type == SINGLE_QUOTE);
-}
-
-bool	is_option(t_type type)
-{
-	return (type == OPTION);
 }
 
 void	error_message(char *str)

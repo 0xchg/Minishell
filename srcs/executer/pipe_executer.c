@@ -6,17 +6,11 @@
 /*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 16:45:13 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/23 17:03:00 by mchingi          ###   ########.fr       */
+/*   Updated: 2025/03/24 16:58:01 by mchingi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minihell.h"
-
-static void	clean_t_pipe(t_pipe *pipes, char	*str)
-{
-	free(pipes);
-	error_message(str);
-}
 
 void	execute_cmd_in_pipe(t_token *token, t_shell *shell, int in, int out)
 {
@@ -29,7 +23,7 @@ void	execute_cmd_in_pipe(t_token *token, t_shell *shell, int in, int out)
 	env = env_to_matrix(shell->env);
 	args = tokenize_command(token);
 	execute_full_command(args, env, in, out);
-	path = find_path(args[0], env);
+	path = path_verifier(args, env);
 	if (!path)
 	{
 		ft_dprintf(2, "%s: command not found\n", args[0]);
@@ -66,9 +60,10 @@ static void	pipe_executer_util(t_token *token, t_shell *shell,
 		execute_builtins(shell, token);
 }
 
-void	pipe_exec_helper(t_shell *shell, t_token *token, t_type type, t_pipe *pip)
+void	pipe_exec_helper(t_shell *shell, t_token *token, t_type type,
+	t_pipe *pipe)
 {
-	pipe_executer_util(token, shell, type, pip);
+	pipe_executer_util(token, shell, type, pipe);
 	exit(shell->exit_status);
 }
 

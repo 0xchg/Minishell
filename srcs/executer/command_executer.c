@@ -6,7 +6,7 @@
 /*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 16:47:12 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/23 16:51:10 by mchingi          ###   ########.fr       */
+/*   Updated: 2025/03/24 16:50:22 by mchingi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,7 @@ void	execute_command(t_token *token, t_shell *shell)
 	args = tokenize_command(token);
 	env = env_to_matrix(shell->env);
 	execute_full_command(args, env, STDIN_FILENO, STDOUT_FILENO);
-	if (!args[0][0])
-		path = NULL;
-	else
-		path = find_path(args[0], env);
+	path = path_verifier(args, env);
 	if (!path)
 	{
 		ft_dprintf(2, "%s: command not found\n", args[0]);

@@ -6,7 +6,7 @@
 /*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 12:20:55 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/23 15:04:48 by mchingi          ###   ########.fr       */
+/*   Updated: 2025/03/24 16:54:58 by mchingi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,4 +46,17 @@ void	execute_full_command(char **args, char **env, int in, int out)
 		if (execve(path, args, env) == -1)
 			error_message("execve");
 	}
+}
+
+char	*path_verifier(char **args, char **env)
+{
+	if (!args[0][0])
+		return (NULL);
+	return (find_path(args[0], env));
+}
+
+void	clean_t_pipe(t_pipe *pipes, char *str)
+{
+	free(pipes);
+	error_message(str);
 }
