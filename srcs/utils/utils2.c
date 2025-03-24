@@ -6,7 +6,7 @@
 /*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 14:00:34 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/24 17:04:54 by mchingi          ###   ########.fr       */
+/*   Updated: 2025/03/24 17:58:03 by mchingi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,4 +59,13 @@ long long	ft_atol(const char *str)
 		|| (signal == -1 && number > (unsigned long long)LONG_MAX + 1))
 		return (939552403);
 	return (number * signal);
+}
+
+int	redirections_error_handler(t_token *token)
+{
+	if (!token || !token->next || token->next->type == PIPE
+		|| token->next->type == APPEND || token->next->type == HERE_DOC
+		|| token->next->type == GREATER || token->next->type == LESSER)
+		return (1);
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 16:32:01 by marcsilv          #+#    #+#             */
-/*   Updated: 2025/03/23 16:49:51 by mchingi          ###   ########.fr       */
+/*   Updated: 2025/03/24 17:35:39 by mchingi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,6 @@ void	set_sigint(int *num, char write)
 		sig = num;
 	else if (write)
 		*sig = 130;
-}
-
-void	handle_sigint(int sig)
-{
-	(void)sig;
-	g_interrupted = 1;
 }
 
 void	signal_handler(int sig)

@@ -6,7 +6,7 @@
 /*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 15:46:17 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/22 18:53:23 by mchingi          ###   ########.fr       */
+/*   Updated: 2025/03/24 18:14:51 by mchingi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,13 @@ static bool	permission_check(t_shell *shell, char *path)
 {
 	if (access(path, F_OK) != 0)
 	{
-		ft_dprintf(2, "cd: %s: No such file or directory\n", path);
+		ft_dprintf(2, "42shell: cd: %s: No such file or directory\n", path);
 		shell->exit_status = 1;
 		return (false);
 	}
 	if (access(path, X_OK) != 0)
 	{
-		ft_dprintf(2, "cd: %s: Permission denied\n", path);
+		ft_dprintf(2, "42shell: cd: %s: Permission denied\n", path);
 		shell->exit_status = 1;
 		return (false);
 	}
@@ -82,14 +82,14 @@ static int	cd_error(char *cur_path, int flag, t_shell *shell, t_token *token)
 {
 	if (token->next && flag == 0)
 	{
-		ft_putstr_fd("cd: too many arguments\n", 2);
+		ft_putstr_fd("42shell: cd: too many arguments\n", 2);
 		shell->exit_status = 1;
 		ft_free(&cur_path);
 		return (true);
 	}
 	if (token->next && token->next->type == OPTION && flag == 1)
 	{
-		ft_dprintf(2, "cd: this version doesn't allow options\n");
+		ft_dprintf(2, "42shell: cd: this version doesn't allow options\n");
 		shell->exit_status = 1;
 		return (true);
 	}

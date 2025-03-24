@@ -6,7 +6,7 @@
 /*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 16:47:12 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/24 16:50:22 by mchingi          ###   ########.fr       */
+/*   Updated: 2025/03/24 18:10:13 by mchingi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	execute_command(t_token *token, t_shell *shell)
 	path = path_verifier(args, env);
 	if (!path)
 	{
-		ft_dprintf(2, "%s: command not found\n", args[0]);
+		ft_dprintf(2, "42shell: %s: command not found\n", args[0]);
 		shell->exit_status = 127;
 		free_matrix(env);
 		ft_free(&path);

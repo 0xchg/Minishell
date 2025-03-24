@@ -6,7 +6,7 @@
 /*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 10:56:07 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/23 17:04:04 by mchingi          ###   ########.fr       */
+/*   Updated: 2025/03/24 17:31:51 by mchingi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ volatile sig_atomic_t	g_interrupted = 0;
 void	sigint_handler_here_doc(int sig)
 {
 	(void)sig;
-	g_interrupted = 1;  // Set flag to tell here_doc to stop
-	close(STDIN_FILENO);  // Close input so readline() stops
+	g_interrupted = 1;
+	close(STDIN_FILENO);
 }
 
 void	read_input_and_write_to_file(int fd, char *delimeter)

@@ -6,7 +6,7 @@
 /*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 15:16:19 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/24 17:15:18 by mchingi          ###   ########.fr       */
+/*   Updated: 2025/03/24 17:58:34 by mchingi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ void		redirect_output_append(t_token *token, t_shell *shell);
 void		redirect_here_doc(t_token *token, t_shell *shell);
 void		execute_redirections(t_token *token, t_shell *shell);
 void		redirect_builtins(t_shell *shell, t_token *tokens);
+int			redirections_error_handler(t_token *token);
 //----------------------------- Here Document --------------------------------/
 void		here_doc(char *str);
 //-------------------------------- Executer ----------------------------------/
@@ -159,8 +160,6 @@ void		set_sigint(int *num, char write);
 int			expand_flag(char *input, int i);
 bool		echo_aux(t_token *token, bool *option, char *input);
 long long	ft_atol(const char *str);
-
-void		handle_sigint(int sig);
 
 void		handle_arguments(t_token *temp);
 void		handle_redirections(t_token **temp);
