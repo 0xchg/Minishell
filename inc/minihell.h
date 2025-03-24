@@ -6,7 +6,7 @@
 /*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 15:16:19 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/24 17:03:05 by mchingi          ###   ########.fr       */
+/*   Updated: 2025/03/24 17:15:18 by mchingi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@
 # include <fcntl.h>
 # include <signal.h>
 # include <stdio.h>
-# include <errno.h>
 # include <sys/wait.h>
 # include <sys/stat.h>
 # include <sys/types.h>

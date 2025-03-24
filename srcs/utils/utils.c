@@ -6,7 +6,7 @@
 /*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 21:08:38 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/24 17:05:57 by mchingi          ###   ########.fr       */
+/*   Updated: 2025/03/24 17:15:07 by mchingi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,11 +91,11 @@ char	*remove_quotes(const char *str)
 	{
 		new_len = len - 2;
 		new_str = safe_malloc(new_len + 1);
-		strncpy(new_str, str + 1, new_len);
+		ft_strncpy(new_str, str + 1, new_len);
 		new_str[new_len] = '\0';
 		return (new_str);
 	}
-	return (strdup(str));
+	return (ft_strdup(str));
 }
 
 void	free_tokens(t_token *head)
