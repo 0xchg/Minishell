@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansion.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 13:20:02 by welepy            #+#    #+#             */
-/*   Updated: 2025/03/24 22:04:31 by mchingi          ###   ########.fr       */
+/*   Updated: 2025/03/27 18:30:06 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,8 @@ char	*expand(char *input, t_env *env, int exit_status)
 		flag *= expand_flag(input, tab[0]);
 		if (input[tab[0]] == '$' && flag != -1)
 		{
+			while (input[tab[0]] && input[tab[0]] == '$')
+				result[tab[1]++] = input[tab[0]++];
 			if (input[tab[0] + 1] == '?')
 				append_exit_status(result, &tab[1], exit_status, &tab[0]);
 			else if (ft_isalpha(input[tab[0] + 1]) || input[tab[0] + 1] == '_')
