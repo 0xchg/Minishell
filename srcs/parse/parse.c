@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: marcsilv <marcsilv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 11:47:02 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/24 22:08:31 by mchingi          ###   ########.fr       */
+/*   Updated: 2025/03/28 10:34:39 by marcsilv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,12 +56,7 @@ static char	**split_input(char *input, t_shell *shell)
 	char	**array;
 
 	i = 0;
-	if (!validate_quote_number(input))
-	{
-		ft_dprintf(2, "Error: can't parse unclosed quotes\n");
-		return (NULL);
-	}
-	array = safe_malloc(sizeof(char *) * (word_count(input) + 1));
+	array = safe_malloc(sizeof(char *) * ((size_t)word_count(input) + 1));
 	while (*input)
 	{
 		while (ft_isspace(*input) && *input)
@@ -85,11 +80,17 @@ void	parse(t_shell *shell)
 	char	*expanded_temp;
 
 	temp = ft_strtrim(shell->input, " ");
+	shell->flag = true;
+	if (!validate_quote_number(shell->input))
+	{
+		ft_dprintf(2, "Error: can't parse unclosed quotes\n");
+		shell->flag = false;
+	}
 	expanded_temp = expand(temp, shell->env, shell->exit_status);
 	free(temp);
 	temp = expanded_temp;
-	shell->flag = true;
-	shell->array = split_input(temp, shell);
+	if (shell->flag)
+		shell->array = split_input(temp, shell);
 	if (!shell->flag)
 		free_matrix(shell->array);
 	if (!shell->array)
