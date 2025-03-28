@@ -6,7 +6,7 @@
 /*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 15:16:19 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/24 22:41:04 by mchingi          ###   ########.fr       */
+/*   Updated: 2025/03/28 09:59:18 by mchingi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,6 +160,8 @@ char		*get_env_value(char *name, t_env *env);
 void		set_sigint(int *num, char write);
 int			expand_flag(char *input, int i);
 bool		echo_aux(t_token *token, bool *option, char *input);
+void		add_env(t_env **env, t_env *new);
+t_env		*last_env(t_env *env);
 long long	ft_atol(const char *str);
 
 void		handle_arguments(t_token *temp);
