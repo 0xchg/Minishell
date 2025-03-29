@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minihell.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: marcsilv <marcsilv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 15:16:19 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/28 09:59:18 by mchingi          ###   ########.fr       */
+/*   Updated: 2025/03/29 17:51:50 by marcsilv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ int			exit_status_signal(int exit_status);
 int			exit_status_signal_in_pipe(int status);
 //--------------------------------- Tokens -----------------------------------/
 bool		is_command(char *value, char *path);
-void		identify_tokens(t_token *tokens, char *path);
+void		identify_tokens(t_token *tokens);
 void		token_sequence(t_token *tokens);
 void		free_tokens(t_token *head);
 t_token		*tokenize_array(char **array);

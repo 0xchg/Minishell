@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokens.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: welepy <welepy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: marcsilv <marcsilv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 11:53:06 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/10 21:08:32 by welepy           ###   ########.fr       */
+/*   Updated: 2025/03/29 17:51:16 by marcsilv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,22 +75,25 @@ t_token	*tokenize_array(char **array)
 	return (token);
 }
 
-void	identify_tokens(t_token *tokens, char *path)
+void	identify_tokens(t_token *tokens)
 {
 	t_token	*head;
+	char	*temp;
 
 	head = tokens;
 	while (head)
 	{
+		temp = ft_strjoin("/bin/", head->value);
 		if (head->type == IDENTIFIER)
 		{
-			if (is_command(head->value, path))
+			if (access(temp, F_OK) == 0)
 				head->type = COMMAND;
 			else if (access(head->value, F_OK) == 0)
 				head->type = FULL_COMMAND;
 			else
 				head->type = ARGUMENT;
 		}
+		ft_free(&temp);
 		head = head->next;
 	}
 }
