@@ -3,32 +3,33 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: marcsilv <marcsilv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 15:49:08 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/22 18:53:23 by mchingi          ###   ########.fr       */
+/*   Updated: 2025/03/30 13:32:04 by marcsilv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minihell.h"
 
-static	t_env	*arg_to_env(t_token *token)
+static t_env	*arg_to_env(t_token *token)
 {
-	char	**temp;
+	char	*equal_pos;
 	t_env	*current_env;
 
-	temp = ft_split(token->value, '=');
+	equal_pos = ft_strchr(token->value, '='); // Encontrar o primeiro '='
 	current_env = safe_malloc(sizeof(t_env));
-	current_env->name = ft_strdup(temp[0]);
-	if (temp[1])
-		current_env->value = ft_strdup((temp[1]));
-	else if (token->next && (token->next->type == DOUBLE_QUOTE || \
-				token->next->type == SINGLE_QUOTE))
-		current_env->value = ft_strdup(token->next->value);
+	if (equal_pos)
+	{
+		current_env->name = ft_substr(token->value, 0, equal_pos - token->value);
+		current_env->value = ft_strdup(equal_pos + 1); // Tudo após o primeiro '='
+	}
 	else
+	{
+		current_env->name = ft_strdup(token->value);
 		current_env->value = NULL;
+	}
 	current_env->next = NULL;
-	free_matrix(temp);
 	return (current_env);
 }
 
