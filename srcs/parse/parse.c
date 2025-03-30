@@ -6,7 +6,7 @@
 /*   By: marcsilv <marcsilv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 11:47:02 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/30 15:50:26 by marcsilv         ###   ########.fr       */
+/*   Updated: 2025/03/30 16:26:36 by marcsilv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,6 @@ static char	*extract_command(char **input)
 		(*input)++;
 	}
 	command = ft_strndup((*input) - i, i);
-	if (!command)
-		return (NULL);
 	return (command);
 }
 
@@ -39,30 +37,18 @@ static char	*extract_variable(char **input)
 	i = 0;
 	(*input)++;
 	while (**input && (!ft_isspace(**input) && **input != '<'
-	&& **input != '>' && **input != '|' && **input != '*' && **input != '&'))
+			&& **input != '>' && **input != '|' && **input != '&'))
 	{
 		i++;
 		(*input)++;
 	}
 	temp = ft_strndup((*input) - i, i);
-		if (!temp)
-			return (NULL);
 	variable = safe_malloc(sizeof(char) * (i + 2));
 	variable[0] = '$';
 	ft_strncpy(variable + 1, temp, i);
 	variable[i + 1] = '\0';
 	ft_free(&temp);
 	return (variable);
-}
-
-bool	check_matrix_at_index(char **matrix, int i)
-{
-	if (!matrix[i])
-	{
-		free_matrix(matrix);
-		return (false);
-	}
-	return (true);
 }
 
 static char	**split_input(char *input, t_shell *shell)
@@ -84,8 +70,6 @@ static char	**split_input(char *input, t_shell *shell)
 			array[i++] = extract_variable(&input);
 		else
 			array[i++] = extract_command(&input);
-		if (i > 0 && !check_matrix_at_index(array, i - 1))
-    	    return (NULL);
 	}
 	array[i] = NULL;
 	return (array);
@@ -116,7 +100,6 @@ void	parse(t_shell *shell)
 	shell->array = split_input(temp, shell);
 	if (!shell->flag)
 		free_matrix(shell->array);
-
 	if (shell->flag)
 	{
 		shell->token = tokenize_array(shell->array);
