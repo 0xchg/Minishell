@@ -6,7 +6,7 @@
 /*   By: marcsilv <marcsilv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 11:47:02 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/30 16:26:36 by marcsilv         ###   ########.fr       */
+/*   Updated: 2025/03/30 16:57:27 by marcsilv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,7 @@ static char	*extract_command(char **input)
 	int		i;
 
 	i = 0;
-	while (**input && !ft_isspace(**input) && \
-	!ft_strchr("|<>«»&*", **input) && **input != '\'' && **input != '\"')
+	while (**input && !ft_isspace(**input) && !ft_strchr("|<>«»&*", **input))
 	{
 		i++;
 		(*input)++;
