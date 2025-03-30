@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minihell.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: marcsilv <marcsilv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 15:16:19 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/24 22:41:04 by mchingi          ###   ########.fr       */
+/*   Updated: 2025/03/30 17:46:52 by marcsilv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,5 +165,9 @@ long long	ft_atol(const char *str);
 void		handle_arguments(t_token *temp);
 void		handle_redirections(t_token **temp);
 void		handle_options(t_token **temp, bool *option);
+
+bool	command_quote(char *str);
+
+void	error_quote(t_shell *shell);
 
 #endif
