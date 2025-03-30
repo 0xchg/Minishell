@@ -6,7 +6,7 @@
 /*   By: marcsilv <marcsilv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 11:47:02 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/30 15:50:26 by marcsilv         ###   ########.fr       */
+/*   Updated: 2025/03/30 17:46:32 by marcsilv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,18 @@ static char	*extract_command(char **input)
 	int		i;
 
 	i = 0;
-	while (**input && !ft_isspace(**input) && \
-	!ft_strchr("|<>«»&*", **input) && **input != '\'' && **input != '\"')
+	while (**input && !ft_isspace(**input) && !ft_strchr("|<>«»&*", **input))
 	{
 		i++;
 		(*input)++;
+		if (**input && (**input == '\'' || **input == '\"'))
+			if (command_quote(*input))
+				break ;
 	}
 	command = ft_strndup((*input) - i, i);
 	return (command);
 }
+
 
 char	*extract_variable(char **input)
 {
@@ -73,15 +76,6 @@ static char	**split_input(char *input, t_shell *shell)
 	}
 	array[i] = NULL;
 	return (array);
-}
-
-static void	error_quote(t_shell *shell)
-{
-	if (!validate_quote_number(shell->input))
-	{
-		ft_dprintf(2, "Error: can't parse unclosed quotes\n");
-		shell->flag = false;
-	}
 }
 
 void	parse(t_shell *shell)
