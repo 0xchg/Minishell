@@ -6,7 +6,7 @@
 /*   By: marcsilv <marcsilv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 15:49:08 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/30 13:32:04 by marcsilv         ###   ########.fr       */
+/*   Updated: 2025/03/30 16:05:56 by marcsilv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,23 +15,31 @@
 static t_env	*arg_to_env(t_token *token)
 {
 	char	*equal_pos;
-	t_env	*current_env;
+	t_env	*cur_env;
+	char	*quoted_value;
 
-	equal_pos = ft_strchr(token->value, '='); // Encontrar o primeiro '='
-	current_env = safe_malloc(sizeof(t_env));
+	equal_pos = ft_strchr(token->value, '=');
+	cur_env = safe_malloc(sizeof(t_env));
 	if (equal_pos)
 	{
-		current_env->name = ft_substr(token->value, 0, equal_pos - token->value);
-		current_env->value = ft_strdup(equal_pos + 1); // Tudo após o primeiro '='
+		cur_env->name = ft_substr(token->value, 0, equal_pos - token->value);
+		cur_env->value = ft_strdup(equal_pos + 1);
 	}
 	else
 	{
-		current_env->name = ft_strdup(token->value);
-		current_env->value = NULL;
+		cur_env->name = ft_strdup(token->value);
+		cur_env->value = NULL;
 	}
-	current_env->next = NULL;
-	return (current_env);
+	if (token->next && (token->next->type == DOUBLE_QUOTE
+		|| token->next->type == SINGLE_QUOTE))
+	{
+		quoted_value = ft_strdup(token->next->value);
+		cur_env->value = ft_strjoin_free(cur_env->value, quoted_value, 3);
+	}
+	cur_env->next = NULL;
+	return (cur_env);
 }
+
 
 t_env	*last_env(t_env *env)
 {
