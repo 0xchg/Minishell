@@ -6,7 +6,7 @@
 /*   By: marcsilv <marcsilv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 11:47:02 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/30 13:26:16 by marcsilv         ###   ########.fr       */
+/*   Updated: 2025/03/30 15:50:26 by marcsilv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,11 +57,6 @@ static char	**split_input(char *input, t_shell *shell)
 	char	**array;
 
 	i = 0;
-	if (!validate_quote_number(input))
-	{
-		ft_dprintf(2, "Error: can't parse unclosed quotes\n");
-		return (NULL);
-	}
 	array = safe_malloc(sizeof(char *) * (word_count(input) + 1));
 	while (*input)
 	{
@@ -80,6 +75,15 @@ static char	**split_input(char *input, t_shell *shell)
 	return (array);
 }
 
+static void	error_quote(t_shell *shell)
+{
+	if (!validate_quote_number(shell->input))
+	{
+		ft_dprintf(2, "Error: can't parse unclosed quotes\n");
+		shell->flag = false;
+	}
+}
+
 void	parse(t_shell *shell)
 {
 	char	*temp;
@@ -90,11 +94,10 @@ void	parse(t_shell *shell)
 	free(temp);
 	temp = expanded_temp;
 	shell->flag = true;
+	error_quote(shell);
 	shell->array = split_input(temp, shell);
 	if (!shell->flag)
 		free_matrix(shell->array);
-	if (!shell->array)
-		shell->flag = false;
 	if (shell->flag)
 	{
 		shell->token = tokenize_array(shell->array);
