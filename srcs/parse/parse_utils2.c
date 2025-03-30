@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_utils2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: marcsilv <marcsilv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 02:56:56 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/22 18:53:23 by mchingi          ###   ########.fr       */
+/*   Updated: 2025/03/30 17:46:15 by marcsilv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,13 @@ char	*fill_quote(char **input, char quote, int i)
 	char	*quote_string;
 	char	*temp;
 
-	temp = strndup((*input) - i, i);
+	temp = ft_strndup((*input) - i, i);
 	quote_string = safe_malloc(sizeof(char) * (i + 3));
 	quote_string[0] = quote;
-	strncpy(quote_string + 1, temp, i);
+	ft_strncpy(quote_string + 1, temp, i);
 	quote_string[i + 1] = quote;
 	quote_string[i + 2] = '\0';
-	free(temp);
+	ft_free(&temp);
 	return (quote_string);
 }
 
