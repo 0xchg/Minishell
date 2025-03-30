@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: marcsilv <marcsilv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 11:47:02 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/24 22:08:31 by mchingi          ###   ########.fr       */
+/*   Updated: 2025/03/30 13:26:16 by marcsilv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,8 @@ char	*extract_variable(char **input)
 
 	i = 0;
 	(*input)++;
-	while (**input && (ft_isalnum(**input) || **input == '_' || **input == '?'))
+	while (**input && (!ft_isspace(**input) && **input != '<'
+	&& **input != '>' && **input != '|' && **input != '*' && **input != '&'))
 	{
 		i++;
 		(*input)++;
