@@ -6,7 +6,7 @@
 /*   By: marcsilv <marcsilv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 11:47:02 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/29 18:37:13 by marcsilv         ###   ########.fr       */
+/*   Updated: 2025/03/30 15:50:26 by marcsilv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@ static char	*extract_variable(char **input)
 
 	i = 0;
 	(*input)++;
-	while (**input && (ft_isalnum(**input) || **input == '_'
-	|| **input == '?' || **input == '$'))
+	while (**input && (!ft_isspace(**input) && **input != '<'
+	&& **input != '>' && **input != '|' && **input != '*' && **input != '&'))
 	{
 		i++;
 		(*input)++;
@@ -111,15 +111,12 @@ void	parse(t_shell *shell)
 	expanded_temp = expand(temp, shell->env, shell->exit_status);
 	ft_free(&temp);
 	temp = expanded_temp;
-	if (shell->flag)
-	{
-		shell->array = split_input(temp, shell);
-		 if (!shell->array)
-		{
-			ft_free(&temp);
-			shell->flag = false;
-		}
-	}
+	shell->flag = true;
+	error_quote(shell);
+	shell->array = split_input(temp, shell);
+	if (!shell->flag)
+		free_matrix(shell->array);
+
 	if (shell->flag)
 	{
 		shell->token = tokenize_array(shell->array);

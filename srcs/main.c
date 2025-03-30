@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: marcsilv <marcsilv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 15:16:24 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/24 21:41:35 by mchingi          ###   ########.fr       */
+/*   Updated: 2025/03/30 16:10:47 by marcsilv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,11 +84,8 @@ int	main(int ac, char **av, char **env)
 		shell = malloc(sizeof(t_shell));
 		init_shell(shell, env);
 		repl(shell);
-		free(shell);
 	}
 	else
 		ft_dprintf(2, "%s do not receive argument!\n", av[0]);
 	return (0);
 }
-
-// Linha 87: Provavelmente não é necessário
