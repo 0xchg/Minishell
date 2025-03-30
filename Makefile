@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+         #
+#    By: marcsilv <marcsilv@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/14 15:16:15 by mchingi           #+#    #+#              #
-#    Updated: 2025/03/24 17:05:12 by mchingi          ###   ########.fr        #
+#    Updated: 2025/03/28 10:09:26 by marcsilv         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = minishell
 
 CC = cc
 
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g
 
 RLFLAG = -lreadline
 
@@ -30,6 +30,7 @@ SRCS = 	./srcs/executer/executer.c \
 		./srcs/utils/utils1.c \
 		./srcs/utils/utils2.c \
 		./srcs/utils/utils3.c \
+		./srcs/utils/utils4.c \
 		./srcs/main.c \
 		./srcs/signal.c \
 		./srcs/here_document.c \

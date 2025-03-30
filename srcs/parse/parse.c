@@ -25,10 +25,12 @@ static char	*extract_command(char **input)
 		(*input)++;
 	}
 	command = ft_strndup((*input) - i, i);
+	if (!command)
+		return (NULL);
 	return (command);
 }
 
-char	*extract_variable(char **input)
+static char	*extract_variable(char **input)
 {
 	char	*variable;
 	int		i;
@@ -43,12 +45,24 @@ char	*extract_variable(char **input)
 		(*input)++;
 	}
 	temp = ft_strndup((*input) - i, i);
+		if (!temp)
+			return (NULL);
 	variable = safe_malloc(sizeof(char) * (i + 2));
 	variable[0] = '$';
 	ft_strncpy(variable + 1, temp, i);
 	variable[i + 1] = '\0';
-	free(temp);
+	ft_free(&temp);
 	return (variable);
+}
+
+bool	check_matrix_at_index(char **matrix, int i)
+{
+	if (!matrix[i])
+	{
+		free_matrix(matrix);
+		return (false);
+	}
+	return (true);
 }
 
 static char	**split_input(char *input, t_shell *shell)
@@ -57,19 +71,21 @@ static char	**split_input(char *input, t_shell *shell)
 	char	**array;
 
 	i = 0;
-	array = safe_malloc(sizeof(char *) * (word_count(input) + 1));
+	array = safe_malloc(sizeof(char *) * ((size_t)word_count(input) + 1));
 	while (*input)
 	{
-		while (ft_isspace(*input) && *input)
+		while (*input && ft_isspace(*input))
 			input++;
-		if (*input == '\'' || *input == '\"')
+		if (*input && (*input == '\'' || *input == '\"'))
 			array[i++] = extract_quote(&input);
-		else if (ft_strchr("|<>*&", *input))
+		else if (*input && ft_strchr("|<>*&", *input))
 			array[i++] = extract_operator(&input, shell);
-		else if (*input == '$')
+		else if (*input && (*input == '$'))
 			array[i++] = extract_variable(&input);
 		else
 			array[i++] = extract_command(&input);
+		if (i > 0 && !check_matrix_at_index(array, i - 1))
+    	    return (NULL);
 	}
 	array[i] = NULL;
 	return (array);
@@ -90,20 +106,21 @@ void	parse(t_shell *shell)
 	char	*expanded_temp;
 
 	temp = ft_strtrim(shell->input, " ");
+	shell->flag = true;
+	error_quote(shell);
 	expanded_temp = expand(temp, shell->env, shell->exit_status);
-	free(temp);
+	ft_free(&temp);
 	temp = expanded_temp;
 	shell->flag = true;
 	error_quote(shell);
 	shell->array = split_input(temp, shell);
 	if (!shell->flag)
 		free_matrix(shell->array);
+
 	if (shell->flag)
 	{
 		shell->token = tokenize_array(shell->array);
-		if (!shell->token)
-			error_message("token");
-		identify_tokens(shell->token, shell->path);
+		identify_tokens(shell->token);
 		token_sequence(shell->token);
 	}
 	ft_free(&temp);
