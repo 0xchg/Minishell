@@ -6,7 +6,7 @@
 /*   By: marcsilv <marcsilv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 15:49:08 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/30 16:05:56 by marcsilv         ###   ########.fr       */
+/*   Updated: 2025/03/30 17:33:39 by marcsilv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ static t_env	*arg_to_env(t_token *token)
 	cur_env->next = NULL;
 	return (cur_env);
 }
-
 
 t_env	*last_env(t_env *env)
 {
