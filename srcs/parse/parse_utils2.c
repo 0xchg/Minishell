@@ -6,95 +6,38 @@
 /*   By: marcsilv <marcsilv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 02:56:56 by mchingi           #+#    #+#             */
-/*   Updated: 2025/04/01 18:33:49 by marcsilv         ###   ########.fr       */
+/*   Updated: 2025/04/02 16:26:29 by marcsilv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minihell.h"
 
-/* Calculates total length needed for concatenated quoted strings */
-static size_t calculate_total_length(const char *str, bool *has_valid_quotes)
+static char	*take_quote(char **input)
 {
-	size_t total_len;
-	const char *current = str;
-	char quote;
+	char	*current;
+	size_t	total_len;
+	char	*result;
 
-	*has_valid_quotes = false;
-	total_len = 0;
-	while (*current && is_quote(*current))
-	{
-		quote = *current++;
-		const char *chunk_start = current;
-		while (*current && *current != quote)
-			current++;
-		if (*current != quote)
-			break;
-		total_len += current - chunk_start;
-		current++; // Skip closing quote
-		*has_valid_quotes = true;
-	}
-	
-	return (total_len);
-}
-
-/* Copies all quoted chunks into destination buffer */
-static void copy_quoted_chunks(char *dest, const char *str)
-{
-	char	quote;
-	const char *current = str;
-	size_t chunk_len;
-	size_t i;
-
-	i = 0;
-	while (*current && is_quote(*current))
-	{
-		quote = *current++;
-		const char *chunk_start = current;
-		while (*current && *current != quote)
-			current++;
-		if (*current != quote)
-			break;
-		chunk_len = current - chunk_start;
-		while (i < chunk_len)
-			*dest++ = chunk_start[i++];
-		current++; // Skip closing quote
-	}
-	*dest = '\0';
-}
-
-/* ---------------------- Main Function ---------------------- */
-
-char *extract_quote(char **input)
-{
-	char *result;
-	bool has_valid_quotes;
-	size_t total_len;
-	char quote;
-	
-	if (!input || !*input || !is_quote(**input))
-		return NULL;
-	total_len = calculate_total_length(*input, &has_valid_quotes);
-	if (!has_valid_quotes || total_len == 0)
-		return NULL;
+	current = *input;
+	total_len = calculate_unquoted_length(&current);
+	if (total_len == 0)
+		return (NULL);
 	result = safe_malloc(total_len + 1);
-	copy_quoted_chunks(result, *input);
-	while (**input && is_quote(**input))
-	{
-		quote = *(*input)++;
-		while (**input && **input != quote)
-			(*input)++;
-		if (**input == quote)
-			(*input)++;
-	}
-	printf("%s\n", result);
-	return result;
+	current = *input;
+	copy_unquoted_content(&current, result);
+	*input = current;
+	return (result);
 }
-
-bool	check_surroundings
 
 char	*extract_quote(char **input)
 {
+	char	*quoted_str;
 
+	if (!check_surroundings((const char **)input))
+		quoted_str = take_quote(input);
+	else
+		quoted_str = extract_quote_util(input);
+	return (quoted_str);
 }
 
 static bool	extract_operator_util(char **input)
@@ -144,27 +87,3 @@ char	*extract_operator(char **input, t_shell *shell)
 	operator[i] = '\0';
 	return (operator);
 }
-
-int	expand_flag(char *input, int i)
-{
-	if (input[i] == '\'')
-		return (-1);
-	return (1);
-}
-
-/*int	number_of_commands(t_token *tokens)
-{
-	int		number;
-	t_token	*tmp;
-
-	number = 0;
-	tmp = tokens;
-	while (tmp)
-	{
-		if (tmp->type == FULL_COMMAND || tmp->type == COMMAND
-			|| is_builtin(tmp->type))
-			number++;
-		tmp = tmp->next;
-	}
-	return (number);
-}*/
