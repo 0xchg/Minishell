@@ -6,7 +6,7 @@
 /*   By: marcsilv <marcsilv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 15:16:24 by mchingi           #+#    #+#             */
-/*   Updated: 2025/04/01 16:45:18 by marcsilv         ###   ########.fr       */
+/*   Updated: 2025/04/02 13:38:58 by marcsilv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,12 +110,12 @@ void	repl(t_shell *shell)
 			continue ;
 		parse(shell);
 		// debug(shell->token);
-		// if (shell->flag)
-		// {
-		// 	executer(shell, shell->token);
-		// 	free_tokens(shell->token);
-		// 	free_matrix(shell->array);
-		// }
+		if (shell->flag)
+		{
+			executer(shell, shell->token);
+			free_tokens(shell->token);
+			free_matrix(shell->array);
+		}
 		ft_free(&shell->input);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: marcsilv <marcsilv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 15:49:08 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/30 17:33:39 by marcsilv         ###   ########.fr       */
+/*   Updated: 2025/04/02 16:25:30 by marcsilv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static t_env	*arg_to_env(t_token *token)
 		cur_env->value = NULL;
 	}
 	if (token->next && (token->next->type == DOUBLE_QUOTE
-		|| token->next->type == SINGLE_QUOTE))
+			|| token->next->type == SINGLE_QUOTE))
 	{
 		quoted_value = ft_strdup(token->next->value);
 		cur_env->value = ft_strjoin_free(cur_env->value, quoted_value, 3);
