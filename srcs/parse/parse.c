@@ -6,39 +6,11 @@
 /*   By: marcsilv <marcsilv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 11:47:02 by mchingi           #+#    #+#             */
-/*   Updated: 2025/04/03 09:51:56 by welepy           ###   ########.fr       */
+/*   Updated: 2025/03/30 16:57:27 by marcsilv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minihell.h"
-
-char  *remove_inside_quotes(char *command)
-{
-	char	*unquoted_command;
-	size_t	i;
-	size_t	j;
-
-	i = 0;
-	j = 0;
-	while (j < ft_strlen(command))
-	{
-		if (command[j] != '\'' && command[j] != '\"')
-			i++;
-		j++;
-	}
-	unquoted_command = safe_malloc(sizeof(char) * (i + 1));
-	i = 0;
-	j = 0;
-	while (j < ft_strlen(command))
-	{
-		if (command[j] != '\'' && command[j] != '\"')
-			unquoted_command[i++] = command[j];
-		j++;
-	}
-	unquoted_command[i] = '\0';
-	ft_free(&command);
-	return (unquoted_command);
-}
 
 static char	*extract_command(char **input)
 {
@@ -52,7 +24,7 @@ static char	*extract_command(char **input)
 		(*input)++;
 	}
 	command = ft_strndup((*input) - i, i);
-	return (remove_inside_quotes(command));
+	return (command);
 }
 
 static char	*extract_variable(char **input)
@@ -64,8 +36,7 @@ static char	*extract_variable(char **input)
 	i = 0;
 	(*input)++;
 	while (**input && (!ft_isspace(**input) && **input != '<'
-			&& **input != '>' && **input != '|'
-			&& **input != '*' && **input != '&'))
+			&& **input != '>' && **input != '|' && **input != '&'))
 	{
 		i++;
 		(*input)++;
@@ -85,12 +56,7 @@ static char	**split_input(char *input, t_shell *shell)
 	char	**array;
 
 	i = 0;
-	if (!validate_quote_number(shell->input))
-	{
-		shell->flag = false;
-		return (NULL);
-	}
-	array = safe_malloc(sizeof(char *) * (word_count(input) + 1));
+	array = safe_malloc(sizeof(char *) * ((size_t)word_count(input) + 1));
 	while (*input)
 	{
 		while (*input && ft_isspace(*input))
@@ -106,6 +72,15 @@ static char	**split_input(char *input, t_shell *shell)
 	}
 	array[i] = NULL;
 	return (array);
+}
+
+static void	error_quote(t_shell *shell)
+{
+	if (!validate_quote_number(shell->input))
+	{
+		ft_dprintf(2, "Error: can't parse unclosed quotes\n");
+		shell->flag = false;
+	}
 }
 
 void	parse(t_shell *shell)
@@ -127,7 +102,7 @@ void	parse(t_shell *shell)
 	if (shell->flag)
 	{
 		shell->token = tokenize_array(shell->array);
-		identify_tokens(shell->token, shell->path);
+		identify_tokens(shell->token);
 		token_sequence(shell->token);
 	}
 	ft_free(&temp);

@@ -6,38 +6,50 @@
 /*   By: marcsilv <marcsilv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 02:56:56 by mchingi           #+#    #+#             */
-/*   Updated: 2025/04/02 16:26:29 by marcsilv         ###   ########.fr       */
+/*   Updated: 2025/03/30 16:38:16 by marcsilv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minihell.h"
 
-static char	*take_quote(char **input)
+char	*fill_quote(char **input, char quote, int i)
 {
-	char	*current;
-	size_t	total_len;
-	char	*result;
+	char	*quote_string;
+	char	*temp;
 
-	current = *input;
-	total_len = calculate_unquoted_length(&current);
-	if (total_len == 0)
-		return (NULL);
-	result = safe_malloc(total_len + 1);
-	current = *input;
-	copy_unquoted_content(&current, result);
-	*input = current;
-	return (result);
+	temp = strndup((*input) - i, i);
+	quote_string = safe_malloc(sizeof(char) * (i + 3));
+	quote_string[0] = quote;
+	strncpy(quote_string + 1, temp, i);
+	quote_string[i + 1] = quote;
+	quote_string[i + 2] = '\0';
+	free(temp);
+	return (quote_string);
 }
 
 char	*extract_quote(char **input)
 {
-	char	*quoted_str;
+	int		i;
+	char	quote;
+	char	*quote_string;
 
-	if (!check_surroundings((const char **)input))
-		quoted_str = take_quote(input);
-	else
-		quoted_str = extract_quote_util(input);
-	return (quoted_str);
+	i = 0;
+	quote = **input;
+	(*input)++;
+	while (**input)
+	{
+		if (**input == quote)
+		{
+			if (*(*input) == quote)
+				break ;
+		}
+		(*input)++;
+		i++;
+	}
+	quote_string = fill_quote(input, quote, i);
+	if (**input)
+		(*input)++;
+	return (quote_string);
 }
 
 static bool	extract_operator_util(char **input)
@@ -87,3 +99,27 @@ char	*extract_operator(char **input, t_shell *shell)
 	operator[i] = '\0';
 	return (operator);
 }
+
+int	expand_flag(char *input, int i)
+{
+	if (input[i] == '\'')
+		return (-1);
+	return (1);
+}
+
+/*int	number_of_commands(t_token *tokens)
+{
+	int		number;
+	t_token	*tmp;
+
+	number = 0;
+	tmp = tokens;
+	while (tmp)
+	{
+		if (tmp->type == FULL_COMMAND || tmp->type == COMMAND
+			|| is_builtin(tmp->type))
+			number++;
+		tmp = tmp->next;
+	}
+	return (number);
+}*/

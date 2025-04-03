@@ -6,7 +6,7 @@
 #    By: marcsilv <marcsilv@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/14 15:16:15 by mchingi           #+#    #+#              #
-#    Updated: 2025/04/02 16:14:21 by marcsilv         ###   ########.fr        #
+#    Updated: 2025/03/28 10:09:26 by marcsilv         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,8 +40,6 @@ SRCS = 	./srcs/executer/executer.c \
 		./srcs/parse/expansion.c 	\
 		./srcs/parse/parse_utils.c \
 		./srcs/parse/parse_utils2.c \
-		./srcs/parse/parse_utils3.c \
-		./srcs/parse/parse_utils4.c \
 		./srcs/builtins/cd.c \
 		./srcs/builtins/env.c \
 		./srcs/builtins/unset.c \
