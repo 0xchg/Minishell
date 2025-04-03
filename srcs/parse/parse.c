@@ -6,11 +6,39 @@
 /*   By: marcsilv <marcsilv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 11:47:02 by mchingi           #+#    #+#             */
-/*   Updated: 2025/04/02 16:27:22 by marcsilv         ###   ########.fr       */
+/*   Updated: 2025/04/03 09:51:56 by welepy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minihell.h"
+
+char  *remove_inside_quotes(char *command)
+{
+	char	*unquoted_command;
+	size_t	i;
+	size_t	j;
+
+	i = 0;
+	j = 0;
+	while (j < ft_strlen(command))
+	{
+		if (command[j] != '\'' && command[j] != '\"')
+			i++;
+		j++;
+	}
+	unquoted_command = safe_malloc(sizeof(char) * (i + 1));
+	i = 0;
+	j = 0;
+	while (j < ft_strlen(command))
+	{
+		if (command[j] != '\'' && command[j] != '\"')
+			unquoted_command[i++] = command[j];
+		j++;
+	}
+	unquoted_command[i] = '\0';
+	ft_free(&command);
+	return (unquoted_command);
+}
 
 static char	*extract_command(char **input)
 {
@@ -22,12 +50,12 @@ static char	*extract_command(char **input)
 	{
 		i++;
 		(*input)++;
-		if (**input && (**input == '\'' || **input == '\"'))
+		/*if (**input && (**input == '\'' || **input == '\"'))
 			if (command_quote(*input))
-				break ;
+				break ;*/
 	}
 	command = ft_strndup((*input) - i, i);
-	return (command);
+	return (remove_inside_quotes(command));
 }
 
 char	*extract_variable(char **input)
