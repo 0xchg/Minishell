@@ -33,22 +33,24 @@ void	error_quote(t_shell *shell)
 	}
 }
 
-bool	command_quote(char *str)
+t_env	*last_env(t_env *env)
 {
-	int		i;
-	char	quote;
+	if (env == NULL)
+		return (NULL);
+	while (env->next != NULL)
+		env = env->next;
+	return (env);
+}
 
-	if (!str || !*str)
-		return (false);
-	if (*str != '\'' && *str != '\"')
-		return (false);
-	quote = *str;
-	i = 1;
-	while (str[i])
+void	add_env(t_env **env, t_env *new)
+{
+	t_env	*t;
+
+	if (*env)
 	{
-		if (str[i] == quote)
-			return (true);
-		i++;
+		t = last_env(*env);
+		t->next = new;
 	}
-	return (false);
+	else
+		*env = new;
 }
