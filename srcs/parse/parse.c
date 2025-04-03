@@ -6,7 +6,7 @@
 /*   By: marcsilv <marcsilv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 11:47:02 by mchingi           #+#    #+#             */
-/*   Updated: 2025/04/03 09:51:56 by welepy           ###   ########.fr       */
+/*   Updated: 2025/04/03 10:07:00 by welepy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,7 @@ void	parse(t_shell *shell)
 	if (shell->flag)
 	{
 		shell->token = tokenize_array(shell->array);
-		identify_tokens(shell->token, shell->path);
+		identify_tokens(shell->token);
 		token_sequence(shell->token);
 	}
 	ft_free(&temp);
