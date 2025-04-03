@@ -6,7 +6,7 @@
 /*   By: marcsilv <marcsilv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 14:13:26 by marcsilv          #+#    #+#             */
-/*   Updated: 2025/04/02 16:27:54 by marcsilv         ###   ########.fr       */
+/*   Updated: 2025/04/03 18:25:02 by marcsilv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,9 @@
 
 bool	is_quote(char c)
 {
-	return (c == '\'' || c == '\"');
+	if (c)
+		return (c == '\'' || c == '\"');
+	return (false);
 }
 
 int	expand_flag(char *input, int i)
@@ -50,5 +52,12 @@ bool	command_quote(char *str)
 			return (true);
 		i++;
 	}
+	return (false);
+}
+
+bool	is_char_operator(char c)
+{
+	if (c)
+		return (c == '&' || c == '|' || c == '>' || c == '<');
 	return (false);
 }

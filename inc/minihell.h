@@ -6,7 +6,7 @@
 /*   By: marcsilv <marcsilv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 15:16:19 by mchingi           #+#    #+#             */
-/*   Updated: 2025/04/02 16:24:17 by marcsilv         ###   ########.fr       */
+/*   Updated: 2025/04/03 18:02:31 by marcsilv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,7 @@ bool		validate_quote_number(char *input);
 void		parse(t_shell *shell);
 int			word_count(char *input);
 char		*get_path(t_env *env);
-char		*remove_quotes(const char *str);
+char		*remove_quotes(const char *str, bool flag);
 char		*extract_quote(char **input);
 char		*extract_operator(char **input, t_shell *shell);
 char		**env_to_matrix(t_env *env);
@@ -175,5 +175,7 @@ void		copy_unquoted_content(char **current_ptr, char *dest);
 size_t		calculate_unquoted_length(char **current_ptr);
 char		*extract_quote_util(char **input);
 
+char		*fill_quote(char **input, char quote, int i);
 bool		is_quote(char c);
+bool		is_char_operator(char c);
 #endif

@@ -6,7 +6,7 @@
 /*   By: marcsilv <marcsilv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 02:56:56 by mchingi           #+#    #+#             */
-/*   Updated: 2025/04/02 16:26:29 by marcsilv         ###   ########.fr       */
+/*   Updated: 2025/04/03 19:08:47 by marcsilv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,47 @@ static char	*take_quote(char **input)
 	return (result);
 }
 
+char	*extract_operator_on_quote(char **input)
+{
+	int		i;
+	char	quote;
+	char	*quote_string;
+
+	i = 0;
+	quote = **input;
+	(*input)++;
+	while (**input)
+	{
+		if (**input == quote)
+		{
+			if (*(*input) == quote)
+				break ;
+		}
+		(*input)++;
+		i++;
+	}
+	quote_string = fill_quote(input, quote, i);
+	if (**input)
+		(*input)++;
+	return (quote_string);
+}
+
+//((is_quote(*(*input + 2))) && !is_quote(*(*input + 3))) || (is_char_operator(*(*input + 2)) && is_quote(*(*input + 3))))
+
 char	*extract_quote(char **input)
 {
 	char	*quoted_str;
 
+	if (*(*input + 1) && is_char_operator(*(*input + 1))
+		&& ((is_quote(*(*input + 2)) && !is_quote(*(*input + 3)))
+		|| (is_char_operator(*(*input + 2))
+		&& is_quote(*(*input + 3)) && !is_quote(*(*input + 4)))))
+		{printf("chegou\n"); return (extract_operator_on_quote(input));}
+	// printf("1st: %c\n", **input);
+	// printf("2st: %c\n", *(*input + 1));
+	// printf("3st: %c\n", *(*input + 2));
+	// printf("4st: %c\n", *(*input + 3));
+	// printf("4st: %c\n", *(*input + 4));
 	if (!check_surroundings((const char **)input))
 		quoted_str = take_quote(input);
 	else

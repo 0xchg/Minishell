@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokens.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: welepy <welepy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: marcsilv <marcsilv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 11:53:06 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/10 21:08:32 by welepy           ###   ########.fr       */
+/*   Updated: 2025/04/03 17:32:54 by marcsilv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ t_token	*tokenize_array(char **array)
 	token = NULL;
 	while (array[i])
 	{
-		str = remove_quotes(array[i]);
+		str = remove_quotes(array[i], true);
 		new = new_token(str, find_type(array[i]));
 		ft_lstadd_back((t_list **)&token, (t_list *)new);
 		i++;

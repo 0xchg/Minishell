@@ -6,13 +6,13 @@
 /*   By: marcsilv <marcsilv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 11:47:02 by mchingi           #+#    #+#             */
-/*   Updated: 2025/04/03 09:51:56 by welepy           ###   ########.fr       */
+/*   Updated: 2025/04/03 18:04:10 by marcsilv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minihell.h"
 
-char  *remove_inside_quotes(char *command)
+char	*remove_inside_quotes(char *command)
 {
 	char	*unquoted_command;
 	size_t	i;
@@ -50,9 +50,6 @@ static char	*extract_command(char **input)
 	{
 		i++;
 		(*input)++;
-		/*if (**input && (**input == '\'' || **input == '\"'))
-			if (command_quote(*input))
-				break ;*/
 	}
 	command = ft_strndup((*input) - i, i);
 	return (remove_inside_quotes(command));
@@ -100,7 +97,7 @@ static char	**split_input(char *input, t_shell *shell)
 			input++;
 		if (*input == '\'' || *input == '\"')
 			array[i++] = extract_quote(&input);
-		else if (ft_strchr("|<>*&", *input))
+		else if (ft_strchr("|<>&", *input))
 			array[i++] = extract_operator(&input, shell);
 		else if (*input == '$')
 			array[i++] = extract_variable(&input);
