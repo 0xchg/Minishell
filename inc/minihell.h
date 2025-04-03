@@ -6,7 +6,7 @@
 /*   By: marcsilv <marcsilv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 15:16:19 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/29 17:51:50 by marcsilv         ###   ########.fr       */
+/*   Updated: 2025/04/02 16:24:17 by marcsilv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,4 +168,14 @@ void		handle_arguments(t_token *temp);
 void		handle_redirections(t_token **temp);
 void		handle_options(t_token **temp, bool *option);
 
+bool		command_quote(char *str);
+
+void		error_quote(t_shell *shell);
+
+bool		check_surroundings(const char **input);
+void		copy_unquoted_content(char **current_ptr, char *dest);
+size_t		calculate_unquoted_length(char **current_ptr);
+char		*extract_quote_util(char **input);
+
+bool		is_quote(char c);
 #endif
