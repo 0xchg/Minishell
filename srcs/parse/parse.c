@@ -6,36 +6,27 @@
 /*   By: marcsilv <marcsilv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 11:47:02 by mchingi           #+#    #+#             */
-/*   Updated: 2025/04/03 18:04:10 by marcsilv         ###   ########.fr       */
+/*   Updated: 2025/04/04 15:12:51 by marcsilv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minihell.h"
 
-char	*remove_inside_quotes(char *command)
+char	*remove_outside_quotes(char *command)
 {
+	size_t	len;
 	char	*unquoted_command;
-	size_t	i;
-	size_t	j;
 
-	i = 0;
-	j = 0;
-	while (j < ft_strlen(command))
+	len = ft_strlen(command);
+	if (len >= 2
+		&& ((command[0] == '\'' && command[len - 1] == '\'')
+			|| (command[0] == '"' && command[len - 1] == '"')))
 	{
-		if (command[j] != '\'' && command[j] != '\"')
-			i++;
-		j++;
+		unquoted_command = safe_malloc(sizeof(char) * (len - 1));
+		ft_strlcpy(unquoted_command, command + 1, len - 1);
 	}
-	unquoted_command = safe_malloc(sizeof(char) * (i + 1));
-	i = 0;
-	j = 0;
-	while (j < ft_strlen(command))
-	{
-		if (command[j] != '\'' && command[j] != '\"')
-			unquoted_command[i++] = command[j];
-		j++;
-	}
-	unquoted_command[i] = '\0';
+	else
+		unquoted_command = strdup(command);
 	ft_free(&command);
 	return (unquoted_command);
 }
@@ -44,15 +35,22 @@ static char	*extract_command(char **input)
 {
 	char	*command;
 	int		i;
+	char	quote;
 
 	i = 0;
-	while (**input && !ft_isspace(**input) && !ft_strchr("|<>«»&*", **input))
+	quote = 0;
+	while (**input && (!ft_isspace(**input) || quote)
+		&& !ft_strchr("|<>«»&*", **input))
 	{
+		if (!quote && (**input == '\'' || **input == '"'))
+			quote = **input;
+		else if (quote && **input == quote)
+			quote = 0;
 		i++;
 		(*input)++;
 	}
 	command = ft_strndup((*input) - i, i);
-	return (remove_inside_quotes(command));
+	return (remove_outside_quotes(command));
 }
 
 char	*extract_variable(char **input)
