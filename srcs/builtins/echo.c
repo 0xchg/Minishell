@@ -6,7 +6,7 @@
 /*   By: marcsilv <marcsilv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 15:48:53 by mchingi           #+#    #+#             */
-/*   Updated: 2025/04/03 17:49:32 by marcsilv         ###   ########.fr       */
+/*   Updated: 2025/04/04 15:10:40 by marcsilv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,12 @@ static bool	check_input(char *input)
 static void	echo_aux_ext(t_token *temp, bool *tab)
 {
 	char	*str;
+
 	if (!tab[0] && !tab[1])
 		printf(" ");
 	tab[0] = false;
 	if (temp->value)
 	{
-
 		str = remove_quotes(temp->value, false);
 		printf("%s", str);
 		ft_free(&str);
