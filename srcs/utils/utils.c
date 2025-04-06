@@ -6,7 +6,7 @@
 /*   By: marcsilv <marcsilv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 21:08:38 by mchingi           #+#    #+#             */
-/*   Updated: 2025/04/03 18:05:23 by marcsilv         ###   ########.fr       */
+/*   Updated: 2025/04/06 20:11:43 by marcsilv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,72 +50,76 @@ char	*find_path(char *cmd, char **envp)
 	return (NULL);
 }
 
-char	**env_to_matrix(t_env *env)
+bool	util(const char *str)
 {
-	t_env	*tmp;
-	char	**matrix;
-	int		i;
-	char	*temp;
+	size_t	i;
 
-	tmp = env;
 	i = 0;
-	while (tmp)
+	while (str[i])
 	{
-		tmp = tmp->next;
-		i++;
+		if (str[i] == '\'')
+		{
+			i++;
+			while (str[i] && str[i] != '\'')
+				i++;
+			if (str[i] == '\'')
+				return (true);
+		}
+		if (str[i])
+			i++;
 	}
-	matrix = safe_malloc(sizeof(char *) * (i + 1));
-	tmp = env;
-	i = -1;
-	while (tmp)
-	{
-		matrix[++i] = ft_strjoin(tmp->name, "=");
-		temp = ft_strjoin(matrix[i], tmp->value);
-		ft_free(&matrix[i]);
-		matrix[i] = temp;
-		tmp = tmp->next;
-	}
-	matrix[++i] = NULL;
-	return (matrix);
+	return (false);
 }
 
-char	*remove_quotes(const char *str, bool flag)
+char	*removing_inside_quotes(const char *str)
 {
-	size_t	len;
+	size_t	i;
+	size_t	k;
+	char	*string;
+
+	i = 0;
+	k = 0;
+	string = malloc(ft_strlen(str) + 1);
+	if (!string)
+		return (NULL);
+	while (str[i])
+	{
+		if (is_quote(str[i]))
+		{
+			i++;
+			continue ;
+		}
+		string[k++] = str[i++];
+	}
+	string[k] = '\0';
+	return (string);
+}
+
+char	*remove_quotes(const char *str, bool flag, bool flag2)
+{
 	size_t	new_len;
 	char	*new_str;
 
-	len = ft_strlen(str);
-	if (len >= 2 && ((str[0] == '"' && str[len - 1] == '"')
-			|| (str[0] == '\'' && str[len - 1] == '\'')))
+	if (ft_strlen(str) >= 2
+		&& ((str[0] == '"' && str[ft_strlen(str) - 1] == '"')
+			|| (str[0] == '\'' && str[ft_strlen(str) - 1] == '\'')))
 	{
-		if (len <= 4 && flag)
-			if ((len == 3 && is_char_operator(str[1]))
-				|| (len == 4 && is_char_operator(str[1])
+		if (ft_strlen(str) <= 4 && flag)
+		{
+			if ((ft_strlen(str) == 3 && is_char_operator(str[1]))
+				|| (ft_strlen(str) == 4 && is_char_operator(str[1])
 					&& is_char_operator(str[2])))
 				return (ft_strdup(str));
-		new_len = len - 2;
+		}
+		new_len = ft_strlen(str) - 2;
 		new_str = safe_malloc(new_len + 1);
+		if (!new_str)
+			return (NULL);
 		ft_strncpy(new_str, str + 1, new_len);
 		new_str[new_len] = '\0';
 		return (new_str);
 	}
+	else if (util(str) && flag2)
+		return (removing_inside_quotes(str));
 	return (ft_strdup(str));
-}
-
-void	free_tokens(t_token *head)
-{
-	t_token	*tmp;
-
-	while (head)
-	{
-		tmp = head->next;
-		ft_free(&head->value);
-		if (head)
-		{
-			free(head);
-			head = NULL;
-		}
-		head = tmp;
-	}
 }

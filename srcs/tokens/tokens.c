@@ -6,7 +6,7 @@
 /*   By: marcsilv <marcsilv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 11:53:06 by mchingi           #+#    #+#             */
-/*   Updated: 2025/04/03 17:32:54 by marcsilv         ###   ########.fr       */
+/*   Updated: 2025/04/06 19:57:19 by marcsilv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ t_token	*tokenize_array(char **array)
 	token = NULL;
 	while (array[i])
 	{
-		str = remove_quotes(array[i], true);
+		str = remove_quotes(array[i], false, false);
 		new = new_token(str, find_type(array[i]));
 		ft_lstadd_back((t_list **)&token, (t_list *)new);
 		i++;
