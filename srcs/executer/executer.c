@@ -3,14 +3,43 @@
 /*                                                        :::      ::::::::   */
 /*   executer.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: marcsilv <marcsilv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 11:35:17 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/25 00:21:46 by mchingi          ###   ########.fr       */
+/*   Updated: 2025/04/06 20:11:08 by marcsilv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minihell.h"
+
+char	**env_to_matrix(t_env *env)
+{
+	t_env	*tmp;
+	char	**matrix;
+	int		i;
+	char	*temp;
+
+	tmp = env;
+	i = 0;
+	while (tmp)
+	{
+		tmp = tmp->next;
+		i++;
+	}
+	matrix = safe_malloc(sizeof(char *) * (i + 1));
+	tmp = env;
+	i = -1;
+	while (tmp)
+	{
+		matrix[++i] = ft_strjoin(tmp->name, "=");
+		temp = ft_strjoin(matrix[i], tmp->value);
+		ft_free(&matrix[i]);
+		matrix[i] = temp;
+		tmp = tmp->next;
+	}
+	matrix[++i] = NULL;
+	return (matrix);
+}
 
 static int	check_mult_here_doc(t_token *tokens)
 {

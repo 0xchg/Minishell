@@ -3,14 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mchingi <mchingi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: marcsilv <marcsilv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 15:49:03 by mchingi           #+#    #+#             */
-/*   Updated: 2025/03/23 16:02:01 by mchingi          ###   ########.fr       */
+/*   Updated: 2025/04/06 20:08:19 by marcsilv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minihell.h"
+
+void	free_tokens(t_token *head)
+{
+	t_token	*tmp;
+
+	while (head)
+	{
+		tmp = head->next;
+		ft_free(&head->value);
+		if (head)
+		{
+			free(head);
+			head = NULL;
+		}
+		head = tmp;
+	}
+}
 
 static void	free_env(t_env *head)
 {
@@ -58,7 +75,7 @@ int	ft_exit(t_shell *shell, t_token *token)
 		if (str)
 			shell->exit_status = modulo(ft_atol(str));
 		printf("exit\n");
-		if (ft_atol(str) == 939552403)
+		if (ft_atol(str) == 939552403 || ft_strlen(token->next->value) == 0)
 		{
 			shell->exit_status = 2;
 			ft_dprintf(2, "exit: %s: numeric argument required\n", (str));
